@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>So Cool Games | Jogos Educativos e Criativos para Crianças</title>
+  <meta name="description" content="Aprender longe dos ecrãs é mais divertido! Jogos educativos que desenvolvem criatividade, pensamento crítico e coordenação motora." />
+  <meta name="keywords" content="jogos educativos, criatividade infantil, atividades para crianças, jogos em família, aprendizagem divertida" />
+  <meta name="author" content="So Cool Games" />
+  <link rel="canonical" href="https://socoolgames.net/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="So Cool Games | Jogos Criativos para Crianças" />
+  <meta property="og:description" content="Descobre jogos educativos para momentos criativos em família." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://socoolgames.net/" />
+  <meta property="og:image" content="https://socoolgames.net/images/hero.jpg" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#7BC143',
+            darkgreen: '#5E9C2E',
+            secondary: '#F4C542',
+            dark: '#2E2E2E'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Nunito', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-dark">
+
+<!-- NAVBAR -->
+<header class="bg-white shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
+    <!-- <div class="text-2xl font-black text-primary">So COOL Games</div> -->
+	
+    <img style="height: 80px" src="logo_horiz.webp" class="rounded-xl" />
+    <div class="md:hidden">
+          <button @click="data.isOpen = !data.isOpen" type="button" aria-label="More Options" class="block text-gray-500 hover:text-primary focus:text-primary focus:outline-none">
+            <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+              <!--
+               <path  fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
+                -->
+              <path  fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/> -->
+            </svg>
+          </button>
+        </div>
+    <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+      <a href="#" class="hover:text-primary mt-2">Ideias</a>
+      <a href="#" class="hover:text-primary mt-2">Missão</a>
+      <a href="#" class="hover:text-primary mt-2">Artigos</a>
+	    <a href="#" class="text-primary hover:text-dark mt-2">Ebook Grátis</a>
+      <a href="#" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen transition">
+        Loja
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-[url(header.png)] bg-cover" >
+
+
+		<!-- style="background-image: url('header.png'); background-size:cover;"> -->
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
+
+    <div>
+      <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+        Jogos criativos para crianças longe dos ecrãs
+      </h1>
+
+      <p class="text-lg text-gray-700 mb-8">
+        Brincar, aprender e imaginar.  
+        Em casa ou na escola.
+      </p>
+
+      <a href="#produtos" 
+         class="bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-darkgreen transition">
+        Ver jogos criativos
+      </a>
+    </div>
+
+    <div>
+      <!-- <img  -->
+        <!-- src="header.png"  -->
+        <!-- alt="Peças de madeira coloridas educativas"  -->
+        <!-- class="rounded-3xl shadow-xl w-full" -->
+        <!-- loading="lazy" -->
+      <!-- /> -->
+    </div>
+
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+
+    <h2 class="text-3xl md:text-4xl font-bold mb-12">
+      Aprender longe dos ecrãs é mais divertido!
+    </h2>
+    <h3 class="text-2xl md:text-2xl font-bold mb-12">
+      Recursos gratuitos
+    </h3>
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <div>
+        <div class="text-4xl mb-4">💡</div>
+        <h3 class="font-bold mb-2">Desenvolve a criatividade</h3>
+      </div>
+
+      <div>
+        <div class="text-4xl mb-4">🧠</div>
+        <h3 class="font-bold mb-2">Estimula o pensamento crítico</h3>
+      </div>
+
+      <div>
+        <div class="text-4xl mb-4">⏳</div>
+        <h3 class="font-bold mb-2">Reduz o tempo de ecrã</h3>
+      </div>
+
+      <div>
+        <div class="text-4xl mb-4">👨‍👩‍👧</div>
+        <h3 class="font-bold mb-2">Promove brincadeira em família</h3>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Jogos Criativos por Idade
+      </h2>
+      <p class="text-gray-600">
+        Atividades educativas adaptadas ao desenvolvimento infantil.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Card 1 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="words_pt.png" alt="Jogo Caça Palavras" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">5 a 8 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Caça Palavras</h3>
+          <p class="text-gray-600 mb-4">Atenção e vocabulário</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="dots_pt.png" alt="Jogo Unir Pontos" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">4 a 7 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Unir os Pontos</h3>
+          <p class="text-gray-600 mb-4">Coordenação motora</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="loto_pt.png" alt="Loto de Natal" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">4 a 7 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Loto de Natal</h3>
+          <p class="text-gray-600 mb-4">Reconhecimento visual</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 4 Ebook -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="ebook_pt.png" alt="Ebook Importância da Criatividade" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Para pais</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">A importância da Criatividade</h3>
+          <p class="text-gray-600 mb-4">Guia prático para estimular o desenvolvimento infantil.</p>
+          <a href="#" class="block text-center bg-secondary text-dark py-3 rounded-full font-semibold hover:opacity-90 transition">
+            Quero receber
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAIZA CRIATIVA -->
+<section class="relative py-20 px-6 text-center
+        
+        bg-[url(background_green.png)] bg-cover
+          ">
+
+  <div class="max-w-4xl mx-auto ">
+
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+      Conhece a nossa <span class="text-primary font-bold">Caixa Criativa</span>
+    </h2>
+
+    <p class="text-lg text-gray-700 mb-6">
+      Uma alternativa criativa e educativa ao excesso de tempo em frente aos ecrãs.
+    </p>
+
+    <p class="text-gray-700 max-w-3xl mx-auto">
+      Descobre caixas temáticas com atividades lúdicas, educativas e muito divertidas,
+      que ajudam o teu filho a crescer e aprender longe dos ecrãs.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- MAiS PRODUTOS -->
+<section id="produtos" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="text-center mb-14">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Explora os nossos produtos
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="words_pt.png" alt="Jogo Caça Palavras" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">5 a 8 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Caça Palavras</h3>
+          <p class="text-gray-600 mb-4">Atenção e vocabulário</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="dots_pt.png" alt="Jogo Unir Pontos" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">4 a 7 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Unir os Pontos</h3>
+          <p class="text-gray-600 mb-4">Coordenação motora</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <img src="loto_pt.png" alt="Loto de Natal" class="w-full h-48 object-cover" loading="lazy">
+        <div class="p-6">
+          <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">4 a 7 anos</span>
+          <h3 class="text-xl font-bold mt-4 mb-2">Loto de Natal</h3>
+          <p class="text-gray-600 mb-4">Reconhecimento visual</p>
+          <a href="#" class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            Quero experimentar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="relative w-full h-[600px] flex items-center justify-center text-center text-white">
+
+  <!-- Background Image -->
+  <div class="absolute inset-0">
+    <img 
+      src="video-preview.png" 
+      alt="Criança a utilizar jogo criativo no telemóvel"
+      class="w-full h-full object-cover"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-3xl px-6">
+
+    <h2 class="text-3xl md:text-5xl font-bold mb-6">
+      Veja como funcionam os nossos jogos criativos
+    </h2>
+
+    <p class="text-lg md:text-xl mb-10 text-gray-200">
+      Descobre um mundo de possibilidades para aprender brincando!
+    </p>
+
+    <!-- Video Button -->
+    <a 
+      href="https://www.youtube.com/watch?v=h2IDctBX7OU" 
+      target="_blank" 
+      rel="noopener"
+      class="inline-flex items-center gap-3 border-2 border-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition"
+    >
+      <!-- Play Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      Ver vídeo
+    </a>
+
+  </div>
+</section>
+
+<section class="py-16 bg-[url(block1.png)] bg-cover">
+
+  <!-- BLOCO 1 -->
+  <div class="max-w-6xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- Texto -->
+    <div 
+      class="py-5">
+      <h2 class="text-3xl md:text-4xl font-bold text-green-700 mb-4">
+        O que podemos fazer em família?
+      </h2>
+
+      <p class="text-lg text-gray-700 mb-8">
+        Ideias rápidas para tirar as crianças dos ecrãs e puxar 
+        <span class="italic font-semibold">pela imaginação</span>.
+      </p>
+
+      <ul class="space-y-4 text-gray-800 text-lg">
+        <li class="flex items-center gap-3">
+          <span class="text-green-600 text-xl">✔</span> Independência
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-green-600 text-xl">✔</span> Resiliência
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-green-600 text-xl">✔</span> Metas realistas
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-green-600 text-xl">✔</span> Aceitação
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="text-green-600 text-xl">✔</span> Elogios específicos
+        </li>
+      </ul>
+
+      <button class="mt-10 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition">
+        Quero as 5 dicas
+      </button>
+    </div>
+
+    <!-- Imagem -->
+    <div class="flex justify-center">
+      <img 
+        src="images/familia-criativa.jpg" 
+        alt="Crianças a desenvolver criatividade em atividades educativas"
+        class="rounded-2xl shadow-xl w-full max-w-md"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+</section>
+<section class="py-16 bg-[url(block1.png)] bg-cover">
+<div class="max-w-6xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
+
+  <!-- BLOCO 2 - NEWSLETTER -->
+  <div class="max-w-4xl mx-auto mt-24 px-6 text-center">
+
+    <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-6">
+      Recebe ideias criativas e jogos para fazer em família
+    </h3>
+
+    <form class="flex flex-col md:flex-row gap-4 justify-center mb-3">
+      <input 
+        type="email" 
+        placeholder="O teu melhor email"
+        class="px-6 py-4 rounded-full border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
+        required
+      />
+      <button 
+        type="submit"
+        class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold shadow-md transition"
+      >
+        Quero receber
+      </button>
+    </form>
+
+    <p class="text-sm text-gray-600">
+      Sem spam. Podes sair quando quiseres.
+    </p>
+
+  </div>
+
+  <!-- BLOCO 3 - INSTAGRAM -->
+  <div class="max-w-6xl mx-auto mt-20 px-6 text-center">
+
+    <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-10">
+      Junta-te à comunidade <span class="font-extrabold">So COOL Games</span>
+    </h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10">
+
+      <img src="images/insta1.jpg" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
+      <img src="images/insta2.jpg" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
+      <img src="images/insta3.jpg" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
+      <img src="images/insta4.jpg" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
+      <img src="images/insta5.jpg" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
+
+    </div>
+
+    <a href="https://instagram.com" target="_blank"
+       class="inline-block bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg transition">
+      Ver no Instagram
+    </a>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-primary text-white py-12">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h3 class="text-xl font-bold mb-4">So COOL Games</h3>
+    <p class="text-sm opacity-90 mb-4">
+      Aprender a brincar todos os dias.
+    </p>
+    <p class="text-xs opacity-70">
+      © 2026 So Cool Games · Política de Privacidade · Termos & Condições
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
