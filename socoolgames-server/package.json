@@ -1,0 +1,36 @@
+{
+  "name": "socoolgames-server",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "jose.pereira",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.3.0",
+    "dotenv": "^17.3.1",
+    "eslint": "^10.0.2",
+    "express": "^5.2.1",
+    "install": "^0.13.0",
+    "nodemon": "^3.1.14",
+    "npm": "^11.10.1",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@joserpereira/lazuli-labs-logger": "^2.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "mongoose": "^9.2.2",
+    "pino": "^10.3.1",
+    "xmlbuilder": "^15.1.1"
+  }
+}

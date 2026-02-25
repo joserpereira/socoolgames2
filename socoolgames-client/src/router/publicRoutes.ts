@@ -1,0 +1,44 @@
+import { RouteRecordRaw } from 'vue-router'
+import Home from '@/views/Home.vue';
+// import PageNotFound from '@/components/common/PageNotFound.vue';
+// import RedirectPage from '@/components/RedirectPage.vue';
+// import Terms from '@/views/Terms.vue';
+// import Privacy from '@/views/Privacy.vue';
+
+const publicRoutes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'home',
+        component: Home
+
+    },
+    // {
+    //     path: '/terms',
+    //     name: 'terms',
+    //     component: Terms
+
+    // },
+    // {
+    //     path: '/privacy',
+    //     name: 'privacy',
+    //     component: Privacy
+
+    // },
+    // {
+    //     path: '/redirect/:url',
+    //     name: 'Redirect',
+    //     component: RedirectPage
+
+    // },    
+    // {   
+    //     path: "/not-found", 
+    //     component: PageNotFound 
+    // },
+    // {   
+    //     path: "/:pathMatch(.*)*", 
+    //     component: PageNotFound 
+    // }
+]
+
+export default publicRoutes
+
