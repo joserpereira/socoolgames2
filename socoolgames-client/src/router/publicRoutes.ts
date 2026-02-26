@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue';
+import ClientLayout from '@/layouts/ClientLayout.vue';
 // import PageNotFound from '@/components/common/PageNotFound.vue';
 // import RedirectPage from '@/components/RedirectPage.vue';
 // import Terms from '@/views/Terms.vue';
@@ -8,8 +9,15 @@ import Home from '@/views/Home.vue';
 const publicRoutes: RouteRecordRaw[] = [
     {
         path: '/',
-        name: 'home',
-        component: Home
+                name: 'client',
+                component: ClientLayout,
+                children: [
+                    {
+                        path: '',
+                        name: 'home',
+                        component: Home
+                    }
+                ]
 
     },
     // {

@@ -1,19 +1,30 @@
 import { RouteRecordRaw } from 'vue-router'
-//import AdminLayout from '@/layouts/AdminLayout.vue'
+///import AdminLayout from '@/components/src/views/Home.vue/AdminLayout.vue'
+import AdminLayout from '@/layouts/AppLayout.vue';
 
 const adminRoutes: RouteRecordRaw[] = [
-    // {
-    //     path: '/admin',
-    //     name: 'admin',
-    //     redirect: '/admin',
-    //     component: AdminLayout,
-    //     children: [
-    //         {
-    //             path: '',
-    //             name: 'Dashboard',
-    //             component: () => import('@/components/admin/Dashboard.vue'),
-    //             meta: { requiresAuth: true } 
-    //         },
+    {
+        path: '/admin',
+        name: 'admin',
+        redirect: '/admin',
+        component: AdminLayout,
+        children: [
+            {
+                path: '',
+                name: 'Dashboard',
+                component: () => import('@/components/admin/Dashboard.vue'),
+                meta: { requiresAuth: true } 
+            },
+            {
+                path: '/admin/signin',
+                name: 'SignIn',
+                component: () => import('@/components/admin/Signin.vue')
+            },
+                        {
+                path: '/admin/signup',
+                name: 'SignUp',
+                component: () => import('@/components/admin/Signup.vue')
+            }
     //         {
     //             path: 'links',
     //             name: 'Links',
@@ -38,18 +49,10 @@ const adminRoutes: RouteRecordRaw[] = [
     //             component: () => import('@/components/admin/Users.vue'),
     //             meta: { requiresAuth: true }
     //         }
-    //     ]
-    // },
-    // {
-    //     path: '/admin/signin',
-    //     name: 'SignIn',
-    //     component: () => import('@/components/admin/Signin.vue')
-    // },
-    //             {
-    //     path: '/admin/signup',
-    //     name: 'SignUp',
-    //     component: () => import('@/components/admin/Signup.vue')
-    // },
+     
+        ]
+    },
+   
 ]
 
 export default adminRoutes

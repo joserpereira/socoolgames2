@@ -9,7 +9,7 @@
         <span class="flex flex-row justify-center align-center">
 
           <a href="#" class="mt-4">Blog Criativo</a>
-          <a href="#" class="mt-4 ms-3">Missão</a>
+          <a href="#" class="mt-4 ms-3">Missão SCG</a>
           <a href="#" class="mt-4 ms-3">Artigos</a>
           <a href="#" class="mt-4 ms-3">Ebook Grátis</a>
           <a href="#" class="ms-3 mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold">Loja</a>

@@ -5,7 +5,7 @@ import store from '@/store';
 
 const routes: RouteRecordRaw[] = [
   ...publicRoutes,
-  //...adminRoutes
+  ...adminRoutes
 ]
 
 const router = createRouter({

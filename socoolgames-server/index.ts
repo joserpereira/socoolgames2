@@ -124,7 +124,7 @@ loggerUtils.log("production: " + production)
 var suffix_db = production ? "" : "_dev"
 loggerUtils.debug("mode " + production.toString() + process.env.NODE_ENV)
 
-var connection_string = 'mongodb+srv://'+process.env.MONGO_USER+':'+process.env.MONGO_PASS+'@'+process.env.MONGO_URL+'/links_digest' + suffix_db;
+var connection_string = 'mongodb+srv://'+process.env.MONGO_USER+':'+process.env.MONGO_PASS+'@'+process.env.MONGO_URL+'/socoolgames_v2' + suffix_db;
 
 mongoose.connect(connection_string, {
      })

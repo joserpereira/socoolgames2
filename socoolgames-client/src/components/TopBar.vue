@@ -17,11 +17,11 @@
         </button>
       </div>
       <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2">Blog Criativo</a>
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2">Missão</a>
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2">Artigos</a>
-        <a href="#" class="hover:scale-105 text-primary hover:text-dark mt-2">Ebook Grátis</a>
-        <a href="#" class="hover:scale-105 bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen transition">
+        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Blog Criativo</a>
+        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Missão SCG</a>
+        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Artigos</a>
+        <a href="#" class="hover:scale-105 text-primary hover:text-dark mt-2 hover:underline">Ebook Grátis</a>
+        <a href="#" class="hover:scale-105 bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen hover:underline transition">
           Loja
         </a>
       </nav>
