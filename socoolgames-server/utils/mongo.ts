@@ -1,9 +1,10 @@
+import { Request, Response, NextFunction } from 'express';
 import { Logger } from '../utils/loggerUtils';
 const loggerUtils = new Logger();
 
-const getFilterByParameter = (req) => {
+const getFilterByParameter = (req: Request) => {
   try {
-    var filter = {}
+    var filter = {} as any
     if (req.query) {
         for (var item in req.query) {
             filter[item] = req.query[item]
@@ -18,7 +19,7 @@ const getFilterByParameter = (req) => {
   };
 };
 
-const getPaginationParameters = (filter) => {
+const getPaginationParameters = (filter: any) => {
   try {
       var limit = 0;
       var skip = 0;
@@ -44,7 +45,7 @@ const getPaginationParameters = (filter) => {
   };
 };
 
-function omitPassword(user) {
+function omitPassword(user: any) {
     const { password, ...userWithoutPassword } = user;
     return userWithoutPassword;
 }

@@ -10,10 +10,24 @@
     "dev": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@joserpereira/lazuli-labs-logger": "^2.1.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.2",
+    "mustache": "^4.2.0",
+    "nodemailer": "^8.0.1",
+    "pino": "^10.3.1",
+    "xmlbuilder": "^15.1.1"
+  },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mustache": "^4.2.6",
     "@types/node": "^25.3.0",
     "dotenv": "^17.3.1",
     "eslint": "^10.0.2",
@@ -24,13 +38,5 @@
     "prettier": "^3.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "@joserpereira/lazuli-labs-logger": "^2.1.1",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
-    "mongoose": "^9.2.2",
-    "pino": "^10.3.1",
-    "xmlbuilder": "^15.1.1"
   }
 }

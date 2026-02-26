@@ -1,6 +1,6 @@
 import { Router } from "express";
-//const { userRoutes } = require('./user.routes')
-// const { authenticationRoutes } = require('./authentication.routes')
+const { userRoutes } = require('./user.routes')
+const { authenticationRoutes } = require('./authentication.routes')
 // const { linkRoutes } = require('./link.routes')
 // const { contactUsRoutes } = require('./contactus.routes')
 // const { categoryRoutes } = require('./category.routes')
@@ -12,10 +12,10 @@ const { sitemapRoutes } = require('./sitemap.routes')
 export const routes = (router: Router) => {
 
     sitemapRoutes(router, '/')
-    // userRoutes(router, '/api/users')
+    userRoutes(router, '/api/users')
     // linkRoutes(router, '/api/links')
     // categoryRoutes(router, '/api/categories')
-    // authenticationRoutes(router, '/api/auth')
+    authenticationRoutes(router, '/api/auth')
     // scrapperRoutes(router, '/api/scrapper')
     // contactUsRoutes(router, '/api/contactus')
     // fileRoutes(router, '/api/files')

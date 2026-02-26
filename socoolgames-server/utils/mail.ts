@@ -2,10 +2,10 @@ const { Logger } = require('../utils/loggerUtils');
 const loggerUtils = new Logger();
 const nodemailer = require('nodemailer');
 
-const sendEmail = async (subjectParam, content, 
-                    toName, toEmail,
-                    fromName, fromEmail, 
-                    username, passParam) => {
+const sendEmail = async (subjectParam: string, content: string, 
+                         toName: string, toEmail: string,
+                         fromName: string, fromEmail: string, 
+                         username: string, passParam: string) => {
 
     return new Promise((resolve,reject)=>{
 
@@ -29,7 +29,7 @@ const sendEmail = async (subjectParam, content,
             html: content // replace(/\n/g, '<br />')
         };
 
-        transporter.sendMail(mailOptions, function (error, info) {
+        transporter.sendMail(mailOptions, function (error: any, info: any) {
             if (error) {
                 loggerUtils.error("Error Sending email: " + error.message);
                 resolve({result: false, serverResponse: error.message});

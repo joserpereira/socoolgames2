@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const controller = require('../../controllers/linkController')
-const verifyJWTToken = require('../../middleware/verifyJWT')
+const verifyJWTToken = require('../../middlewares/verifyJWT')
 
 const baseDir = './public/files/userFiles/'
 var multer = require("multer")

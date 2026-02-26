@@ -3,7 +3,7 @@
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img style="height: 80px" src="@/assets/images/logo_horiz.webp" class="rounded-xl mx-auto" alt="So Cool Games" />
-        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign up to your account</h2>
+        <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight">Sign up to your account</h2>
       </div>
 
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
@@ -11,7 +11,9 @@
             <div>
               <label for="name" class="block text-sm/6 font-medium">Name</label>
               <div class="mt-2">
-                <input id="name" v-model="data.user.name" type="text" name="name" required class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                <input id="name" v-model="data.user.name" type="text" name="name" required 
+                       placeholder="your name"
+                       class="block w-full rounded-md bg-white/5 px-3 py-1.5 outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2  sm:text-sm/6" />
                 <div v-if="data.errors.name">
                   <div class="text-red-400">{{ data.errors.name }}</div>
                 </div>
@@ -22,7 +24,7 @@
             <div>
               <label for="email" class="block text-sm/6 font-medium">Email address</label>
               <div class="mt-2">
-                <input id="email" v-model="data.user.email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                <input id="email" v-model="data.user.email" type="email" placeholder="your email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2  sm:text-sm/6" />
                 <div v-if="data.errors.email">
                   <div class="text-red-400">{{ data.errors.email }}</div>
                 </div>
@@ -38,13 +40,14 @@
                   
                   <input id="password"
                     :type="data.showPassword ? 'text' : 'password'"
+                    placeholder="select a strong password"
                     v-model="data.user.password" name="password" required autocomplete="current-password" 
-                   class="block w-full rounded-md px-3 py-1.5 pr-10 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                   class="block w-full rounded-md px-3 py-1.5 pr-10 text-base outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2  sm:text-sm/6" />
                     
                   <button
                     type="button"
                     @click="data.showPassword = !data.showPassword"
-                    class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-white">
+                    class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-primary">
                     <!-- olho aberto -->
                     <svg 
                       v-if="!data.showPassword"
@@ -68,7 +71,8 @@
             <div>
               <label for="inviteCode" class="block text-sm/6 font-medium ">Invite Code</label>
               <div class="mt-2">
-                <input id="inviteCode" v-model="data.user.inviteCode" type="text" name="inviteCode" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" />
+                <input id="inviteCode" v-model="data.user.inviteCode" type="text" name="inviteCode" required placeholder="code" autocomplete="email" 
+                      class="block w-full rounded-md px-3 py-1.5 outline-1 -outline-offset-1 placeholder:text-gray focus:outline-2 focus:-outline-offset-2  sm:text-sm/6" />
                 <div v-if="data.errors.inviteCode">
                   <div class="text-red-400">{{ data.errors.inviteCode }}</div>
                 </div>

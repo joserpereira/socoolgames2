@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const controller = require('../../controllers/userController')
-const verifyJWTToken = require('../../middleware/verifyJWT')
+const verifyJWTToken = require('../../middlewares/verifyJWT')
 
 export const userRoutes = (router: Router, baseUrl: string) => {
 

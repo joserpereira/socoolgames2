@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const controller = require('../../controllers/categoryController')
-const verifyJWTToken = require('../../middleware/verifyJWT')
+const verifyJWTToken = require('../../middlewares/verifyJWT')
 export const categoryRoutes = (router: Router, baseUrl: string) => {
 
     router.get(baseUrl + '/', controller.getItems);
