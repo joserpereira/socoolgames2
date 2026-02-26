@@ -1,4 +1,4 @@
-function formatBytes(bytes, decimals = 2) {
+function formatBytes(bytes: any, decimals = 2) {
     if (!+bytes) return '0 Bytes'
 
     const k = 1024

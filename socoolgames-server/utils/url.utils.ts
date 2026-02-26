@@ -1,8 +1,7 @@
-import { response } from 'express';
 import https from 'https';
 const fs = require('fs');
 
-function getFileWritableStream(filePath) {
+function getFileWritableStream(filePath: any) {
   const downloadWriteStream = fs.createWriteStream(filePath);
 
   /* This adapter is needed because the method .pipeTo() only
@@ -14,7 +13,7 @@ function getFileWritableStream(filePath) {
 }
 
 // download the image and save to /img
-function download(url, dest, cb) {
+function download(url: any, dest: any, cb: any) {
     let file = fs.createWriteStream(dest);
     let request = https
         .get(url, function (response) {
