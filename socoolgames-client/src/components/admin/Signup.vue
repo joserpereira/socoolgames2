@@ -154,7 +154,7 @@ export default {
         if (isValid) {
           try {
             data.isLoading = true;
-            var item = await userService.insertItem(data.user, "user");
+            var item = await userService.insertItem(data.user, "user") as any;
             var responseData = item?.data || item?.response?.data;
 
             if (responseData != null && responseData.error == 0) {

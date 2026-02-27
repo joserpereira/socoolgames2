@@ -1,5 +1,4 @@
 const formatUrl = (url: string) =>  {
-  console.log("url", url, process.env.NODE_ENV)
   if (url && url.startsWith("./public")) {
     //TODO: review in production
     if (process.env.NODE_ENV === 'development')
@@ -7,7 +6,6 @@ const formatUrl = (url: string) =>  {
     else 
       url = url.replaceAll('./public/', "/")
   }
-  console.log("url2", url)
   return url;
 }
 

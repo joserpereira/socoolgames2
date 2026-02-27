@@ -21,8 +21,12 @@ export interface ICustomRequestBody {
 export const handleLogin = async (req: Request, res: Response) => {
     try {
         const body = req.body;
+console.log("login1");
+
         const { email, password, ipInfo  } = body;   
         
+console.log("login", email, password);
+
         const loginResult = await authenticationService.login(email, password, ipInfo);
         if (loginResult?.error == null) {
             loggerUtils.error("Login failed: Unknown error");

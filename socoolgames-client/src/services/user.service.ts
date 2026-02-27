@@ -1,4 +1,5 @@
-import axiosApi from './common/api';
+
+import api from '@/services/common/api';
 import utilsService from './common/utils.service';
 
 const baseAPI = 'users/';
@@ -8,7 +9,7 @@ class UserService {
 
   insertItem(item: any, type: string) {
     // console.log("insert item", baseAPI)
-    return axiosApi.post(baseAPI, { item, "type": type });
+    return api.post(baseAPI, { item, "type": type });
     //, { headers: authHeader() } );
   }
 
@@ -16,7 +17,7 @@ class UserService {
     try {
         // console.log("get users", baseAPI, axiosApi)
         
-        return axiosApi.get(baseAPI).then((response: Response) => {
+        return api.get(baseAPI).then((response: any) => {
           // console.log("get users response:", response);
           return response;
         });
@@ -27,7 +28,7 @@ class UserService {
   }
 
   getStats() {
-    return axiosApi.get(baseAPI + "count").then((response: Response) => {
+    return api.get(baseAPI + "count").then((response: any) => {
       return response;
     }).catch((error: any) => {
       throw error;
@@ -61,6 +62,22 @@ class UserService {
       }
       return result;
     }
+  getPublicContent() {
+    return api.get('/users/test/all');
+  }
+
+  getUserBoard() {
+    return api.get('/users/test/user');
+  }
+
+  getModeratorBoard() {
+    return api.get('/users/test/mod');
+  }
+
+  getAdminBoard() {
+    return api.get('/users/test/admin');
+  }
 }
+
 
 export default new UserService();

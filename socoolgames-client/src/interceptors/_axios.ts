@@ -1,3 +1,4 @@
+/*
 export const setInterceptors = (api: any, ax: any) => {
   let refresh = false
   ax.interceptors.response.use(
@@ -36,3 +37,4 @@ export const setInterceptors = (api: any, ax: any) => {
     }
   );
 }
+*/

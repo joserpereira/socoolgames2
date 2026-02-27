@@ -20,7 +20,7 @@ const login = async (email: string, password: string, ipInfo: any) => {
 
     const user = await UserModel.findOne({ email }).populate("roles", "-__v");
     if (!user) { 
-        loggerUtils.log("login: User not found, " + email)
+        loggerUtils.log("login1: User not found, " + email)
         result.error = 404;
         result.message = 'Invalid Credentials';
     }
@@ -45,7 +45,7 @@ const login = async (email: string, password: string, ipInfo: any) => {
     ]);
 
     if (failedResult !== undefined && failedResult.length > 0 && failedResult[0].total > 3) { 
-        loggerUtils.log("login: User not found, " + email)
+        loggerUtils.log("login2: User not found, " + email)
         const now = Date.now();
         var diff = diffInMinutes(failedResult[0].latestCreatedAt, now) + 1;
         result.error = 404;

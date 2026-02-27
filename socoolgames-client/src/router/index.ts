@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import publicRoutes from './publicRoutes'
 import adminRoutes from './adminRoutes'
-import store from '@/store';
 
 const routes: RouteRecordRaw[] = [
   ...publicRoutes,
@@ -14,11 +13,12 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-   if (to.meta.requiresAuth && !store.state.auth.auth)  {
-     next("/admin/signin?back="+to.fullPath);
-   } else {
+  const loggedIn = localStorage.getItem('user');
+  if (to.meta.requiresAuth && !loggedIn) {
+    next('/admin/signin?back='+to.fullPath);
+  } else {
     next();
-   }
+  }
 });
 
 export default router

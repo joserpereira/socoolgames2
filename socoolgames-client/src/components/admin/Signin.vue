@@ -11,7 +11,7 @@
             <div>
               <label for="email" class="block text-sm/6 font-medium">Email address</label>
               <div class="mt-2">
-                <input v-model="data.email" id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md px-3 py-1.5 text-base placeholder:text-gray-500 sm:text-sm/6" />
+                <input v-model="data.user.email" id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md px-3 py-1.5 text-base placeholder:text-gray-500 sm:text-sm/6" />
                </div>
             </div>
 
@@ -25,7 +25,7 @@
               <div class="mt-2 relative">
                 <!-- <input v-model="data.password" id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6" /> -->
                   <input
-                    v-model="data.password"
+                    v-model="data.user.password"
                     :type="data.showPassword ? 'text' : 'password'"
                     id="password"
                     name="password"
@@ -77,7 +77,9 @@
 <script lang="ts">
 import { reactive, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { login } from "@/services/common/authentication.service";
+// import { login } from "@/services/common/_authentication.service";
+// import authService from "@/services/common/auth.service";
+import store from "@/store";
 export default {
     name: 'SigninComponent',
 
@@ -85,6 +87,10 @@ export default {
       const router = useRouter();
 
       const data = reactive({
+        user: {
+          email: "",
+          password: ""
+        },
         name: "",
         email: "",
         password: "",
@@ -109,22 +115,43 @@ export default {
         try {
           // Call the authentication service to sign in
           data.loading = true;
-          var result = await login(data.email, data.password);
-          if (result.auth) {
-            if (data.backUrl && data.backUrl !== "") {
-              router.push(data.backUrl);
-            } else {
-              router.push("/admin/");
+          store.dispatch("auth/login", data.user).then(
+            () => {
+              if (data.backUrl && data.backUrl !== "") {
+                router.push(data.backUrl);
+              } else {
+                router.push("/admin/");
+              }
+
+            },
+            (error: any) => {
+              data.loading = false;
+              data.errorMessage = "Sign in failed. Please check your credentials.";
+              console.debug("error", error)
+              //console.log("error loading", error);
+                // (error.response &&
+                //   error.response.data &&
+                //   error.response.data.message) ||
+                // error.message ||
+                // error.toString();
             }
-          } else {
-            data.loading = false;
-            data.errorMessage = "Sign in failed. Please check your credentials.";
-            if (result.data?.message)
-              data.errorMessage = data.errorMessage + "\n" + result.data?.message;
-          }
+          ).catch(() => {
+            console.log("");
+            
+          })
+          // var result = await authService.login(data.email, data.password);
+
+          // if (result.user) {
+            
+          // } else {
+          //   data.loading = false;
+          //   data.errorMessage = "Sign in failed. Please check your credentials.";
+          //   if (result.data?.message)
+          //     data.errorMessage = data.errorMessage + "\n" + result.data?.message;
+          // }
         } catch (error) {
           data.loading = false;
-          console.error("Sign in error:", error);
+          //console.error("Sign in error:", error);
           data.errorMessage = "Validation failed. Please try again later or contact support.";
         }
       };

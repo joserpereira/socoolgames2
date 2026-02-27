@@ -14,7 +14,7 @@ const UtilsService = {
 
   downloadWithAxios: function(url: string, title: string) {
     axiosApi.get(url, { responseType: 'arraybuffer' })
-      .then((response: Response) => {
+      .then((response: any) => {
         this.forceFileDownload(response, title)
       })
       .catch((error: any) => console.log('error occured axios download. ' + error.message))
