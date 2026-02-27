@@ -1,30 +1,30 @@
 import { RouteRecordRaw } from 'vue-router'
 ///import AdminLayout from '@/components/src/views/Home.vue/AdminLayout.vue'
 import AdminLayout from '@/layouts/AppLayout.vue';
+import Dashboard from '@/components/admin/Dashboard.vue';
 
 const adminRoutes: RouteRecordRaw[] = [
     {
         path: '/admin',
         name: 'admin',
         redirect: '/admin',
-        component: AdminLayout,
+        component: Dashboard,
         children: [
             {
                 path: '',
                 name: 'Dashboard',
-                component: () => import('@/components/admin/Dashboard.vue'),
+                component: () => import('@/components/admin/AdminMain.vue'),
                 meta: { requiresAuth: true } 
-            },
+            },             
             {
-                path: '/admin/signin',
-                name: 'SignIn',
-                component: () => import('@/components/admin/Signin.vue')
-            },
-                        {
-                path: '/admin/signup',
-                name: 'SignUp',
-                component: () => import('@/components/admin/Signup.vue')
-            }
+                path: '/admin/pages',
+                name: 'Pages',
+                component: () => import('@/components/admin/Pages.vue'),
+                meta: { requiresAuth: true } 
+            }, 
+            
+            
+
     //         {
     //             path: 'links',
     //             name: 'Links',
@@ -52,6 +52,16 @@ const adminRoutes: RouteRecordRaw[] = [
      
         ]
     },
+    {
+                path: '/admin/signin',
+                name: 'SignIn',
+                component: () => import('@/components/admin/Signin.vue')
+            },
+            {
+                path: '/admin/signup',
+                name: 'SignUp',
+                component: () => import('@/components/admin/Signup.vue')
+            }
    
 ]
 

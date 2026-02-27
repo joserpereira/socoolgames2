@@ -20,26 +20,26 @@
       </div>
     </header>
   </div>
-  <div class="flex pt-16">
-    <div class="w-48 flex-none ps-2">
+  <div class="flex pt-16 min-h-screen ">
+    <div class1="w-48 flex-none ps-2">
       <AdminSidebar></AdminSidebar>
     </div>
-    <div class="w-32 flex-1 ">
-      <AdminMain></AdminMain>
-    </div>
+    <main class="flex-1 min-h-screen">
+      <router-view />
+      
+    </main>
 </div>
   
 </template>
 <script>
 
   import AdminSidebar from './AdminSidebar.vue';
-  import AdminMain from './AdminMain.vue';
+  // import AdminMain from './AdminMain.vue';
   import EventBus from "@/common/EventBus";
   export default {
     name: "DashboardComponent",
     components: {
-      AdminSidebar,
-      AdminMain
+      AdminSidebar
     },
     
     data() {
