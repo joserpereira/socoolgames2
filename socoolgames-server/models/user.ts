@@ -16,7 +16,13 @@ const modelSchema = mongoose.Schema(
         active: {
             type: Boolean,
             default: true
-        }
+        },
+        roles: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Role"
+            }
+        ]
     },
     {
         strict: false,

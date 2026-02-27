@@ -8,6 +8,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { corsOptions } from './config/corsOptions';
+const RoleModel = require('./models/role');
 // import fs = require('fs');
 
 import "./config/env"
@@ -78,6 +79,28 @@ function createRoutes() {
 
 }
 
+const  initial = async () => {
+  try {
+
+    var count = await RoleModel.countDocuments().exec();
+    if (count === 0) {
+      new RoleModel({
+        name: "user"
+      }).save();
+
+      new RoleModel({
+        name: "moderator"
+      }).save();
+
+      new RoleModel({
+        name: "admin"
+      }).save();
+    }
+  }
+  catch (error: any) {
+    console.log("Failed to get Role documents")
+  }
+}
 
 //var http = require('http');
 const http_port = process.env.PORT_HTTP || 3000; //3000
@@ -128,7 +151,11 @@ var connection_string = 'mongodb+srv://'+process.env.MONGO_USER+':'+process.env.
 
 mongoose.connect(connection_string, {
      })
-     .then(() => console.info('Connected to MongoDB'))
+    .then(() => { 
+        console.info('Connected to MongoDB');
+        initial();
+
+     })
     .then(() => {
          // validateVersion()
          createRoutes()

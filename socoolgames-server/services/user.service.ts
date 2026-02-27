@@ -1,4 +1,5 @@
 const UserModel = require('../models/user')
+const RoleModel = require('../models/role')
 import { Logger } from '../utils/loggerUtils';
 
 const loggerUtils = new Logger();
@@ -52,6 +53,13 @@ async function createUser(newUser: any): Promise<any> {
         }
 
         const hashedPassword = await bcrypt.hash(newUser.password, salt);
+
+        let roleName = "user";
+        const countUsers = await UserModel.countDocuments().exec();
+        if (countUsers === 0) {
+            roleName = "admin";
+        }
+
         // Registration logic here
         const user = new UserModel({
             name: newUser.name,
@@ -59,6 +67,9 @@ async function createUser(newUser: any): Promise<any> {
             password: hashedPassword
         });
         
+        const role = await RoleModel.findOne({ name: roleName });
+        user.roles = [role._id];
+
         const newitem = await UserModel.create(user);
         loggerUtils.debug("user created")
 
