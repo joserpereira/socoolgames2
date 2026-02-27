@@ -18,7 +18,7 @@ const login = async (email: string, password: string, ipInfo: any) => {
         result.message = 'Email and password are required';
     }
 
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({ email }).populate("roles", "-__v");
     if (!user) { 
         loggerUtils.log("login: User not found, " + email)
         result.error = 404;
@@ -68,13 +68,18 @@ const login = async (email: string, password: string, ipInfo: any) => {
     const { password: _, ...newUser } = user._doc;
     registerLoginActivity(email, newUser._id, ipInfo, result.error, result.message);
 
+    var authorities = [];
+    for (let i = 0; i < user.roles.length; i++) {
+        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+    }
+
     // Generate tokens
     const accessToken = sign({ userId: newUser._id, email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '15m' });
     const refreshToken = sign({ userId: newUser._id, email }, process.env.REFRESH_TOKEN_SECRET || "", { expiresIn: '1d' });
     //const accessToken = sign({ userId: newUser._id, email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '1m' });
     //const refreshToken = sign({ userId: newUser._id, email }, process.env.REFRESH_TOKEN_SECRET || "", { expiresIn: '1m' });
     
-    return { error: 0, message: "Login successful", user: newUser, accessToken, refreshToken };
+    return { error: 0, message: "Login successful", user: newUser, accessToken, refreshToken, roles: authorities };
 }
 
 const registerLoginActivity = async (email: string, userId: string, ipInfo: any, errorCode: number, errorMessage: string) => {

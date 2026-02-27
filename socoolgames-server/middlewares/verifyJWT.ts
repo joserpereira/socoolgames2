@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
+const UserModel = require('../models/user')
+const RoleModel = require('../models/role')
 
 const jwt = require('jsonwebtoken');
+
 
 export async function verifyJWTToken(request: any, response: Response, next: any) {
 /*
@@ -35,3 +38,65 @@ export async function verifyJWTToken(request: any, response: Response, next: any
     //next(new Error('Missing Authentication Token'));
   }
 }
+
+export async function isAdmin (request: any, response: Response, next: any) {
+  UserModel.findById(request.userId).exec((err: any, user: any) => {
+    if (err) {
+      response.status(500).send({ message: err });
+      return;
+    }
+
+    RoleModel.find(
+      {
+        _id: { $in: user.roles },
+      },
+      (err: any, roles: any) => {
+        if (err) {
+          response.status(500).send({ message: err });
+          return;
+        }
+
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "admin") {
+            next();
+            return;
+          }
+        }
+
+        response.status(403).send({ message: "Require Admin Role!" });
+        return;
+      }
+    );
+  });
+}
+
+export async function isModerator (request: any, response: Response, next: any)  {
+  UserModel.findById(request.userId).exec((err: any, user: any) => {
+    if (err) {
+      response.status(500).send({ message: err });
+      return;
+    }
+
+    RoleModel.find(
+      {
+        _id: { $in: user.roles },
+      },
+      (err: any, roles: any) => {
+        if (err) {
+          response.status(500).send({ message: err });
+          return;
+        }
+
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "moderator") {
+            next();
+            return;
+          }
+        }
+
+        response.status(403).send({ message: "Require Moderator Role!" });
+        return;
+      }
+    );
+  });
+};

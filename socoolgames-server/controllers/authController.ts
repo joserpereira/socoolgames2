@@ -45,7 +45,7 @@ export const handleLogin = async (req: Request, res: Response) => {
         //res.cookie('refresh_token', loginResult.refreshToken, { httpOnly: true, maxAge: 1 * 60 * 1000 });
 
 
-        res.status(200).send({ user: loginResult.user, "token": loginResult.accessToken });
+        res.status(200).send({ user: loginResult.user, "token": loginResult.accessToken, "roles": loginResult.roles  });
         loggerUtils.log("login: successfully, " + email)
     }
     catch (err: any) {
