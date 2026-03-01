@@ -24,7 +24,7 @@
     <div class1="w-48 flex-none ps-2">
       <AdminSidebar></AdminSidebar>
     </div>
-    <main class="flex-1 min-h-screen">
+    <main class="flex-1 min-h-screen p-2">
       <router-view />
       
     </main>

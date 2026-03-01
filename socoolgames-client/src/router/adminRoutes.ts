@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router'
-///import AdminLayout from '@/components/src/views/Home.vue/AdminLayout.vue'
-import AdminLayout from '@/layouts/AppLayout.vue';
+// import AdminLayout from '@/components/src/views/Home.vue/AdminLayout.vue'
+// import AdminLayout from '@/layouts/AppLayout.vue';
 import Dashboard from '@/components/admin/Dashboard.vue';
 
 const adminRoutes: RouteRecordRaw[] = [
@@ -18,8 +18,8 @@ const adminRoutes: RouteRecordRaw[] = [
             },             
             {
                 path: '/admin/pages',
-                name: 'Pages',
-                component: () => import('@/components/admin/Pages.vue'),
+                name: 'PagesView',
+                component: () => import('@/components/admin/PagesView.vue'),
                 meta: { requiresAuth: true } 
             }, 
             

@@ -2,7 +2,7 @@
 
 
     <div>Dashboard</div>
-  
+
 </template>
 <script>
 
