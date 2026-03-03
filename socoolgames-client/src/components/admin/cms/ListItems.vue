@@ -35,7 +35,7 @@
           <tr>
             <!-- <th class="p-3">Name</th>
             <th class="p-6">Description</th> -->
-            <th v-for="value in data.colums" :key="value">{{ value }}</th>
+            <th class="ps-3" v-for="value in props.columns" :key="value">{{ value }}</th>
             <th class="p-3 w-32 text-center">Actions</th>
           </tr>
         </thead>
@@ -47,21 +47,23 @@
             v-on:mouseleave="data.hoverId=''"
             v-for="item in data.items"
             :key="item._id"
-            class="border-t hover:bg-gray-50 hover:text-gray-600 even:bg-[#241c36] "
-            :class="data.selectedItem?._id === item._id ? 'bg-indigo-900 text-white even:bg-indigo-900' : ''"
+            class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 "
+            :class="data.selectedItem?._id === item._id ? 'text-white' : ''"
           >
-            <td class="p-3 hover:text-gray-600 gap-2 description-cell">
+            <!-- <td class="p-3 hover:text-gray-600 gap-2 description-cell">
               <span class="dot" :class="item.active ? 'dotselected' : ''"></span>
-              <span class="ps-3">{{ item.title }}</span>
-            </td>
-
-            <td class="p-3 gap-2 description-cell text-gray-400  hover:text-gray-900">
-              {{ item.description }}
-            </td>
-            <td   v-show="data.hoverId!==item._id"  class="flex even:bg-[#0F252A] over:bg-gray-50"></td>
               
-            <td class="flex hover:text-gray-600 hover:bg-gray-50 pt-2 justify-center"             
-                v-show="data.hoverId===item._id">
+            </td> -->
+            <td v-for="(value, index) in props.columns" :key="index" 
+              :class="index == 0 ? 'p-3 hover:text-gray-600 gap-2 description-cell' : 'p-3 gap-2 description-cell'">
+              
+              <span v-if="index == 0">{{ item[value] }}</span>
+              <span v-else class1="ps-3">{{ item[value] }}</span>
+            </td>
+            <td v-if="data.hoverId!==item._id"></td>
+              
+            <td class="flex pt-2 justify-center"             
+                v-else>
               <button
                 @click="edit(item._id)"
                 class="hover:bg-blue-800 hover:text-white hover:rounded-lg p-1 icons">
@@ -84,19 +86,27 @@
     </div>
 </template>
 <script setup>
-    import { defineProps, reactive } from 'vue'
+    import { defineProps, onMounted, reactive } from 'vue'
+    import instanceService from '@/services/instance.service';
     const props = defineProps({
+        collectionRefName: {
+          type: String
+        },
         title: {
             type: String,
             default: ""
         }, 
-        colums: {
+        columns: {
             type: Array,
             default: () => []
         },
         createItem: {
           type: Function
+        },
+        editItem: {
+          type: Function
         }
+
 
     });
 
@@ -108,4 +118,40 @@
         isLoading: false,
         items: []
     })
+
+    onMounted(() => {
+      /*
+      userService.getAdminBoard().then(
+        (response) => {
+          this.content = response.data;
+          this.isAdmin = true
+*/          
+          fillItems()
+/*          
+        },
+        (error) => {
+          this.content =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+      */
+    });
+
+    const edit = (item) => {
+      props.editItem(item); 
+    }
+
+    const fillItems = async () => {
+        data.items = [];
+        var result = await instanceService.getItems(props.collectionRefName)
+        
+        if (result.data.data) {
+            data.items = result.data.data;
+        }
+
+    };
 </script>

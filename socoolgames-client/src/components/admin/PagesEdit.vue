@@ -44,23 +44,61 @@
     </div>
 </template>
 <script setup lang="ts">
-    import { reactive } from 'vue'
+        import pageService from "@/services/page.service";
+    import { watch, defineProps, onMounted, reactive } from 'vue'
+
+    const props = defineProps({
+        item: Object
+        }
+    )
+
+    watch(props, (value) => {
+        // Your code
+        
+        console.log("v", value?._id)
+        if (props?.item) {
+            data.item = props?.item;
+        }
+    }, { deep: true });
+
     var data = reactive({
         item: {
             name: "",
             nameRef: "",
-            active: false
+            active: false,
+            _id: undefined
         },
         error: ""
 
     })
 
-    const saveItem = (item: any) => {
-        if ((data.item.name ?? "").length == 0 || (data.item.nameRef ?? "").length == 0 )
+    onMounted(() => {
+        if (props.item) {
+            data.item = props.item;
+        }
+    })
+
+        
+
+    const saveItem = async () => {
+
+        data.error = "";
+        try
         {
-            data.error = "Please fill page name and name ref."
-        } else {
-            data.item = item;
+            if ((data.item.name ?? "").length == 0 || (data.item.nameRef ?? "").length == 0 )
+            {
+                data.error = "Please fill page name and name ref."
+            }
+
+            if (data.item._id === undefined) {
+                const result = await pageService.insertItem(data.item, "page");
+                console.log("result new", result)
+            } else  {
+                const result = await pageService.updateItem(data.item._id, data.item, "page");
+                console.log("result update", result)
+            }
+        } catch (error) {
+            data.error = "Unexpected error.";
         }
         
     }

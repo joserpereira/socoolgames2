@@ -21,12 +21,9 @@ export interface ICustomRequestBody {
 export const handleLogin = async (req: Request, res: Response) => {
     try {
         const body = req.body;
-console.log("login1");
 
         const { email, password, ipInfo  } = body;   
         
-console.log("login", email, password);
-
         const loginResult = await authenticationService.login(email, password, ipInfo);
         if (loginResult?.error == null) {
             loggerUtils.error("Login failed: Unknown error");
@@ -41,8 +38,12 @@ console.log("login", email, password);
             loggerUtils.error("Login failed: Incomplete login result");
             return res.status(500).send({ message: 'Login failed' });
         }
-        res.cookie('access_token', loginResult.accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000 });
-        res.cookie('refresh_token', loginResult.refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+
+        loginResult.user.accessToken = loginResult.accessToken;
+        loginResult.user.refreshToken = loginResult.refreshToken;
+
+        //res.cookie('access_token', loginResult.accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000 });
+        //res.cookie('refresh_token', loginResult.refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
 
         // TODO: remover
         //res.cookie('access_token', loginResult.accessToken, { httpOnly: true, maxAge: 45 * 1000 });

@@ -6,6 +6,7 @@ const { authenticationRoutes } = require('./authentication.routes')
 // const { categoryRoutes } = require('./category.routes')
 // const { scrapperRoutes } = require('./scrapper.routes')
 const { sitemapRoutes } = require('./sitemap.routes')
+const { pageRoutes } = require('./page.routes')
 // const { fileRoutes } = require('./file.routes')
 
 // Declaration
@@ -16,6 +17,7 @@ export const routes = (router: Router) => {
     // linkRoutes(router, '/api/links')
     // categoryRoutes(router, '/api/categories')
     authenticationRoutes(router, '/api/auth')
+    pageRoutes(router, '/api/pages')
     // scrapperRoutes(router, '/api/scrapper')
     // contactUsRoutes(router, '/api/contactus')
     // fileRoutes(router, '/api/files')

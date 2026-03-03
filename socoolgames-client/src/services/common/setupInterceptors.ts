@@ -6,8 +6,8 @@ const setup = (store) => {
     (config) => {
       const token = TokenService.getLocalAccessToken();
       if (token) {
-        // config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
-        config.headers["x-access-token"] = token; // for Node.js Express back-end
+        config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
+        // config.headers["x-access-token"] = token; // for Node.js Express back-end
       }
       return config;
     },
@@ -29,7 +29,7 @@ const setup = (store) => {
           originalConfig._retry = true;
 
           try {
-            const rs = await axiosInstance.post("/auth/refreshtoken", {
+            const rs = await axiosInstance.post("/auth/refresh", {
               refreshToken: TokenService.getLocalRefreshToken(),
             });
 

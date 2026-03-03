@@ -12,7 +12,7 @@ export const authenticationRoutes = (router: Router, baseUrl: string) => {
     router.post(baseUrl + '/login', authController.handleLogin);
 
     // Refresh Token route
-    router.get(baseUrl + '/refresh', refreshTokenController.handleRefreshToken);
+    router.post(baseUrl + '/refresh', refreshTokenController.handleRefreshToken);
 
     // Logout
     router.get(baseUrl + '/logout', logoutController.handleLogout);
