@@ -11,13 +11,15 @@ async function getStats(collectionName: string): Promise<any>    {
    return { total: itemTotal, active: itemActive, deleted: itemDeleted };
 }
 
-async function getItems(collectionName: string, filter: any): Promise<any> {
+async function getItems(collectionName: string, filter: any, skip = 0, limit = 5, search = ''): Promise<any> {
     try
     {
+        var filter = getFilter(filter, search);
         const model = require('../models/' + collectionName)
         loggerUtils.debug("get items")
-        const items = await model.find(filter);
-        return {error: 0, message: '', data: items}
+        const items = await model.find(filter).skip(skip).limit(limit).sort({'_id': -1});
+        const total = await model.find(filter).countDocuments();
+        return {error: 0, message: '', data: items, count: total}
     }
     catch(error: any)
     {
@@ -106,6 +108,15 @@ async function deleteItem(collectionName: string, id: string, userId: string) {
         loggerUtils.error(`Delete ${collectionName} Error: ${error.message}`);
         return {error: 999, message: error.message, data: null}
     }
+}
+
+function getFilter(filter: any, search: string) {
+    var filter = { deleted: { $ne: true }, ...filter }
+    
+    if (search?.length > 0) {
+        filter = { $or: [ { title: { $regex: (search), $options: 'i' }}, { description: { $regex: (search), $options: 'i' }} ], ...filter }
+    }
+    return filter;
 }
 
 const exportedFunctions = {
