@@ -87,12 +87,11 @@
     <div>
       <ConfirmationModel  
         aria-hidden="true"
-        tabindex="-1"
+        tabindex="100"
         id="confirmationModal"
         :modalActive="confirmationModelActive"
         :message="data.confirmationMessage"
-        @close="closeConfirmation"
-      >
+        @close="closeConfirmation">
       </ConfirmationModel>
     </div>
 
@@ -104,7 +103,7 @@ export default {
 </script>
 <script setup lang="ts">
 
-    import { ref, defineProps, onMounted, reactive } from "vue"
+    import { ref, defineProps, onMounted, reactive, defineExpose } from "vue"
     import instanceService from '@/services/instance.service';
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import Toast from "@/components/common/toastComponent";
@@ -201,12 +200,13 @@ export default {
       confirmationModelActive.value = true;
     }
     const fillItems = async () => {
-        data.items = [];
-        var result = await instanceService.getItems(props?.collectionRefName ?? "")
-        
-        if (result.data.data) {
-            data.items = result.data.data;
-        }
-
+      data.items = [];
+      var result = await instanceService.getItems(props?.collectionRefName ?? "")
+      
+      if (result.data.data) {
+          data.items = result.data.data;
+      }
     };
+
+    defineExpose({ fillItems })
 </script>
