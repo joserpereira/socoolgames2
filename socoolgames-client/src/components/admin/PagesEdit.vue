@@ -16,12 +16,12 @@
 
         <div class="relative mt-4">
             <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
-                    v-model="(data.item || {}).nameRef"
+                    v-model="(data.item || {}).slug"
                     required
                     maxlength="100"
                     placeholder="Name" />
             <label for="text" 
-                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name Ref</label>
+                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Slug</label>
         </div>
 
         <div class="mt-4">
@@ -62,7 +62,7 @@
     var data = reactive({
         item: {
             name: "",
-            nameRef: "",
+            slug: "",
             active: false,
             _id: undefined
         },
@@ -83,9 +83,9 @@
         data.error = "";
         try
         {
-            if ((data.item.name ?? "").length == 0 || (data.item.nameRef ?? "").length == 0 )
+            if ((data.item.name ?? "").length == 0 || (data.item.slug ?? "").length == 0 )
             {
-                data.error = "Please fill page name and name ref."
+                data.error = "Please fill page name and slug."
             }
 
             if (data.item._id === undefined) {
@@ -107,19 +107,3 @@
         
     }
 </script>
-
-<!-- <script>
-import ListItems from './cms/ListItems.vue';
- export default {
-    name: "PagesComponent",
-    components: {
-        ListItems
-    },
-    data() {
-        return {
-            cols: ["name", "nameRef"]
-        }
-    }
- }
-    
-</script> -->

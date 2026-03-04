@@ -15,7 +15,7 @@
     const listItems = ref(null);
 
     var data = reactive({
-        cols: ["name", "nameRef", "active"],
+        cols: ["name", "slug", "active"],
         item: null,
         newItem: false
     })
@@ -36,19 +36,3 @@
         listItems.value.fillItems();
     }
 </script>
-
-<!-- <script>
-import ListItems from './cms/ListItems.vue';
- export default {
-    name: "PagesComponent",
-    components: {
-        ListItems
-    },
-    data() {
-        return {
-            cols: ["name", "nameRef"]
-        }
-    }
- }
-    
-</script> -->

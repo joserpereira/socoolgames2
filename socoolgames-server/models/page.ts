@@ -6,9 +6,9 @@ const modelSchema = mongoose.Schema(
             type: String,
             required: [true, "Please enter page name"]
         },
-        nameRef: {
+        slug: {
             type: String,
-            required:  [true, "Please enter name ref"]
+            required:  [true, "Please enter slug"]
         },   
         active: {
             type: Boolean,
