@@ -4,30 +4,30 @@
     </div>
     <div class="grid grid-cols-1">
 
-        <input
-            id="name"
-            v-model="(data.item || {}).name"
-            type="text"
-            required
-            maxlength="100"
-            placeholder="Name"
-            class="input rounded-xl backdrop-blur px-2 py-3 mt-4"
-        />
+        <div class="relative mt-4">
+            <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
+                    v-model="(data.item || {}).name"
+                    required
+                    maxlength="100"
+                    placeholder="Name" />
+            <label for="text" 
+                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name</label>
+        </div>
 
-        <input
-            id="name"
-            v-model="(data.item || {}).nameRef"
-            type="text"
-            required
-            maxlength="100"
-            placeholder="Name Ref"
-            class="input rounded-xl backdrop-blur px-2 py-3 mt-4"
-        />
+        <div class="relative mt-4">
+            <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
+                    v-model="(data.item || {}).nameRef"
+                    required
+                    maxlength="100"
+                    placeholder="Name" />
+            <label for="text" 
+                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name Ref</label>
+        </div>
 
         <div class="mt-4">
             <label class="relative flex items-center group p-2">
                 Active Link
-                <input v-model="data.item.active" type="checkbox" class="absolute left-1/2 -translate-x-1/2 w-auto h-full peer appearance-none rounded-md" />
+                <input v-model="data.item.active" type="checkbox" class="absolute left-1/2  w-auto h-full peer appearance-none rounded-md" />
                 <span class="w-16 h-10 flex items-center flex-shrink-0 ml-4 p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-blue-300 after:w-8 after:h-8 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1" style="height: 18px;"></span>
             </label>    
         </div>
@@ -48,9 +48,9 @@
     import { watch, defineProps, onMounted, reactive } from 'vue'
 
     const props = defineProps({
-        item: Object
-        }
-    )
+        item: Object,
+        saved: Function
+    })
 
     watch(props, (value) => {
         // Your code
@@ -92,11 +92,18 @@
 
             if (data.item._id === undefined) {
                 const result = await pageService.insertItem(data.item, "page");
-                console.log("result new", result)
+                if (result.status !== 200 || result.data.error !== 0) {
+                    data.error = "Problem adding page";
+                }
             } else  {
                 const result = await pageService.updateItem(data.item._id, data.item, "page");
-                console.log("result update", result)
+                if (result.status !== 200 || result.data.error !== 0) {
+                    data.error = "Problem updating page";
+                }
             }
+            console.log("aaaa", props.saved)
+            if (props.saved)
+                props.saved();
         } catch (error) {
             data.error = "Unexpected error.";
         }
