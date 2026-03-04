@@ -22,10 +22,18 @@ router.beforeEach((to, from, next) => {
 });
 
 function isAuthenticated() {
-  const token = localStorage.getItem('user')
-  if (!token) return false
-
-  // opcional: validar expiração do token aqui
+  const user = localStorage.getItem('user');
+  if (!user) return false
+  
+  const u = JSON.parse(user);
+  if (!u.accessToken) return false
+  
+  try {
+    const payload = JSON.parse(atob(u.accessToken.split('.')[1]))
+    return payload.exp > Date.now() / 1000
+  } catch {
+    return false
+  }
   return true
 }
 export default router
