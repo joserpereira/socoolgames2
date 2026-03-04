@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose'
+
 const UserModel = require('../models/user')
 const RoleModel = require('../models/role')
 
@@ -40,34 +42,29 @@ export async function verifyJWTToken(request: any, response: Response, next: any
 }
 
 export async function isAdmin (request: any, response: Response, next: any) {
-  UserModel.findById(request.userId).exec((err: any, user: any) => {
-    if (err) {
-      response.status(500).send({ message: err });
+  try { 
+
+    var user = await UserModel.findOne({ _id: request.userId });
+    if (!user) {
+      response.status(500).send({ error: 999, message: "User not found" });
       return;
     }
 
-    RoleModel.find(
-      {
-        _id: { $in: user.roles },
-      },
-      (err: any, roles: any) => {
-        if (err) {
-          response.status(500).send({ message: err });
-          return;
-        }
+    var roles = await RoleModel.find(
+        {
+          _id: { $in: user.roles },
+        });
 
-        for (let i = 0; i < roles.length; i++) {
-          if (roles[i].name === "admin") {
-            next();
-            return;
-          }
-        }
-
-        response.status(403).send({ message: "Require Admin Role!" });
+    for (let i = 0; i < roles.length; i++) {
+      if (roles[i].name === "admin") {
+        next();
         return;
       }
-    );
-  });
+    }
+    response.status(403).send({ message: "Require Admin Role!" });
+  } catch {
+    response.status(500).send({ error: 999, message: "Problem getting role" });
+  }
 }
 
 export async function isModerator (request: any, response: Response, next: any)  {

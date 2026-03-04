@@ -13,12 +13,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem('user');
-  if (to.meta.requiresAuth && !loggedIn) {
+   if (to.meta.requiresAuth && !isAuthenticated()) {
+
     next('/admin/signin?back='+to.fullPath);
   } else {
     next();
   }
 });
 
+function isAuthenticated() {
+  const token = localStorage.getItem('user')
+  if (!token) return false
+
+  // opcional: validar expiração do token aqui
+  return true
+}
 export default router

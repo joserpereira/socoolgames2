@@ -4,7 +4,7 @@
             {{ props.title }}
         </span>
         <span class="flex-none1">
-            <button type="button" class="rounded-xl p-2 bg-secondary" @click.prevent="createClick">Create</button>
+            <button type="button" :disabled="!data.authenticated" class="rounded-xl p-2 bg-secondary" @click.prevent="createClick">Create</button>
         </span>
         <span class="grow me-5">
             <!-- @keyup="onSearchChange"
@@ -107,6 +107,7 @@ export default {
     import instanceService from '@/services/instance.service';
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import Toast from "@/components/common/toastComponent";
+    import userService from "@/services/user.service";
     const props = defineProps({
         collectionRefName: {
           type: String
@@ -138,6 +139,7 @@ export default {
     }
 
     var data = reactive({
+        authenticated: false,
         idToDelete: "",
         isLoading: false,
         confirmationMessage: "",
@@ -146,25 +148,28 @@ export default {
     })
 
     onMounted(() => {
-      /*
+      
       userService.getAdminBoard().then(
         (response) => {
+/*          
           this.content = response.data;
           this.isAdmin = true
 */          
+          data.authenticated = true; 
           fillItems()
-/*          
+
         },
         (error) => {
-          this.content =
+
+/*          this.content =
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
             error.toString();
+*/            
         }
       );
-      */
     });
 
     const editClick = (item) => {

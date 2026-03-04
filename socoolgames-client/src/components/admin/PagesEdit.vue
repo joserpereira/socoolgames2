@@ -53,9 +53,7 @@
     })
 
     watch(props, (value) => {
-        // Your code
-        
-        console.log("v", value?._id)
+        console.debug("v", value?._id)
         if (props?.item) {
             data.item = props?.item;
         }
@@ -101,7 +99,6 @@
                     data.error = "Problem updating page";
                 }
             }
-            console.log("aaaa", props.saved)
             if (props.saved)
                 props.saved();
         } catch (error) {
