@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-animation">
-    <div v-show="modalActive" class="modal">
+    <div v-show="modalActive" class="modal z-50 " >
       <transition name="modal-animation-inner">
         <div v-show="modalActive" class="modal-inner text-center bg-gradient-to-br from-[#2a0d4f] via-[#1b1240] to-[#0f172a] text-white rounded-xl">
           <div class="flex justify-center">
