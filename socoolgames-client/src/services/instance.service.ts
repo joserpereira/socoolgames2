@@ -11,6 +11,10 @@ class InstanceService {
     return api.put(`${collectionName}/${id}`, { item, "type": type });
   }
 
+  deleteItem(collectionName: string, id: string) {
+    return api.delete(`${collectionName}/${id}`);
+  }
+  
   getItems(collectionName: string) {
     try {
         return api.get(`${collectionName}/`).then((response: any) => {
