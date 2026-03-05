@@ -32,6 +32,9 @@
             </label>    
         </div>
         <div class="mt-4">
+            <PageBuilder :blocks="data.item.blocks"></PageBuilder>
+        </div>
+        <div class="mt-4">
             <div class="py-2 text-red-400" v-if="data.error">{{ data.error }}</div>
         </div>
         <div class="mt-4">
@@ -44,8 +47,9 @@
     </div>
 </template>
 <script setup lang="ts">
-        import pageService from "@/services/page.service";
+    import pageService from "@/services/page.service";
     import { watch, defineProps, onMounted, reactive } from 'vue'
+    import PageBuilder from "./cms/pageBuilder/PageBuilder.vue";
 
     const props = defineProps({
         item: Object,
@@ -55,7 +59,7 @@
     watch(props, (value) => {
         console.debug("v", value?._id)
         if (props?.item) {
-            data.item = props?.item;
+            data.item = { ...props.item };
         }
     }, { deep: true });
 
@@ -63,6 +67,7 @@
         item: {
             name: "",
             slug: "",
+            blocks: [],
             active: false,
             _id: undefined
         },
@@ -72,11 +77,9 @@
 
     onMounted(() => {
         if (props.item) {
-            data.item = props.item;
+            data.item = { ...props.item };
         }
     })
-
-        
 
     const saveItem = async () => {
 
@@ -88,6 +91,7 @@
                 data.error = "Please fill page name and slug."
             }
 
+            console.log("save", data.item)
             if (data.item._id === undefined) {
                 const result = await pageService.insertItem(data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {
