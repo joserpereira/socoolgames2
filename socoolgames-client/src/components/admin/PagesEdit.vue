@@ -32,8 +32,8 @@
             </label>    
         </div>
         <div class="mt-4">
-            Preview 
-            <a :href="'/p/' + data.item.slug" v-if="data.item.slug"
+            <div class="p-2"> Preview </div>
+            <a :href="'/p/' + data.item.slug" target="_blank" v-if="data.item.slug"
                 class="ms-4 text-blue-600 hover:text-blue-800 visited:text-purple-600 no-underline hover:underline">
                 {{  getLocation() + '/p/' + data.item.slug }}
             </a>  
@@ -93,7 +93,7 @@
         data.item.blocks = value;
     }
     const getLocation = () => {
-        return window.location.href;
+        return window.location.origin;
     }
     const saveItem = async () => {
 
