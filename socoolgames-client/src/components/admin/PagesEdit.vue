@@ -32,7 +32,15 @@
             </label>    
         </div>
         <div class="mt-4">
-            <PageBuilder :blocks="data.item.blocks"></PageBuilder>
+            Preview 
+            <a :href="'/p/' + data.item.slug" v-if="data.item.slug"
+                class="ms-4 text-blue-600 hover:text-blue-800 visited:text-purple-600 no-underline hover:underline">
+                {{  getLocation() + '/p/' + data.item.slug }}
+            </a>  
+            <span class="ms-4 text-sm p-1 bg-yellow-100"  v-else>Please fill slug</span>
+        </div>
+        <div class="mt-4">
+            <PageBuilder :blocks="data.item.blocks" @changeBlocks="changeBlocks"></PageBuilder>
         </div>
         <div class="mt-4">
             <div class="py-2 text-red-400" v-if="data.error">{{ data.error }}</div>
@@ -81,6 +89,12 @@
         }
     })
 
+    const changeBlocks = async (value) => {
+        data.item.blocks = value;
+    }
+    const getLocation = () => {
+        return window.location.href;
+    }
     const saveItem = async () => {
 
         data.error = "";
