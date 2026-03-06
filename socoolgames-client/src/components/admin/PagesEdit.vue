@@ -9,8 +9,9 @@
                     v-model="(data.item || {}).name"
                     required
                     maxlength="100"
+                    id="name"
                     placeholder="Name" />
-            <label for="text" 
+            <label for="name" 
                     class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name</label>
         </div>
 
@@ -19,9 +20,11 @@
                     v-model="(data.item || {}).slug"
                     required
                     maxlength="100"
+                    id="slug"
                     placeholder="Name" />
-            <label for="text" 
-                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Slug</label>
+                    
+            <label for="slug" 
+                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Slug</label>
         </div>
 
         <div class="mt-4">
