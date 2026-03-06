@@ -22,7 +22,7 @@
             No Items
         </div>
         <draggable v-else
-            class="dragArea list-group"
+            class="dragArea list-group min-h-64"
             :list="data.blocks"
             :group="{ name: 'people', pull: 'clone', put: false }"
             animation="200"

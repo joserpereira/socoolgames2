@@ -9,7 +9,10 @@
         {{ key }}
       </label>
 
-      <input
+      <textarea
+        class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
+        v-if="key.indexOf('content') >= 0" v-model="data.settings[key][props.selectedLang]" rows="8"></textarea>
+      <input v-else
         v-model="data.settings[key][props.selectedLang]"
         type="text"
         class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
