@@ -40,7 +40,7 @@
             <span class="ms-4 text-sm p-1 bg-yellow-100"  v-else>Please fill slug</span>
         </div>
         <div class="mt-4">
-            <PageBuilder :blocks="data.item.blocks" @changeBlocks="changeBlocks"></PageBuilder>
+            <PageBuilder :pageId="data.item._id" :blocks="data.item.blocks" @changeBlocks="changeBlocks"></PageBuilder>
         </div>
         <div class="mt-4">
             <div class="py-2 text-red-400" v-if="data.error">{{ data.error }}</div>
@@ -64,10 +64,10 @@
         saved: Function
     })
 
-    watch(props, (value) => {
-        console.debug("v", value?._id)
-        if (props?.item) {
-            data.item = { ...props.item };
+    //watch(props.item, (value) => {
+    watch(() => props.item, (value) => {        
+        if (props?.item && value) {
+            data.item = value;
         }
     }, { deep: true });
 
@@ -105,7 +105,6 @@
                 data.error = "Please fill page name and slug."
             }
 
-            console.log("save", data.item)
             if (data.item._id === undefined) {
                 const result = await pageService.insertItem(data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {

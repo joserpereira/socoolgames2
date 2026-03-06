@@ -21,7 +21,10 @@
     })
 
     const createItem = () => {
-      data.item = {}
+      data.item = {
+        name: "",
+        blocks: []
+      }
       data.newItem = true;
     }
 

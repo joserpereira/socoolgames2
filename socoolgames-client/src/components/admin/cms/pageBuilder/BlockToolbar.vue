@@ -1,7 +1,7 @@
 <template>
     <div class="grid auto-cols-max grid-flow-col gap-3">
       <div class="block w-full p-2 rounded">Components:</div>
-      <button v-for="item in Object.keys(data.items)" :key="item" @click="addBlock(item)" class="block w-full bg-gray-100 p-2 rounded">
+      <button v-for="item in Object.keys(data.items)" :key="item" @click.prevent="addBlock(item)" class="block w-full bg-gray-100 p-2 rounded">
         {{ data.items[item].name }}
       </button>
 
