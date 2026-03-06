@@ -39,6 +39,23 @@ export const getItem = async (req: Request, res: Response) => {
     }
 }
 
+export const getItemByNameRef = async (req: Request, res: Response) => {
+
+    try
+    {
+        console.log("11111111111111")
+        loggerUtils.debug("get category")
+        const { nameRef } = req.params;
+        const item = await service.getItemWithFilter(collectionName, { nameRef, active: true, deleted: { $ne: true } });
+        res.status(200).json({error: 0, message: '', data: item.data})
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Get Categories Error: " + error.message)
+        res.status(500).json({error: 999, message: error.message})
+    }
+}
+
 export const createItem = async (req: Request, res: Response) => {
 
     try

@@ -28,6 +28,21 @@ async function getItems(collectionName: string, filter: any, skip = 0, limit = 5
     }
 }
 
+async function getItemWithFilter(collectionName: string, filter: any): Promise<any> {
+    try
+    {
+        const model = require('../models/' + collectionName)
+        loggerUtils.debug("get items")
+        const items = await model.findOne(filter);
+        return {error: 0, message: '', data: items}
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Get Items Error: " + error.message)
+        return {error: 999, message: error.message, data: null}
+    }
+}
+
 async function getItem(collectionName: string, id: string): Promise<any> {
     try
     {
@@ -120,6 +135,6 @@ function getFilter(filter: any, search: string) {
 }
 
 const exportedFunctions = {
-    getStats, getItems, deleteItem, createItem, getItem, updateItem
+    getStats, getItems, getItemWithFilter, deleteItem, createItem, getItem, updateItem
 };
 module.exports = exportedFunctions;

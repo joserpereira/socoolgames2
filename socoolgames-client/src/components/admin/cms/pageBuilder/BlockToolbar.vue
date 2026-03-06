@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
     import { defineExpose, defineProps, onMounted, reactive } from 'vue'
-    import componentsService from '@/utils/components.utils';
+    const componentsUtils = import('@/utils/components.utils');
 
     const props = defineProps({        
         blockAdded: Function
@@ -20,9 +20,8 @@
         items: {},    
     })
 
-    onMounted(() => {
-        data.items = componentsService.getComponents();
-        // console.log("zzz", data.items)
+    onMounted(async () => {
+        data.items = (await componentsUtils).getComponents();
     })
 
     const addBlock = async (name: string) => {

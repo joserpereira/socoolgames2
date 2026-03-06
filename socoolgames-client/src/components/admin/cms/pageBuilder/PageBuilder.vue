@@ -113,7 +113,8 @@
     import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
     import BlockToolbar from './BlockToolbar.vue';
-    import componentsService from '@/utils/components.utils';
+    const componentsUtils = import('@/utils/components.utils');
+
     import SettingsPanel from './SettingsPanel.vue';
 
     interface Block {
@@ -169,15 +170,18 @@
         error: "",
         currentLang: "en",
         languages: ["en", "pt"],
-        oldPageId: "-"
+        oldPageId: "-",
+        components: {}
+
     })
 
-    onMounted(() => {
+    onMounted(async () => {
         data.blocks = props.blocks;
+        data.components = (await componentsUtils).getComponents();
     })
 
     const blockAdded = async(type: string) => {
-        const dict = componentsService.getComponents();
+        const dict = data.components;
         const base = {
             id: uuid(),
             type,
@@ -195,9 +199,13 @@
     }
 
     const getName = (key) => {
-        return componentsService.getComponents()?.[key]?.name ?? key; 
+        return data.components?.[key]?.name ?? key; 
     }
     const editBlock = async (index) => {
+        var type = (await componentsUtils).getComponents()[data.blocks[index].type].data;
+
+        data.blocks[index].data = Object.assign( {}, type, data.blocks[index].data );
+
         data.selectedIndex = index;
         closeMenu();
     }

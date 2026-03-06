@@ -36,6 +36,17 @@ class PageService {
     }    
   }
 
+  getItemByNameRef(nameRef) {
+    try {
+        return api.get(`${baseAPI}nameref/${nameRef}`).then((response: any) => {
+          return response;
+        });
+    } catch (error) {
+      console.error("Error fetching pages:", error);
+      throw error;
+    }    
+  }
+
   getStats() {
     return api.get(baseAPI + "count").then((response: any) => {
       return response;
