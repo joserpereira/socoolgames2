@@ -3,7 +3,10 @@
      <!-- CENTER: Canvas -->
     <div class="flex-1 overflow-auto bg-gray-50 mt-4">
       <div class="max-w-4xl mx-auto bg-white shadow rounded p-6 space-y-6 drag-container">
-        <draggable
+        <div v-if="data.blocks.length === 0" class="text-center m-5">
+            No Items
+        </div>
+        <draggable v-else
             class="dragArea list-group"
             :list="data.blocks"
             :group="{ name: 'people', pull: 'clone', put: false }"
@@ -20,13 +23,15 @@
                     <div class="px-3 grow" :class="component?.disable ? 'italic': ''">{{ getName(component.type) }}</div>
                     <div class=" relative inline-block text-left dropdown">
                         <span class="rounded-md shadow-sm">
-                            <button aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
+                            <button
+                             @click="toggleMenu(index)"
+                             aria-haspopup="true" aria-expanded="true" aria-controls="headlessui-menu-items-117">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                                 </svg>
                             </button>
                         </span>
-                        <div class="hidden dropdown-menu">
+                        <div v-show="openMenu === index" class="dropdown-menu">
                             <div class="absolute right-0 z-40 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none w-36 " 
                                  aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                                 <div class="py-1 ">
@@ -79,6 +84,9 @@
                 </div>
                 <div v-if="data.selectedIndex == index">
                     <div class="text-center">Settings</div>
+                    <div class="text-center mb-2">
+                        <SettingsPanel :data="data.blocks[data.selectedIndex].data" :selectedLang="data.currentLang"></SettingsPanel>
+                    </div>
                 </div>
             </div>
         </draggable>
@@ -87,10 +95,11 @@
 </template>
 <script setup lang="ts">
     import { v4 as uuid } from 'uuid'
-    import { watch, reactive, defineEmits, defineExpose, defineProps, onMounted } from 'vue'
+    import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
     import BlockToolbar from './BlockToolbar.vue';
     import componentsService from '@/utils/components.utils';
+    import SettingsPanel from './SettingsPanel.vue';
 
     interface Block {
         id: string;
@@ -100,6 +109,16 @@
     }
     
     const emit = defineEmits(['changeBlocks'])
+
+    const openMenu = ref(null)
+
+    function toggleMenu(index) {
+    openMenu.value = openMenu.value === index ? null : index
+    }
+
+    function closeMenu() {
+    openMenu.value = null
+    }
 
     const draggable = VueDraggableNext;
     /*
@@ -126,7 +145,7 @@
         blocks: [] as Block[],
         selectedIndex: -1,
         error: "",
-        currentLang: "",
+        currentLang: "en",
 
     })
 
@@ -160,11 +179,12 @@
     }
     const editBlock = async (index) => {
         data.selectedIndex = index;
-
+        closeMenu();
     }
 
     const removeBlock = async (index) => {
         data.blocks.splice(index, 1);
+        closeMenu();
     }
 
     const disableBlock = async (index) => {
@@ -172,6 +192,7 @@
             data.blocks[index].disable = false;
         else
             data.blocks[index].disable = true;
+        closeMenu();
     }
 
     const log = async() => {
