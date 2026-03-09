@@ -234,7 +234,7 @@
     }
 
     const copySettingsToAllLanguages = (index) => {
-        console.log("copy settings")
+        console.log("copy settings", index)
     }
     const log = async() => {
         console.log("log")
