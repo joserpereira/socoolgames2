@@ -1,5 +1,5 @@
-import axiosInstance from "./api";
-import TokenService from "./token.service";
+import axiosInstance from "../services/common/api";
+import TokenService from "../services/common/token.service";
 
 const setup = (store) => {
   axiosInstance.interceptors.request.use(

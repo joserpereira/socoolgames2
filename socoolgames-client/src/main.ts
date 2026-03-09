@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import localizationUtils from './utils/localization.utils'
 import store from "@/store";
-import setupInterceptors from '@/services/common/setupInterceptors';
+import setupInterceptors from '@/interceptors/setupInterceptors';
 
 const i18n = localizationUtils.create();
 
