@@ -8,7 +8,8 @@ const blockDictionary = {
                 title: { pt: '', en: '' },
                 subtitle: { pt: '', en: '' },
                 buttonText: { pt: '', en: '' },
-                buttonlink: { pt: '', en: '' }
+                buttonLink: { pt: '', en: '' },
+                backgroundImage: ''
             }
         },
         text: {

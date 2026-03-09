@@ -11,9 +11,9 @@
                     
                 </p>
 
-                <a href="#produtos" 
+                <a :href="props.data?.buttonLink?.[props.selectedLang]" 
                     class="hover:scale-105 bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-darkgreen transition">
-                    Ver jogos criativos
+                    {{ props.data?.buttonText?.[props.selectedLang] }}
                 </a>
             </div>
         </div>
