@@ -2,7 +2,7 @@
     <span v-html="props.data.content[props.selectedLang]"></span>
 </template>
 <script setup>
-    import { defineProps, defineExpose, onMounted } from 'vue';
+    import { defineProps, defineExpose } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
 
     const props = defineProps({        
