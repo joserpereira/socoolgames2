@@ -89,7 +89,7 @@ export const getImageResize = async (req: Request, res: Response) => {
 }
 
 
-export const deleteFile = async (req: Request, res: Response) => {
+export const deleteFile = async (req: any, res: Response) => {
     try
     {
         const {id} = req.params;

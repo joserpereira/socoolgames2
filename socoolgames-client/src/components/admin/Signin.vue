@@ -136,7 +136,7 @@ export default {
                 // error.toString();
             }
           ).catch(() => {
-            console.log("");
+            console.log("login error");
             
           })
           // var result = await authService.login(data.email, data.password);

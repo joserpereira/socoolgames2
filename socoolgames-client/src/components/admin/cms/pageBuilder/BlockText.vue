@@ -14,10 +14,9 @@
         }
     })
 
-    onMounted(() => {
-        console.log(formatUrl("./public/aaa/dddd"))
-        console.log(props.data.content[props.selectedLang])
-    })
+    // onMounted(() => {
+    // })
+
     defineExpose({ formatUrl });
 
 </script>
