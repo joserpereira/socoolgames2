@@ -22,7 +22,12 @@ const adminRoutes: RouteRecordRaw[] = [
                 component: () => import('@/components/admin/PagesView.vue'),
                 meta: { requiresAuth: true } 
             }, 
-            
+            {
+                path: '/admin/upload',
+                name: 'ImageUploader',
+                component: () => import('@/components/admin/ImageUploader.vue'),
+                meta: { requiresAuth: true } 
+            }
             
 
     //         {

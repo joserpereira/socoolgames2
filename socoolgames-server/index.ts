@@ -16,6 +16,9 @@ import "./config/env"
 const app = express()
 app.use(express.static(__dirname + '/public'));
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+
+
 const loggerUtils = new Logger();
 
 //initDatetimeExtensions();
