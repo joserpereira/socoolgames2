@@ -88,7 +88,7 @@
 
     onMounted(() => {
         if (props.item) {
-            data.item = { ...props.item };
+            data.item = props.item;
         }
     })
 

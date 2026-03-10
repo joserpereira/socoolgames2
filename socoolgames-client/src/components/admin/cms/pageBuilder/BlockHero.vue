@@ -34,7 +34,7 @@
     })
 
     const formatText = (text) => {
-        return text.replaceAll('\\n', '<br />')
+        return text.replaceAll('\n', '<br />')
     }
 
     onMounted(() => {

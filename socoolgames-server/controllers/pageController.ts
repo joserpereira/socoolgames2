@@ -43,7 +43,6 @@ export const getItemByNameRef = async (req: Request, res: Response) => {
 
     try
     {
-        console.log("11111111111111")
         loggerUtils.debug("get category")
         const { nameRef } = req.params;
         const item = await service.getItemWithFilter(collectionName, { nameRef, active: true, deleted: { $ne: true } });

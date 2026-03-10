@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div class="text-center mb-2">
-                        <SettingsPanel :data="data.blocks[data.selectedIndex].data" :selectedLang="data.currentLang"></SettingsPanel>
+                        <SettingsPanel :componentType="component.type" :data="data.blocks[data.selectedIndex].data" :selectedLang="data.currentLang"></SettingsPanel>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
     import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
     import BlockToolbar from './BlockToolbar.vue';
-    const componentsUtils = import('@/utils/components.utils');
+    import componentsUtils from '@/utils/components.utils';
 
     import SettingsPanel from './SettingsPanel.vue';
 
@@ -181,12 +181,13 @@
         currentLang: "en",
         languages: ["en", "pt"],
         oldPageId: "-",
-        components: {}
-
+        components: {},
+        blockNames: {}
     })
 
     onMounted(async () => {
         data.blocks = props.blocks;
+        
         data.components = (await componentsUtils).getComponents();
     })
 
@@ -195,7 +196,8 @@
         const base = {
             id: uuid(),
             type,
-            data: {}
+            data: componentsUtils.getDefault(type)
+        
         }
 
         if (!dict[type])
@@ -208,14 +210,15 @@
         emit("changeBlocks", data.blocks);
     }
 
-    const getName = (key) => {
-        return data.components?.[key]?.name ?? key; 
+    const getName = (type) => {        
+        return componentsUtils.getName(type);
     }
     const editBlock = async (index) => {
+        /*
         var type = (await componentsUtils).getComponents()[data.blocks[index].type].data;
 
         data.blocks[index].data = Object.assign( {}, type, data.blocks[index].data );
-
+*/
         data.selectedIndex = index;
         closeMenu();
     }
