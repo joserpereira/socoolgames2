@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const controller = require('../../controllers/imageController')
-// const verifyJWTToken = require('../../middlewares/verifyJWT')
+const verifyJWTToken = require('../../middlewares/verifyJWT')
 
 const multer = require("multer")
 
@@ -10,6 +10,6 @@ const upload = multer({
 })
 
 export const imageRoutes = (router: Router, baseUrl: string) => {
-  router.post(baseUrl + '/upload', /* verifyJWTToken.verifyJWTToken, */ upload.single("file"), controller.uploadFile);
+  router.post(baseUrl + '/upload', verifyJWTToken.verifyJWTToken, upload.single("file"), controller.uploadFile);
 }
 

@@ -64,6 +64,9 @@
 
 <script setup>
 import { ref } from "vue"
+import axiosAPI from '@/services/common/api';
+
+const baseAPI = 'images/';
 
 const preview = ref(null)
 const file = ref(null)
@@ -93,23 +96,31 @@ function setFile(selected) {
 
 }
 
-const upload = () => {
+const upload = async () => {
   const formData = new FormData()
   formData.append("file", file.value)
 
-  const xhr = new XMLHttpRequest()
-  xhr.upload.addEventListener("progress", (e) => {
-    if (e.lengthComputable) {
-      progress.value = Math.round((e.loaded / e.total) * 100)
-    }
-  })
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
-      console.log(JSON.parse(xhr.responseText))
-    }
+  try {
+
+    const res = await axiosAPI.post(baseAPI + 'upload',
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: (event) => {
+
+          progress.value = Math.round(
+            (event.loaded * 100) / event.total
+          )
+
+        }
+      })
+    console.log("Upload result:", res.data)
+  } catch (err) {
+    console.error(err)
   }
-  xhr.open("POST", "http://localhost:3000/api/images/upload")
-  xhr.send(formData)
+    
 console.log("15")  
 
 }
