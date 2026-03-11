@@ -7,6 +7,7 @@ const fs = require("fs")
 const sharp = require("sharp")
 
 const baseDir = './public/'
+const model = require('../models/image')
 
 const sizes = [
   { name: "thumb", width: 300 },
@@ -33,6 +34,10 @@ async function uploadFile(file: any): Promise<any>    {
     }
     const results = {} as any
 
+    const image = {
+      original: file.originalname,
+    } as any
+
     for (const size of sizes) {
       const filename = `${baseName}-${size.name}-${timestamp}.webp`
       const filepath = path.join(folder, filename)
@@ -41,8 +46,11 @@ async function uploadFile(file: any): Promise<any>    {
         .webp({ quality: 82 })
         .toFile(filepath)
       results[size.name] = `/uploads/images/${filename}`
+      image[size.name] = `/uploads/images/${filename}`;
     }
-    return results;
+
+    const newitem = await model.create(image);;
+    return {error: 0, message: '', data: newitem}          
 }
 
 

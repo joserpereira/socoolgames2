@@ -30,8 +30,8 @@ export const uploadFile = async (req: Request, res: Response) => {
         const body = req.body;
         const { name } = body;   
 
-        const data = await fileService.uploadFile(instance_id, file_category, idx, name);
-        res.status(200).json(data)
+        const result = await fileService.uploadFile(instance_id, file_category, idx, name);
+        res.status(200).json(result);
     } 
     catch(error: any)
     {
