@@ -4,10 +4,10 @@
 
             <div>
                 <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
-                    {{ props.data.title[props.selectedLang] }}
+                    {{ props.data.title?.[props.selectedLang] }}
                 </h1>
 
-                <p class="text-lg text-gray-700 mb-8" v-html="formatText(props.data.subtitle[props.selectedLang])">
+                <p class="text-lg text-gray-700 mb-8" v-html="formatText(props.data.subtitle?.[props.selectedLang])">
                     
                 </p>
 
@@ -34,7 +34,9 @@
     })
 
     const formatText = (text) => {
-        return text.replaceAll('\n', '<br />')
+        if (text)
+            return text.replaceAll('\n', '<br />')
+        return "";
     }
 
     onMounted(() => {
