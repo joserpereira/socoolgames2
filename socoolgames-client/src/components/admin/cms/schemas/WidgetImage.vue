@@ -4,24 +4,20 @@
     </label>
     <input type="text"
            class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-           v-model="data.value"
+           v-model="value"
       />
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive } from 'vue'
-  // import FileUpload2 from "@/components/admin/FileUpload2.vue";
+  import { defineProps, defineEmits } from 'vue'
+  import { useVModel } from '@/utils/useVModel';
 
-  const props = defineProps({        
-        schema: Object,        
-        value: Object,
-        selectedLang: String
-   })
+  const props = defineProps<{
+    schema: Object,
+    modelValue: string
+  }>()
 
-  onMounted(() => {
-    data.value = props.value;
-  })    
+  const emit = defineEmits(["update:modelValue"])
 
-  const data = reactive({
-    value: {} as any    
-  })
+  const value = useVModel<string>(props, "modelValue", emit)
+
 </script>
