@@ -10,6 +10,7 @@ const upload = multer({
 })
 
 export const imageRoutes = (router: Router, baseUrl: string) => {
-  router.post(baseUrl + '/upload', verifyJWTToken.verifyJWTToken, upload.single("file"), controller.uploadFile);
+    router.get(baseUrl + '/', controller.getItems);
+    router.post(baseUrl + '/upload', verifyJWTToken.verifyJWTToken, upload.single("file"), controller.uploadFile);
 }
 

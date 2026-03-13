@@ -1,5 +1,5 @@
-// import { Logger } from '../utils/loggerUtils';
-// const loggerUtils = new Logger();
+import { Logger } from '../utils/loggerUtils';
+const loggerUtils = new Logger();
 
 const path = require("path")
 const slugify = require("slugify")
@@ -15,7 +15,33 @@ const sizes = [
   { name: "large", width: 1600 }
 ]
 
-async function uploadFile(file: any): Promise<any>    {
+async function getItems(filter: any, skip = 0, limit = 5, search = ''): Promise<any> {
+    try
+    {
+        var filter = getFilter(filter, search);
+        loggerUtils.debug("get items");
+
+        const items = await model.find(filter).skip(skip).limit(limit).sort({'_id': -1});
+        const total = await model.find(filter).countDocuments();
+        return {error: 0, message: '', data: items, count: total}
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Get Items Error: " + error.message)
+        return {error: 999, message: error.message, data: null}
+    }
+}
+
+function getFilter(filter: any, search: string) {
+    var filter = { deleted: { $ne: true }, ...filter }
+    
+    if (search?.length > 0) {
+        filter = { $or: [ { original: { $regex: (search), $options: 'i' }} ], ...filter }
+    }
+    return filter;
+}
+
+async function uploadFile(file: any): Promise<any> {
 
     console.log("services uploadFile")
 
@@ -55,6 +81,6 @@ async function uploadFile(file: any): Promise<any>    {
 
 
 const exportedFunctions = {
-    uploadFile
+    uploadFile, getItems
 };
 module.exports = exportedFunctions;

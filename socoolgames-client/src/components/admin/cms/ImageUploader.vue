@@ -63,8 +63,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, defineProps } from "vue"
 import axiosAPI from '@/services/common/api';
+
+ const props = defineProps({
+        newItem: {
+          type: Function
+        }
+    });
 
 const baseAPI = 'images/';
 
@@ -101,7 +107,6 @@ const upload = async () => {
   formData.append("file", file.value)
 
   try {
-
     const res = await axiosAPI.post(baseAPI + 'upload',
       formData,
       {
@@ -113,15 +118,19 @@ const upload = async () => {
           progress.value = Math.round(
             (event.loaded * 100) / event.total
           )
+          if (progress.value >= 100) {
+            setTimeout(() => {
+              if (props?.newItem != null)
+                props?.newItem(); 
+            }, 1000);
+
+          }
 
         }
-      })
-    console.log("Upload result:", res.data)
+      });
   } catch (err) {
     console.error(err)
   }
-    
-console.log("15")  
 
 }
 </script>

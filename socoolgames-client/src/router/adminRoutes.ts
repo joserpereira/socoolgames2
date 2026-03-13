@@ -23,9 +23,9 @@ const adminRoutes: RouteRecordRaw[] = [
                 meta: { requiresAuth: true } 
             }, 
             {
-                path: '/admin/upload',
-                name: 'ImageUploader',
-                component: () => import('@/components/admin/ImageUploader.vue'),
+                path: '/admin/images',
+                name: 'ImageList',
+                component: () => import('@/components/admin/cms/ImageList.vue'),
                 meta: { requiresAuth: true } 
             }
             
