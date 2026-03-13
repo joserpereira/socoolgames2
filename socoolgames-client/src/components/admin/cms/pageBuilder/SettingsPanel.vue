@@ -1,35 +1,22 @@
 <template>
+  
     <div
       v-for="(item, index) in data.schema"
       :key="index"
       class="space-y-2"
     >
-      <component :is="getComponent(item.type)" :value="data.settings[item.field]" :schema="item" :selectedLang="props.selectedLang"></component> 
+    
+      <component v-if="typeof data.settings[item.field] === 'string'" 
+                  :is="getComponent(item.type)" 
+                  :schema="item"
+                  v-model="data.settings[item.field]">
+      </component> 
+      <component v-else :is="getComponent(item.type)" :value="data.settings[item.field]" :schema="item" :selectedLang="props.selectedLang"></component> 
     </div>
-
-    <!-- <div
-      v-for="(value, key) in data.settings"
-      :key="key"
-      class="space-y-2"
-    >
-      <label class="block font-medium text-start text-sm mt-2">
-        {{ key }}
-      </label>
-      
-
-      <textarea
-        class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        v-if="key.indexOf('content') >= 0" v-model="data.settings[key][props.selectedLang]" rows="8"></textarea>
-      <input v-else
-        v-model="data.settings[key][props.selectedLang]"
-        type="text"
-        class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-        :placeholder="key"
-      />
-    </div> -->
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive, defineAsyncComponent } from 'vue'
+  import { defineProps, onMounted, reactive, defineAsyncComponent  } from 'vue'
+  
   import componentsUtils from '@/utils/components.utils';
 
   const props = defineProps({        
@@ -40,12 +27,22 @@
    })
 
   onMounted(() => {
-    data.settings = props.data;
     data.schema = componentsUtils.getSchema(props.componentType);
-  })    
-  const getComponent = (key) => {
-    return defineAsyncComponent(() => import(`@/components/admin/cms/schemas/${key}.vue`));
+    data.settings = props.data;
+  })   
+  
+  const componentCache: Record<string, any> = {}
+
+ const getComponent = (key: string) => {
+
+  if (!componentCache[key]) {
+    componentCache[key] = defineAsyncComponent(
+      () => import(`@/components/admin/cms/schemas/${key}.vue`)
+    )
   }
+
+  return componentCache[key]
+}
 
 const data = reactive({
     settings: {} as any,
