@@ -203,8 +203,6 @@
         if (!dict[type])
             return null;
 
-        base.data = dict[type].data;
-        
         data.blocks.push(base)
         
         emit("changeBlocks", data.blocks);
@@ -237,7 +235,26 @@
     }
 
     const copySettingsToAllLanguages = (index) => {
-        console.log("copy settings", index)
+        
+        const obj_data = data.blocks[index].data;
+
+        Object.keys(obj_data).forEach((item) => {
+            
+            if (Object.keys(obj_data)) {
+                Object.keys(obj_data[item]).forEach((subitem, index2) => {
+                    console.log("a", subitem, index2, obj_data[item][subitem]);        
+                    if (subitem !== data.currentLang) {
+                        console.log("b", subitem)
+                        obj_data[item][subitem] = obj_data[item]["en"];
+                    }
+                })
+            }
+
+        })        
+        // for (let i = 0; i < Object.keys(obj_data).length; i++) {
+        //      // console.log("prop", data.blockNames[index].data)
+        //      console.log("i", i, obj_data[i])
+        // }
     }
     const log = async() => {
         console.log("log")
