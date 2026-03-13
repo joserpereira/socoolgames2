@@ -190,7 +190,7 @@ export default {
                 fillItems();
             }
           }).catch((error) => {
-            console.log("Problem deleting link. Please try again.", error)
+            console.log("Problem deleting item. Please try again.", error)
           })
         } catch (error: unknown) {
           console.error("closeConfirmation", error);
