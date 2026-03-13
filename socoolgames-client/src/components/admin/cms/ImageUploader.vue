@@ -58,19 +58,27 @@
     </div>
 
   </div>
-
+  <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+    <p class="font-bold">Be Warned</p>
+    <p>{{ data.errorMessage }}</p>
+  </div>
 </div>
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue"
+import { ref, defineProps, reactive } from "vue"
 import axiosAPI from '@/services/common/api';
 
  const props = defineProps({
-        newItem: {
-          type: Function
-        }
-    });
+    newItem: {
+      type: Function
+    }
+  });
+
+ const data = reactive({
+    errorMessage: ""
+ });
+
 
 const baseAPI = 'images/';
 
@@ -128,8 +136,11 @@ const upload = async () => {
 
         }
       });
+      if (res.status !== 200) {
+        data.errorMessage = "Oops. Failed to upload image, please try again.";
+      }
   } catch (err) {
-    console.error(err)
+    data.errorMessage = "Ooops. Failed to upload image, please try again.";
   }
 
 }

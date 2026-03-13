@@ -66,7 +66,10 @@
         <button v-else disabled="true" @click.prevent="nextPage" class="m-3">&gt;&gt;</button>
     </div>
     </div>
-
+    <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+      <p class="font-bold">Be Warned</p>
+      <p>{{ data.errorMessage }}</p>
+    </div>
     <div class="mt-5">
         <ImageUploader :newItem="newItem"></ImageUploader>
     </div>
@@ -105,22 +108,22 @@
         page: 1,
         skip: 0,
         limit: 6,
-        total: 0
+        total: 0,
+        errorMessage: ""
     })
 
     onMounted(() => {
       
       userService.getAdminBoard().then(
         (response) => {
-            console.log("response", response)
           if (response.status == 200) {
             data.authenticated = true; 
             getData()
           }
 
         },
-        (error) => {
-            data.error = error;
+        () => {
+            data.errorMessage = "Failed to get image list.";
 /*          this.content =
             (error.response &&
               error.response.data &&
