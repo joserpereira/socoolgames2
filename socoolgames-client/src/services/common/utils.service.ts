@@ -1,5 +1,3 @@
-//var API_URL = baseAPI // + ':4431/';
-
 import axiosApi from '@/services/common/api';
 const UtilsService = {
 

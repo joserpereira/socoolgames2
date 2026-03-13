@@ -1,5 +1,4 @@
 import { Logger } from '../utils/loggerUtils';
-
 const loggerUtils = new Logger();
 
 async function getStats(collectionName: string): Promise<any>    {
