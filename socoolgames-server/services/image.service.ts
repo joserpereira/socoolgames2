@@ -79,8 +79,41 @@ async function uploadFile(file: any): Promise<any> {
     return {error: 0, message: '', data: newitem}          
 }
 
+async function deleteItem(id: string) {
+    try
+    {
+        var filter = { _id: id }
+        const item = await model.findOne(filter);
+        if (!item) {
+            return {error: 404, message: `Cannot find any image with ID '${id}'`};
+        }
+
+        deleteFile(path.join(baseDir, item.thumb));
+        deleteFile(path.join(baseDir, item.medium));
+        deleteFile(path.join(baseDir, item.large));
+
+        const update = { deleted: true, deleteAt: new Date(Date.now()) }; //, deletedBy: userId };
+        const itemUpdated = await model.findOneAndUpdate(filter, update);
+
+        return {error: 0, message: '', data: itemUpdated}
+    }
+    catch(error: any)
+    {
+        loggerUtils.error(`Delete Image Error: ${error.message}`);
+        return {error: 999, message: error.message, data: null}
+    }
+}
+
+async function deleteFile(file: string) {
+  fs.unlink(file, (err: any) => {
+  if (err) {
+    console.error("Failed to delete " + file + ".\n" + err.message);
+
+  }
+})
+}
 
 const exportedFunctions = {
-    uploadFile, getItems
+    uploadFile, getItems, deleteItem
 };
 module.exports = exportedFunctions;

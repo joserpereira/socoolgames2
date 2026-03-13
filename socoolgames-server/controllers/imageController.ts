@@ -9,7 +9,8 @@ export const getItems = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get pages")
+        loggerUtils.debug("get images")
+
         var filter = mongoUtils.getFilterByParameter(req)
         var pagination = mongoUtils.getPaginationParameters(filter)
         var search = pagination.search;
@@ -23,7 +24,24 @@ export const getItems = async (req: Request, res: Response) => {
     }
     catch(error: any)
     {
-        loggerUtils.error("Get pages Error: " + error.message)
+        loggerUtils.error("Get images Error: " + error.message)
+        res.status(500).json({error: 999, message: error.message, data: null})
+    }
+}
+
+export const deleteItem = async (req: Request, res: Response) => {
+
+    try
+    {
+        loggerUtils.debug("delete image")
+        const { id } = req.params;
+
+        const result = await service.deleteItem(id);
+        res.status(result.error === 0 ? 200 : 500).json(result)
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Delete Image Error: " + error.message)
         res.status(500).json({error: 999, message: error.message, data: null})
     }
 }

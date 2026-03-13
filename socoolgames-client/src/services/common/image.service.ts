@@ -17,6 +17,19 @@ class ImageService {
       throw error;
     }    
   }
+
+  deleteItem(id: string) {
+    try {
+        return axiosApi.delete(`${baseAPI}${id}`).then((response: any) => {
+          return response;
+        });
+    } catch (error) {
+      console.error("Error deleting image:", error);
+      throw error;
+    }    
+
+  }
+
   getImageInfo(path: string) {
     try {
         return axiosApi.get(baseAPI + `info/${encodeURIComponent(path)}`).then((response: any) => {
@@ -34,7 +47,7 @@ class ImageService {
           return response;
         });
     } catch (error) {
-      console.error("Error fetching image info:", error);
+      console.error("Error resize image:", error);
       throw error;
     }    
   }
