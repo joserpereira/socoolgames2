@@ -36,7 +36,7 @@ function getFilter(filter: any, search: string) {
     var filter = { deleted: { $ne: true }, ...filter }
     
     if (search?.length > 0) {
-        filter = { $or: [ { original: { $regex: (search), $options: 'i' }} ], ...filter }
+        filter = { $or: [ { "original": { $regex: (search), $options: 'i' }} ], ...filter }
     }
     return filter;
 }

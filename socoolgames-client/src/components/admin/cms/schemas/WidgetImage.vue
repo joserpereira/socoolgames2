@@ -30,13 +30,13 @@
   const props = defineProps<{
     schema: Object,
     modelValue: string,
-    prefix: string
   }>()
 
   const data = reactive({
     items: [] as any[],
     selectIndex: null as any,
-    timeoutID: -1 as number
+    timeoutID: -1 as number,
+    prefix: "" as string
   })
   const emit = defineEmits(["update:modelValue"])
 
@@ -50,7 +50,6 @@
   })
 
   const fillData = async () => {
-    console.log("fillData", value.value)
     const result = await imageService.getItems(0, 5, value.value)
     if (result.status == 200 && result.data.data) {
       data.items = result.data.data;
