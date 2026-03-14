@@ -141,7 +141,6 @@
     })
 
     onMounted(() => {
-      console.log("dev mode", process.env)
       if (process.env.NODE_ENV === "development") {
         data.prefix = 'http://localhost:3000';
       }
