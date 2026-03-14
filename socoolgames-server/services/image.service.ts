@@ -11,7 +11,7 @@ const model = require('../models/image')
 
 const sizes = [
   { name: "thumb", width: 300 },
-  { name: "medium", width: 800 },
+  { name: "medium", width: 768 },
   { name: "large", width: 1600 }
 ]
 

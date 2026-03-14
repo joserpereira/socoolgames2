@@ -1,5 +1,5 @@
 <template>
-    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-[url('+formatUrl('./public/images/header.png')+')] bg-cover'" >
+    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 md:bg-[url('+formatUrl('http://localhost:3000'+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl('http://localhost:3000'+props.data?.backgroundImage.medium)+')] bg-cover' "  >
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
@@ -18,7 +18,11 @@
             </div>
         </div>
     </section>
-
+    <!-- <picture> -->
+    <!-- <source media="(width < 640px)" :srcset="formatUrl('http://localhost:3000/uploads/images/header-thumb-1773510699054.webp')" /> -->
+    <!-- <source media="(width <= 768px)" :srcset="formatUrl('http://localhost:3000'+props.data?.backgroundImage.medium)" />
+    <img :src="formatUrl('http://localhost:3000'+props.data?.backgroundImage.large)" alt="Chris standing up holding his daughter Elva" />
+    </picture> -->
 </template>
 <script setup>
     import { defineProps, defineEmits, onMounted } from 'vue';
