@@ -5,12 +5,11 @@
       :key="index"
       class="space-y-2"
     >
-    
-      <component v-if="typeof data.settings[item.field] === 'string'" 
+      <component v-if="item.field === 'backgroundImage'" 
                   :is="getComponent(item.type)" 
                   :schema="item"
                   v-model="data.settings[item.field]">
-      </component> 
+      </component>
       <component v-else :is="getComponent(item.type)" :value="data.settings[item.field]" :schema="item" :selectedLang="props.selectedLang"></component> 
     </div>
 </template>
