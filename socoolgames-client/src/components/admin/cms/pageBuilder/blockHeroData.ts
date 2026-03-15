@@ -12,7 +12,7 @@ class BlockHeroData {
   getDefault() {
     return {
         title: { pt: '', en: '' },
-        subtitle: { pt: '', en: '' },
+        subTitle: { pt: '', en: '' },
         buttonText: { pt: '', en: '' },
         buttonLink: { pt: '', en: '' },
         backgroundImage: ''
@@ -26,7 +26,7 @@ class BlockHeroData {
   getSchema() {
     return [
         { field: "title", type: "WidgetText", label: "Title" },
-        { field: "subtitle", type: "WidgetMultiline", label: "Title" },
+        { field: "subTitle", type: "WidgetMultiline", label: "Title" },
         { field: "buttonText", type: "WidgetText", label: "Button Text" },
         { field: "buttonLink", type: "WidgetUrl", label: "Button Link" },
         { field: "backgroundImage", type: "WidgetImage", label: "Background" },
