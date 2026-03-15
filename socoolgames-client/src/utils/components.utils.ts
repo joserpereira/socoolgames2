@@ -1,6 +1,8 @@
 import blockHeroData from '@/components/admin/cms/pageBuilder/blockHeroData';
 import blockTextData from '@/components/admin/cms/pageBuilder/blockTextData';
-const components = [blockHeroData, blockTextData]
+import block4ColumnsData from '@/components/admin/cms/pageBuilder/block4ColumnsData';
+
+const components = [blockHeroData, blockTextData, block4ColumnsData]
 
 class ComponentsUtils {
     getComponents() {
