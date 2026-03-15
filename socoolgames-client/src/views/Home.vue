@@ -2,34 +2,24 @@
     <!-- HERO -->
     <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-[url('+formatUrl('./public/images/header.png')+')] bg-cover'" >
 
-    <!-- style="background-image: url('header.png'); background-size:cover;"> -->
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
-
-        <div>
-            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
-                Jogos criativos para crianças longe dos ecrãs
-            </h1>
-
-            <p class="text-lg text-gray-700 mb-8">
-                Brincar, aprender e imaginar.  
-                Em casa ou na escola.
-            </p>
-
-            <a href="#produtos" 
-                class="hover:scale-105 bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-darkgreen transition">
-                Ver jogos criativos
-            </a>
-            </div>
+        <!-- style="background-image: url('header.png'); background-size:cover;"> -->
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
-            <!-- <img  -->
-                <!-- src="header.png"  -->
-                <!-- alt="Peças de madeira coloridas educativas"  -->
-                <!-- class="rounded-3xl shadow-xl w-full" -->
-                <!-- loading="lazy" -->
-            <!-- /> -->
-            </div>
+                <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                    Jogos criativos para crianças longe dos ecrãs
+                </h1>
 
+                <p class="text-lg text-gray-700 mb-8">
+                    Brincar, aprender e imaginar.  
+                    Em casa ou na escola.
+                </p>
+
+                <a href="#produtos" 
+                    class="hover:scale-105 bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-darkgreen transition">
+                    Ver jogos criativos
+                </a>
+            </div>
         </div>
     </section>
 
