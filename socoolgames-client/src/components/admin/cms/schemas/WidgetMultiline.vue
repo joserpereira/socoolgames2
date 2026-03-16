@@ -17,6 +17,10 @@
    })
 
   onMounted(() => {
+    let d = props.value ?? {};
+    if (!(props.selectedLang in d)) {
+      d[props.selectedLang] = "";
+    }
     data.value = props.value;
   })    
 
