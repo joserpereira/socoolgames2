@@ -1,5 +1,5 @@
 <template>
-    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 md:bg-[url('+formatUrl('http://localhost:3000'+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl('http://localhost:3000'+props.data?.backgroundImage.medium)+')] bg-cover' "  >
+    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl('http://localhost:3000'+props.data?.backgroundImage.medium)+')] bg-cover' "  >
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
@@ -28,6 +28,7 @@
     import { defineProps, defineEmits, onMounted } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
 
+    const baseUrl = 'http://localhost:3000';
     const props = defineProps({        
         data: {
             type: Object
