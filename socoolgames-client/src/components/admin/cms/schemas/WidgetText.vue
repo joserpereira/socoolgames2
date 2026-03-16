@@ -17,7 +17,11 @@
    })
 
   onMounted(() => {
-    data.value = props.value;
+    let d = props.value ?? {};
+    if (!(props.selectedLang in d)) {
+      d[props.selectedLang] = "";
+    }
+    data.value = d;
   })    
 
   const data = reactive({
