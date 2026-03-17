@@ -26,7 +26,7 @@ class BlockHeroData {
   getSchema() {
     return [
         { field: "title", type: "WidgetText", label: "Title" },
-        { field: "subTitle", type: "WidgetMultiline", label: "Title" },
+        { field: "subTitle", type: "WidgetMultiline", label: "Sub Title" },
         { field: "buttonText", type: "WidgetText", label: "Button Text" },
         { field: "buttonLink", type: "WidgetUrl", label: "Button Link" },
         { field: "backgroundImage", type: "WidgetImage", label: "Background" },
