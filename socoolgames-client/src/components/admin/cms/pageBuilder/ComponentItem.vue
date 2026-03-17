@@ -1,6 +1,7 @@
 <template>  
       <component v-if="(props.item.type === 'WidgetImage' || props.item.type === 'WidgetColor' )" 
                   :is="getComponent(props.item.type)" 
+                  :index="index"
                   :schema="item"
                   v-model="data.value[props.item.field]">
       </component>
@@ -11,7 +12,7 @@
                         :componentCache="props.componentCache"
                         :selectedLang="props.selectedLang"
                         ></WidgetMultiplier> 
-      <component v-else :is="getComponent(props.item.type)" :value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
+      <component v-else :is="getComponent(props.item.type)" :index="props.index" :value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
 </template>
 <script setup lang="ts">
   import { defineProps, onMounted, reactive, defineAsyncComponent  } from 'vue'
@@ -23,6 +24,7 @@
         item: {} as Object,
         value: Object,
         selectedLang: String,
+        index: Number,
         componentCache: {} as Record<string, any>
    })
 

@@ -1,9 +1,8 @@
 <template>
     <div class="bg-gray-100 rounded p-3">
       <div class="p-2">Items</div>
-        <div v-for="(item, index) in props.value" :key="index">
-          <div class="mt-2"># {{ index+1 }}</div>
-          <ComponentList :schema="props.schema" :data="item" :componentCache="props.componentCache" :selectedLang="props.selectedLang"></ComponentList>
+        <div class="mt-3" v-for="(item, index) in props.value" :key="index">
+          <ComponentList :schema="props.schema" :data="item" :index="index+1" :componentCache="props.componentCache" :selectedLang="props.selectedLang"></ComponentList>
         </div>
      </div>
 </template>

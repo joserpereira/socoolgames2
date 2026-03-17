@@ -1,6 +1,6 @@
 <template>
   <label class="block font-medium text-start text-sm mt-2">
-      {{ props.schema.label }}
+      {{ props.schema.label }} {{ props.index ? '#' + props.index : '' }}
   </label>
   <div class="flex items-center">
     <img v-if="data.value?.thumb" class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3" 
@@ -44,6 +44,7 @@
   const props = defineProps<{
     schema: Object,
     modelValue: Object
+    index: Number
   }>()
 
   const data = reactive({
@@ -51,7 +52,7 @@
     selectIndex: null as any,
     timeoutID: -1 as number,    
     selectedImage: "" as String,
-    value: {} as any,
+    value: {} as any,    
     prefix: "" as String
   })
   const emit = defineEmits(["update:modelValue"])

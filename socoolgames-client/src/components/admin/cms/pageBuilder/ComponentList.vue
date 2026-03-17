@@ -7,6 +7,7 @@
       <ComponentItem
         :item="item"
         :value="props.data"
+        :index="props.index"
         :componentCache="props.componentCache"
         :selectedLang="props.selectedLang">
       </ComponentItem>      
@@ -20,6 +21,7 @@
     schema: Object,
     data: Object,
     selectedLang: String,
+    index: Number,
     componentCache: {} as Record<string, any>
   })
 
