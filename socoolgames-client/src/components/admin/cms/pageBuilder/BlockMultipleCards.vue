@@ -33,7 +33,7 @@
         </article>
 
         <!-- Card 1 -->
-        <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <!-- <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/words_pt.png" alt="Jogo Caça Palavras" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
             <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">5 a 8 anos</span>
@@ -43,10 +43,10 @@
                 Quero experimentar
             </a>
             </div>
-        </article>
+        </article> -->
 
         <!-- Card 2 -->
-        <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <!-- <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/dots_pt.png" alt="Jogo Unir Pontos" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
             <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">4 a 7 anos</span>
@@ -56,10 +56,10 @@
                 Quero experimentar
             </a>
             </div>
-        </article>
+        </article> -->
 
         <!-- Card 3 -->
-        <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <!-- <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/loto_pt.png" alt="Loto de Natal" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
             <span class="text-xs bg-red-100 text-red-700 px-3 py-1 rounded-full">4 a 7 anos</span>
@@ -69,10 +69,10 @@
                 Quero experimentar
             </a>
             </div>
-        </article>
+        </article> -->
 
         <!-- Card 4 Ebook -->
-        <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
+        <!-- <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/ebook_pt.png" alt="Ebook Importância da Criatividade" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
             <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Para pais</span>
@@ -82,7 +82,7 @@
                 Quero receber
             </a>
             </div>
-        </article>
+        </article> -->
 
         </div>
     </div>
