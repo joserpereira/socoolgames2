@@ -37,8 +37,7 @@
 
     <button
       @click="upload"
-      class="mt-4 px-5 py-2 bg-blue-600 text-white rounded-lg"
-    >
+      class="mt-4 bg-primary px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black">
       Upload
     </button>
 

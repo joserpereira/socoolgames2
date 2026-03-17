@@ -50,8 +50,8 @@
         </div>
         <div class="mt-4">
             <button @click.prevent="saveItem"
-                    class="hover:ring-1 bg-blue-600 text-white px-4 py-2 rounded-lg
-                            hover:bg-blue-700 transition">
+            class="bg-primary px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black transition"
+                    >
                     Save
             </button>
         </div>
