@@ -7,7 +7,7 @@
                     {{ props.data.title?.[props.selectedLang] }}
                 </h1>
 
-                <p class="text-lg text-gray-700 mb-8" v-html="formatText(props.data.subtitle?.[props.selectedLang])">
+                <p class="text-lg text-gray-700 mb-8" v-html="formatText(props.data.subTitle?.[props.selectedLang])">
                     
                 </p>
 
