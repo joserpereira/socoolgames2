@@ -4,7 +4,7 @@
             {{ props.title }}
         </span>
         <span class="flex-none1">
-            <button type="button" :disabled="!data.authenticated" class="bg-primary px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black" @click.prevent="createClick">Create</button>
+            <button type="button" :disabled="!data.authenticated" class="bg-primary text-xs px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black" @click.prevent="createClick">Create</button>
         </span>
         <span class="grow me-5">
             <!-- @keyup="onSearchChange"
