@@ -15,7 +15,7 @@
       <component v-else :is="getComponent(props.item.type)" :index="props.index" :value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive, defineAsyncComponent  } from 'vue'
+  import { defineProps, onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'
   import WidgetMultiplier from '../schemas/WidgetMultiplier.vue';
   
   //import componentsUtils from '@/utils/components.utils';
@@ -39,9 +39,9 @@
       return;
 
     if (!data.componentCache[key]) {
-      data.componentCache[key] = defineAsyncComponent(
+      data.componentCache[key] = markRaw(defineAsyncComponent(
         () => import(`@/components/admin/cms/schemas/${key}.vue`)
-      )
+      ))
     }
 
     return data.componentCache[key]
