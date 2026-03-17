@@ -14,7 +14,7 @@
     </div>
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive } from 'vue'
+  import { defineProps } from 'vue'
   import ComponentItem from './ComponentItem.vue';
   
   const props = defineProps({        
@@ -25,14 +25,4 @@
     componentCache: {} as Record<string, any>
   })
 
-  onMounted(() => {
-    data.settings = props.data;
-  })   
-  
-
-
-const data = reactive({
-  settings: {} as any,
-  componentCache: {} as Record<string, any>
-})
 </script>
