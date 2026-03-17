@@ -18,14 +18,17 @@
             class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img :src="formatUrl(baseUrl+item?.image?.thumb)" alt="Jogo Caça Palavras" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
-            <span v-if="item.header?.[props.selectedLang]" class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full">{{ item.header?.[props.selectedLang] }}</span>
-            <h3 v-if="item.title?.[props.selectedLang]" class="text-xl font-bold mt-4 mb-2">{{ item.title?.[props.selectedLang] }}</h3>
-            <p v-if="item.subTitle?.[props.selectedLang]" class="text-gray-600 mb-4">{{ item.subTitle?.[props.selectedLang] }}</p>
-            <a :href="item.buttonLink?.[props.selectedLang]" v-if="item.buttonText?.[props.selectedLang]"
-            :class=" (item.buttonColor ?? '').length > 0 ? item.buttonColor : 'bg-primary text-white'"
-               class="block text-center   py-3 rounded-full font-semibold hover:bg-darkgreen transition">
-                {{ item.buttonText?.[props.selectedLang] }}
-            </a>
+                <span v-if="item.header?.[props.selectedLang]" 
+                      :class="(item.headerColor ?? '').length > 0 ? item.headerColor : 'bg-yellow-100 text-yellow-700'"
+                      class="text-xs px-3 py-1 rounded-full">{{ item.header?.[props.selectedLang] }}</span>
+                
+                <h3 v-if="item.title?.[props.selectedLang]" class="text-xl font-bold mt-4 mb-2">{{ item.title?.[props.selectedLang] }}</h3>
+                <p v-if="item.subTitle?.[props.selectedLang]" class="text-gray-600 mb-4">{{ item.subTitle?.[props.selectedLang] }}</p>
+                <a :href="item.buttonLink?.[props.selectedLang]" v-if="item.buttonText?.[props.selectedLang]"
+                   :class="(item.buttonColor ?? '').length > 0 ? item.buttonColor : 'bg-primary text-white'"
+                   class="block text-center   py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+                    {{ item.buttonText?.[props.selectedLang] }}
+                </a>
             </div>
         </article>
 

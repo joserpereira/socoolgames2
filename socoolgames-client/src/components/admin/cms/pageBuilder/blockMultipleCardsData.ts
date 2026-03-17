@@ -64,6 +64,7 @@ class BlockMultipleCardsData {
         { field: "items", type: "WidgetMultiplier", label: "Items",
               items: [
                 { field: "header", type: "WidgetText", label: "Header" },
+                { field: "headerColor", type: "WidgetColor", label: "Header Color" },
                 { field: "title", type: "WidgetText", label: "Title" },
                 { field: "subTitle", type: "WidgetMultiline", label: "Sub Title" },
                 { field: "buttonText", type: "WidgetText", label: "Button Text" },
