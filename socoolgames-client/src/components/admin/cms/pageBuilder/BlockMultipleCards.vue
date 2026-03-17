@@ -22,7 +22,8 @@
             <h3 v-if="item.title?.[props.selectedLang]" class="text-xl font-bold mt-4 mb-2">{{ item.title?.[props.selectedLang] }}</h3>
             <p v-if="item.subTitle?.[props.selectedLang]" class="text-gray-600 mb-4">{{ item.subTitle?.[props.selectedLang] }}</p>
             <a :href="item.buttonLink?.[props.selectedLang]" v-if="item.buttonText?.[props.selectedLang]"
-               class="block text-center bg-primary text-white py-3 rounded-full font-semibold hover:bg-darkgreen transition">
+            :class=" (item.buttonColor ?? '').length > 0 ? item.buttonColor : 'bg-primary text-white'"
+               class="block text-center   py-3 rounded-full font-semibold hover:bg-darkgreen transition">
                 {{ item.buttonText?.[props.selectedLang] }}
             </a>
             </div>
@@ -74,7 +75,7 @@
             <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full">Para pais</span>
             <h3 class="text-xl font-bold mt-4 mb-2">A importância da Criatividade</h3>
             <p class="text-gray-600 mb-4">Guia prático para estimular o desenvolvimento infantil.</p>
-            <a href="#" class="block text-center bg-secondary text-dark py-3 rounded-full font-semibold hover:opacity-90 transition">
+            <a href="#" class="block text-center bg-secondary py-3 rounded-full font-semibold hover:opacity-90 transition">
                 Quero receber
             </a>
             </div>
