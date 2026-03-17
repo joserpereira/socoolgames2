@@ -43,7 +43,7 @@
 
   const props = defineProps<{
     schema: Object,
-    modelValue: Object
+    modelValue: String
     index: Number
   }>()
 
@@ -52,7 +52,7 @@
     selectIndex: null as any,
     timeoutID: -1 as number,    
     selectedImage: "" as String,
-    value: {} as any,    
+    value: "" as String,    
     prefix: "" as String
   })
   const emit = defineEmits(["update:modelValue"])
