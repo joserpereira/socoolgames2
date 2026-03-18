@@ -44,9 +44,16 @@ export const getItemByNameRef = async (req: Request, res: Response) => {
     try
     {
         loggerUtils.debug("get category")
-        const { nameRef } = req.params;
-        const item = await service.getItemWithFilter(collectionName, { nameRef, active: true, deleted: { $ne: true } });
-        res.status(200).json({error: 0, message: '', data: item.data})
+        const { nameref } = req.params;
+        
+        const item = await service.getItemWithFilter(collectionName, { slug: nameref, active: true, deleted: { $ne: true } });
+        if (item.data)
+            res.status(200).json({error: 0, message: '', data: item.data})
+        else {
+            res.status(200).json({error: 900, message: 'Page not found', data: item.data})
+        }
+            
+
     }
     catch(error: any)
     {

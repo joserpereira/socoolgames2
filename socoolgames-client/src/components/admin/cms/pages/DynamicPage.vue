@@ -8,10 +8,10 @@
 <script setup>
     import { reactive, onMounted } from 'vue'
     import pageService from '@/services/page.service';
-    import { useRoute } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import componentsUtils from '@/utils/components.utils';
     const route = useRoute();
-
+    const router = useRouter()
     function getBlockComponent(type) {
         return data.components[type];
     }
@@ -29,7 +29,11 @@
         if (result.status == 200 && result.data.error == 0 && result.data.data)
         {
             data.item = result.data.data;
-        }        
+        } 
+        else
+        {
+            router.push('/not-found');
+        }
     })
     
 </script>
