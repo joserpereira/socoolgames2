@@ -3,17 +3,17 @@
 
   <TopBar></TopBar>
   <router-view></router-view>
-  <Footer></Footer>
+  <FooterBar></FooterBar>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import TopBar from '@/components/TopBar.vue';
-import Footer from '@/components/Footer.vue';
+import FooterBar from '@/components/FooterBar.vue';
 @Options({
   components: {
     TopBar,
-    Footer
+    FooterBar
   },
 })
 export default class App extends Vue {}

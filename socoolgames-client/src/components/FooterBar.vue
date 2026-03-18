@@ -32,14 +32,18 @@
           </a>
         </span>
       <p class="text-xs opacity-70 mt-4">
-        © 2026 So Cool Games · Política de Privacidade · Termos & Condições
+        © 2026 So Cool Games · Política de Privacidade · Termos & Condições ·
+        <button class="me-1" @click="changeLanguage('en')">en</button>
+        <button @click="changeLanguage('pt')">pt</button>
       </p>
     </div>
   </footer>
 </template>
 
-<script lang="ts">
-    export default {
-        name: "FooterComp"
-    }
+<script lang="ts" setup>
+  import localizationUtils from '@/utils/localization.utils';
+  
+    const changeLanguage = (lang) => {
+      localizationUtils.setLanguage(lang);
+    } 
 </script>

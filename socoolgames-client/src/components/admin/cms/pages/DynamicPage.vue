@@ -1,15 +1,16 @@
 <template>
     <div v-for="block in data.item.blocks" :key="block._id">
-        <!-- {{ block }} -->
-          
-       <component :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLang"></component> 
+       <component :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLanguage"></component> 
     </div>
 </template>
 <script setup>
-    import { reactive, onMounted } from 'vue'
+    import { reactive, onMounted, watch } from 'vue'
     import pageService from '@/services/page.service';
     import { useRoute, useRouter } from 'vue-router';
     import componentsUtils from '@/utils/components.utils';
+    import { useI18n } from "vue-i18n";
+    
+    const t = useI18n();
     const route = useRoute();
     const router = useRouter()
     function getBlockComponent(type) {
@@ -18,11 +19,16 @@
     const data = reactive({        
         item: {},
         components: {},
-        selectedLang: "en"
+        selectedLanguage: ""
     })
 
+    watch(() => t.locale.value, (value) => {        
+        data.selectedLanguage = value;
+    }, { deep: true });
+
+
     onMounted(async () => {
-        
+        data.selectedLanguage = localStorage.selectedLanguage;
         const slug = route.params.slug
         const result = await pageService.getItemByNameRef(slug);
         data.components = componentsUtils.getComponents();
