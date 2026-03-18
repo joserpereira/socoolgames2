@@ -3,12 +3,12 @@
 
         <!-- Background Image -->
         <div class="absolute inset-0">
-            <img 
-            src="@/assets/images/video-preview.png" 
-            alt="Criança a utilizar jogo criativo no telemóvel"
-            class="w-full h-full object-cover"
-            loading="lazy"
-            />
+            <picture>
+                <source media="(width < 640px)" :srcset="formatUrl(baseUrl + props.data?.backgroundImage.thumb)" />
+                <source media="(width <= 768px)" :srcset="formatUrl(baseUrl + props.data?.backgroundImage.medium)" />
+                <img loading="lazy" class="w-full h-full object-cover" alt="Criança a utilizar jogo criativo no telemóvel"
+                     :src="formatUrl(baseUrl + props.data?.backgroundImage.large)" />
+            </picture>
             <div class="absolute inset-0 bg-black/50"></div>
         </div>
 
@@ -28,19 +28,20 @@
                target="_blank" 
                rel="noopener"
                class="inline-flex items-center gap-3 border-2 border-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition">
-            <!-- Play Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
-            {{ props.data.buttonText?.[props.selectedLang] }}
+                <!-- Play Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                {{ props.data.buttonText?.[props.selectedLang] }}
             </a>
 
         </div>
     </section>
 </template>
 <script setup>
-    import { defineProps, /* defineEmits,*/ onMounted } from 'vue';
-    // import { formatUrl } from "@/utils/url.utils";
+    import { defineProps } from 'vue';
+    const baseUrl = 'http://localhost:3000';
+    import { formatUrl } from "@/utils/url.utils";
 
     const props = defineProps({        
         data: {
@@ -51,14 +52,4 @@
         }
     })
 
-    // const formatText = (text) => {
-    //     if (text)
-    //         return text.replaceAll('\n', '<br />')
-    //     return "";
-    // }
-
-    onMounted(() => {
-    })
-
-    // defineEmits({ formatUrl })
 </script>
