@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
-class BlockTopicsData {
+class BlockNewsLetterData {
 
   getNames() {
     return {
@@ -32,4 +32,4 @@ class BlockTopicsData {
   
 }
 
-export default new BlockTopicsData();
+export default new BlockNewsLetterData();
