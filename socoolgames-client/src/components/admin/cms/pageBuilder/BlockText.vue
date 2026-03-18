@@ -1,5 +1,8 @@
 <template>
-    <span v-html="props.data.content[props.selectedLang]"></span>
+    <section>
+        <span class="my-5" v-html="props.data.content[props.selectedLang]"></span>
+    </section>
+    
 </template>
 <script setup>
     import { defineProps, defineExpose } from 'vue';
