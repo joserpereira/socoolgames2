@@ -234,27 +234,35 @@
         closeMenu();
     }
 
+    const copy = (obj_data) => {
+        if (obj_data["en"]) {
+            Object.keys(obj_data).forEach((subitem) => {
+                if (subitem !== data.currentLang) {
+                    obj_data[subitem] = obj_data["en"];
+                }
+            })
+        }
+
+        if (Array.isArray(obj_data)) {
+            obj_data.forEach((item) => {
+                Object.keys(item).forEach((subitem) => {
+                    copy(item[subitem]);
+                })
+            })
+        }
+        
+    }
+
     const copySettingsToAllLanguages = (index) => {
         
         const obj_data = data.blocks[index].data;
 
         Object.keys(obj_data).forEach((item) => {
-            
             if (Object.keys(obj_data)) {
-                Object.keys(obj_data[item]).forEach((subitem, index2) => {
-                    console.log("a", subitem, index2, obj_data[item][subitem]);        
-                    if (subitem !== data.currentLang) {
-                        console.log("b", subitem)
-                        obj_data[item][subitem] = obj_data[item]["en"];
-                    }
-                })
+                copy(obj_data[item])
             }
 
         })        
-        // for (let i = 0; i < Object.keys(obj_data).length; i++) {
-        //      // console.log("prop", data.blockNames[index].data)
-        //      console.log("i", i, obj_data[i])
-        // }
     }
     const log = async() => {
         console.log("log")
