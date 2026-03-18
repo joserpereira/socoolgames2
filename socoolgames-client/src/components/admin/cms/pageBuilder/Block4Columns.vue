@@ -10,22 +10,22 @@
             </h3>
             <div class="grid md:grid-cols-4 gap-8">
 
-            <div>
+            <div class="hover:scale-110">
                 <div class="text-4xl mb-4">{{ props.data.title1?.[props.selectedLang] }}</div>
                 <h3 class="font-bold mb-2">{{ props.data.subTitle1?.[props.selectedLang] }}</h3>
             </div>
 
-            <div>
+            <div class="hover:scale-110">
                 <div class="text-4xl mb-4">{{ props.data.title2?.[props.selectedLang] }}</div>
                 <h3 class="font-bold mb-2">{{ props.data.subTitle2?.[props.selectedLang] }}</h3>
             </div>
 
-            <div>
+            <div class="hover:scale-110">
                 <div class="text-4xl mb-4">{{ props.data.title3?.[props.selectedLang] }}</div>
                 <h3 class="font-bold mb-2">{{ props.data.subTitle3?.[props.selectedLang] }}</h3>
             </div>
 
-            <div>
+            <div class="hover:scale-110">
                 <div class="text-4xl mb-4">{{ props.data.title4?.[props.selectedLang] }}</div>
                 <h3 class="font-bold mb-2">{{ props.data.subTitle4?.[props.selectedLang] }}</h3>
             </div>
@@ -35,8 +35,7 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, /* defineEmits,*/ onMounted } from 'vue';
-    // import { formatUrl } from "@/utils/url.utils";
+    import { defineProps } from 'vue';
 
     const props = defineProps({        
         data: {
@@ -47,14 +46,4 @@
         }
     })
 
-    // const formatText = (text) => {
-    //     if (text)
-    //         return text.replaceAll('\n', '<br />')
-    //     return "";
-    // }
-
-    onMounted(() => {
-    })
-
-    // defineEmits({ formatUrl })
 </script>
