@@ -1,5 +1,5 @@
 <template>
-    <section :class="'py-16 md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.medium)+')] bg-cover'">
+    <section :class="'md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.medium)+')] bg-cover'">
         <div class="max-w-6xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
             <div class="max-w-6xl mx-auto mt-20 px-6 text-center">
 
