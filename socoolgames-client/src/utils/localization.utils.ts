@@ -11,7 +11,7 @@ class LocalizationUtils {
         this.i18n = createI18n({
             // something vue-i18n options here ...
             locale: defaultLocale,
-            allowComposition: true,
+            legacy: false,
             warnHtmlInMessage: 'off', 
             fallbackLocale: 'en',
             messages: messages,
