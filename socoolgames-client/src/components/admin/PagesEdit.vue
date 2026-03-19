@@ -43,7 +43,7 @@
             <span class="ms-4 text-sm p-1 bg-yellow-100"  v-else>Please fill slug</span>
         </div>
         <div class="mt-4">
-            <PageBuilder :pageId="data.item._id" :blocks="data.item.blocks" @changeBlocks="changeBlocks"></PageBuilder>
+            <PageBuilder v-model:item="data.item" ></PageBuilder>
         </div>
         <div class="mt-4">
             <div class="py-2 text-red-400" v-if="data.error">{{ data.error }}</div>
@@ -67,7 +67,6 @@
         saved: Function
     })
 
-    //watch(props.item, (value) => {
     watch(() => props.item, (value) => {        
         if (props?.item && value) {
             data.item = value;
@@ -91,10 +90,11 @@
             data.item = props.item;
         }
     })
-
+/*
     const changeBlocks = async (value) => {
         data.item.blocks = value;
     }
+        */
     const getLocation = () => {
         return window.location.origin;
     }

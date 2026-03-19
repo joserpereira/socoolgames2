@@ -18,17 +18,17 @@
     <!-- CENTER: Canvas -->
     <div class="flex-1 overflow-auto bg-gray-50">
       <div class="max-w-4xl mx-auto bg-white shadow rounded p-6 space-y-6 drag-container">
-        <div v-if="data.blocks.length === 0" class="text-center m-5">
+        <div v-if="item.blocks.length === 0" class="text-center m-5">
             No Items
         </div>
         <draggable v-else
             class="dragArea list-group min-h-64"
-            :list="data.blocks"
+            :list="item.blocks"
             :group="{ name: 'people', pull: 'clone', put: false }"
             animation="200"
             handle=".cursor-move"
             @change="log">
-            <div v-for="(component, index) in data.blocks" :key="index">
+            <div v-for="(component, index) in item.blocks" :key="index">
                 <div class="list-group-item text-center text-white border pt-2 px-2 flex" :class="component?.disable ? 'bg-sky-950/80' : 'bg-sky-950'">
                     <div class="cursor-move">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -110,32 +110,35 @@
                         </div>
                     </div>
                     <div class="text-center mb-2">
-                        <SettingsPanel :componentType="component.type" :data="data.blocks[data.selectedIndex].data" :selectedLang="data.currentLang"></SettingsPanel>
+                        <SettingsPanel :componentType="component.type" :data="item.blocks[data.selectedIndex].data" :selectedLang="data.currentLang"></SettingsPanel>
                     </div>
                 </div>
             </div>
         </draggable>
       </div>
     </div>
+    <div class="mt-4">
+        <PageMetadata  v-model:item="item" :currentLang="data.currentLang"></PageMetadata>
+    </div>
 </template>
 <script setup lang="ts">
     import { v4 as uuid } from 'uuid'
-    import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted } from 'vue'
+    import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted, computed } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
     import BlockToolbar from './BlockToolbar.vue';
+    import PageMetadata from '../PageMetadata.vue';
     import componentsUtils from '@/utils/components.utils';
 
     import SettingsPanel from './SettingsPanel.vue';
-
+/*
     interface Block {
         id: string;
         type: string;
         data: any;
         disable?: boolean;
     }
-    
-    const emit = defineEmits(['changeBlocks'])
-
+*/    
+    const emit = defineEmits(['update:item'])
     const openMenu = ref(null)
 
     function toggleMenu(index) {
@@ -154,28 +157,17 @@
         })
     */
     const props = defineProps({        
-        blocks: {
-            type: Array as () => Block[],
-            default: () => []
-        },
-        pageId: {
-            type: String
+        item: {
+            type: Object
         }
     })
 
-    watch(props, () => {        
-        if (props?.blocks) {
-            data.blocks = props?.blocks;
-        }
-    }, { deep: true });
-
-    watch(() => props.pageId, () => {
+    watch(() => props.item, () => {
         data.selectedIndex =-1
-        data.oldPageId = props.pageId;
-    })
+        data.oldPageId = item.value._id;
+    }, { deep: true })
 
     var data = reactive({
-        blocks: [] as Block[],
         selectedIndex: -1,
         error: "",
         currentLang: "en",
@@ -186,11 +178,18 @@
     })
 
     onMounted(async () => {
-        data.blocks = props.blocks;
         
         data.components = (await componentsUtils).getComponents();
     })
 
+    const item = computed({
+    get() {
+        return props.item || {}
+    },
+    set(value) {
+        emit('update:item', value)
+    }
+    })
     const blockAdded = async(type: string) => {
         const dict = data.components;
         const base = {
@@ -203,9 +202,9 @@
         if (!dict[type])
             return null;
 
-        data.blocks.push(base)
+        item.value.blocks.push(base)
         
-        emit("changeBlocks", data.blocks);
+        // emit("changeBlocks", item.value.blocks);
     }
 
     const getName = (type) => {        
@@ -222,15 +221,15 @@
     }
 
     const removeBlock = async (index) => {
-        data.blocks.splice(index, 1);
+        item.value.blocks.splice(index, 1);
         closeMenu();
     }
 
     const disableBlock = async (index) => {
-        if (data.blocks[index]?.disable === true)
-            data.blocks[index].disable = false;
+        if (item.value.blocks[index]?.disable === true)
+            item.value.blocks[index].disable = false;
         else
-            data.blocks[index].disable = true;
+            item.value.blocks[index].disable = true;
         closeMenu();
     }
 
@@ -255,7 +254,7 @@
 
     const copySettingsToAllLanguages = (index) => {
         
-        const obj_data = data.blocks[index].data;
+        const obj_data = item.value.blocks[index].data;
 
         Object.keys(obj_data).forEach((item) => {
             if (Object.keys(obj_data)) {
