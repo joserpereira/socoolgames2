@@ -25,7 +25,7 @@
 
     watch(() => locale, (value) => {        
         data.selectedLanguage = value;
-    }, { deep: true });
+    });
 
     onMounted(async () => {
         data.selectedLanguage = localStorage.selectedLanguage;
