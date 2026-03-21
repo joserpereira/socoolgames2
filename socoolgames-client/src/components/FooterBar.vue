@@ -33,17 +33,36 @@
         </span>
       <p class="text-xs opacity-70 mt-4">
         © 2026 So Cool Games · Política de Privacidade · Termos & Condições ·
-        <button class="me-1" @click="changeLanguage('en')">en</button>
-        <button @click="changeLanguage('pt')">pt</button>
+        <button class="me-1" :class="data.selectedLanguage == 'en' ? 'underline' : ''" @click="changeLanguage('en')">en</button>
+        <button :class="data.selectedLanguage == 'pt' ? 'underline' : '' " @click="changeLanguage('pt')">pt</button>
       </p>
     </div>
   </footer>
 </template>
 
 <script lang="ts" setup>
-  import localizationUtils from '@/utils/localization.utils';
-  
+    import localizationUtils from '@/utils/localization.utils';
+    import { watch,  reactive, onMounted } from 'vue'
+    import { useI18n } from "vue-i18n";
+    const { locale } = useI18n();
+
+    const data = reactive({ 
+        item: {},
+        components: {},
+        selectedLanguage: ""
+    })
+
+    onMounted(() => {
+      data.selectedLanguage = localStorage.selectedLanguage;
+    })
+
     const changeLanguage = (lang) => {
       localizationUtils.setLanguage(lang);
     } 
+
+     watch(() => locale, (value) => {        
+        data.selectedLanguage = value;
+    }, { deep: true });
+
+
 </script>

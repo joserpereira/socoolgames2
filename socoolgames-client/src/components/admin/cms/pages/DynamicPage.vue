@@ -9,23 +9,23 @@
     import { useRoute, useRouter } from 'vue-router';
     import componentsUtils from '@/utils/components.utils';
     import { useI18n } from "vue-i18n";
-    
-    const t = useI18n();
+    const { locale } = useI18n();
+
     const route = useRoute();
     const router = useRouter()
     function getBlockComponent(type) {
         return data.components[type];
     }
+
     const data = reactive({        
         item: {},
         components: {},
         selectedLanguage: ""
     })
 
-    watch(() => t.locale.value, (value) => {        
+    watch(() => locale, (value) => {        
         data.selectedLanguage = value;
     }, { deep: true });
-
 
     onMounted(async () => {
         data.selectedLanguage = localStorage.selectedLanguage;

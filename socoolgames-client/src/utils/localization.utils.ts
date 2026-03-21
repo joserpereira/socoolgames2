@@ -11,7 +11,9 @@ class LocalizationUtils {
         this.i18n = createI18n({
             // something vue-i18n options here ...
             locale: defaultLocale,
-            legacy: false,
+            allowComposition: true,
+            //legacy: false,
+            //globalInjection: true,
             warnHtmlInMessage: 'off', 
             fallbackLocale: 'en',
             messages: messages,
@@ -29,10 +31,13 @@ class LocalizationUtils {
         return this.i18n;
     }
 
-    setLanguage(locale: string) {
-        if (Object.keys(languages).includes(locale)) {
-            this.i18n.global.locale = locale;
-            localStorage.selectedLanguage = locale;
+    getItem() {
+        return this.i18n;
+    }
+    setLanguage(value: string) {
+        if (Object.keys(languages).includes(value)) {
+            this.i18n.global.locale = value;
+            localStorage.selectedLanguage = value;
         }
     }
 }
