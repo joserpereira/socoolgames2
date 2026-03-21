@@ -23,7 +23,7 @@
         selectedLanguage: ""
     })
 
-    watch(() => locale, (value) => {        
+    watch(locale, (value) => {        
         data.selectedLanguage = value;
     });
 

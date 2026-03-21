@@ -60,7 +60,7 @@
       localizationUtils.setLanguage(lang);
     } 
 
-     watch(() => locale, (value) => {        
+     watch(locale, (value) => {        
         data.selectedLanguage = value;
     }, { deep: true });
 
