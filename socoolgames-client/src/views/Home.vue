@@ -1,8 +1,8 @@
 <template>
-    <!-- HERO -->
-    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-[url('+formatUrl('./public/images/header.png')+')] bg-cover'" >
+    <DynamicPage slugText="home"></DynamicPage>
 
-        <!-- style="background-image: url('header.png'); background-size:cover;"> -->
+    <!-- HERO -->
+    <!-- <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-[url('+formatUrl('./public/images/header.png')+')] bg-cover'" >
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
@@ -21,10 +21,10 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- BENEFÍCIOS -->
-    <section class="py-16 bg-white">
+    <!-- <section class="py-16 bg-white">
         <div class="max-w-6xl mx-auto px-6 text-center">
 
             <h2 class="text-3xl md:text-4xl font-bold mb-12">
@@ -57,10 +57,10 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- JOGOS POR IDADE -->
-    <section id="produtos" class="py-20 bg-gray-50">
+    <!-- <section id="produtos" class="py-20 bg-gray-50">
      <div class="max-w-7xl mx-auto px-6">
 
         <div class="text-center mb-14">
@@ -74,7 +74,6 @@
 
         <div class="grid md:grid-cols-4 gap-8">
 
-        <!-- Card 1 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/words_pt.png" alt="Jogo Caça Palavras" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
@@ -87,7 +86,6 @@
             </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/dots_pt.png" alt="Jogo Unir Pontos" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
@@ -100,7 +98,6 @@
             </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/loto_pt.png" alt="Loto de Natal" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
@@ -113,7 +110,6 @@
             </div>
         </article>
 
-        <!-- Card 4 Ebook -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/ebook_pt.png" alt="Ebook Importância da Criatividade" class="w-full h-48 object-cover" loading="lazy">
             <div class="p-6">
@@ -128,10 +124,10 @@
 
         </div>
     </div>
-    </section>
+    </section> -->
 
     <!-- CREATIVE BOX  -->
-    <section :class="'relative py-20 px-6 text-center bg-[url('+formatUrl('./public/images/background_green.png')+')] bg-cover'">
+    <!-- <section :class="'relative py-20 px-6 text-center bg-[url('+formatUrl('./public/images/background_green.png')+')] bg-cover'">
 
     <div class="max-w-4xl mx-auto ">
 
@@ -150,10 +146,10 @@
 
     </div>
 
-    </section>
+    </section> -->
 
     <!-- MAiS PRODUTOS -->
-    <section id="produtos" class="py-20 bg-gray-50">
+    <!-- <section id="produtos" class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="text-center mb-14">
@@ -164,7 +160,6 @@
 
         <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- Card 1 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/words_pt.png" alt="Jogo Caça Palavras" class="w-full h-100 object-cover" loading="lazy">
             <div class="p-6">
@@ -177,7 +172,6 @@
             </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img :src="formatUrl('./public/images/cardscaixacriativa.png')" alt="Jogo Unir Pontos" class="w-full h-100 object-cover" loading="lazy">
             <div class="p-6">
@@ -190,7 +184,6 @@
             </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img src="@/assets/images/loto_pt.png" alt="Loto de Natal" class="w-full h-100 object-cover" loading="lazy">
             <div class="p-6">
@@ -205,10 +198,10 @@
 
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- Livros -->
-    <section id="produtos" class="py-20 bg-gray-50">
+    <!-- <section id="produtos" class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6">
 
         <div class="text-center mb-14">
@@ -219,7 +212,6 @@
 
         <div class="grid md:grid-cols-3 gap-8">
 
-        <!-- Card 1 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img :src="formatUrl('./public/images/ebook1.webp')" alt="Jogo Caça Palavras" class="w-full h-64 object-cover" loading="lazy">
             <div class="p-6">
@@ -232,7 +224,6 @@
             </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img :src="formatUrl('./public/images/ebook2.webp')" alt="Jogo Unir Pontos" class="w-full h-64 object-cover" loading="lazy">
             <div class="p-6">
@@ -245,7 +236,6 @@
             </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
             <img :src="formatUrl('./public/images/ebook3.webp')" alt="Loto de Natal" class="w-full h-64 object-cover" loading="lazy">
             <div class="p-6">
@@ -260,11 +250,10 @@
 
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="relative w-full h-[600px] flex items-center justify-center text-center text-white">
+    <!-- <section class="relative w-full h-[600px] flex items-center justify-center text-center text-white">
 
-    <!-- Background Image -->
     <div class="absolute inset-0">
         <img 
         src="@/assets/images/video-preview.png" 
@@ -275,7 +264,6 @@
         <div class="absolute inset-0 bg-black/50"></div>
     </div>
 
-    <!-- Content -->
     <div class="relative z-10 max-w-3xl px-6">
 
         <h2 class="text-3xl md:text-5xl font-bold mb-6">
@@ -286,14 +274,13 @@
         Descobre um mundo de possibilidades para aprender brincando!
         </p>
 
-        <!-- Video Button -->
         <a 
         href="https://www.youtube.com/watch?v=h2IDctBX7OU" 
         target="_blank" 
         rel="noopener"
         class="inline-flex items-center gap-3 border-2 border-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-black transition"
         >
-        <!-- Play Icon -->
+
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z"/>
         </svg>
@@ -301,14 +288,12 @@
         </a>
 
     </div>
-    </section>
+    </section> -->
 
-    <section :class="'py-16 bg-[url('+formatUrl('./public/images/block1.png')+')] bg-cover'">
+    <!-- <section :class="'py-16 bg-[url('+formatUrl('./public/images/block1.png')+')] bg-cover'">
 
-    <!-- BLOCK 1 -->
     <div class="max-w-6xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
 
-        <!-- Text -->
         <div 
         class="py-5">
         <h2 class="text-3xl md:text-4xl font-bold text-green-700 mb-4">
@@ -343,7 +328,6 @@
         </button>
         </div>
 
-        <!-- Imagem -->
         <div class="flex justify-center">
         <img 
             :src="formatUrl('./public/images/familia_criativa.png')" 
@@ -354,12 +338,11 @@
         </div>
 
     </div>
-    </section>
-
+    </section> -->
+<!--
     <section :class="'py-16 bg-[url('+formatUrl('./public/images/block1.png')+')] bg-cover'">
         <div class="max-w-6xl mx-auto px-6 py-5 grid gap-12 items-center">
 
-        <!-- BLOCK 2 - NEWSLETTER -->
         <div class="row mt-24 px-6 text-center">
 
             <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-6">
@@ -387,7 +370,6 @@
 
         </div>
 
-        <!-- BLOCK 3 - INSTAGRAM -->
         <div class="max-w-6xl mx-auto mt-20 px-6 text-center">
 
             <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-10">
@@ -404,7 +386,7 @@
 
             </div>
 
-            <a href="https://instagram.com" target="_blank"
+            <a href="https://www.instagram.com/socoolgames" target="_blank"
             class="inline-block bg-primary hover:bg-darkgreen text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg transition">
             Ver no Instagram
             </a>
@@ -412,6 +394,8 @@
         </div>
         </div>
     </section>
+-->
+
 </template>
 <script lang="ts">
 
@@ -421,6 +405,7 @@
 </script>
 <script setup lang="ts">
     import { formatUrl } from "@/utils/url.utils";
+    import DynamicPage from '@/components/admin/cms/pages/DynamicPage.vue';
 
     // eslint-disable-next-line no-undef
     defineExpose({ formatUrl });

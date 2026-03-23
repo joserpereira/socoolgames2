@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue';
 import ClientLayout from '@/layouts/ClientLayout.vue';
-import DynamicPage from '@/components/admin/cms/pages/DynamicPage.vue';
+import DynamicView from '@/views/DynamicView.vue';
 import PageNotFound from '@/components/common/PageNotFound.vue';
 // import RedirectPage from '@/components/RedirectPage.vue';
 // import Terms from '@/views/Terms.vue';
@@ -21,7 +21,7 @@ const publicRoutes: RouteRecordRaw[] = [
             {
                 path: '/p/:slug',
                 name: 'dynamic',
-                component: DynamicPage
+                component: DynamicView
             },
             {   
                 path: "/not-found", 
