@@ -15,9 +15,16 @@
     })
 
     
-    onMounted(() => {    
-        data.slugText = route.params.slug;        
-        data.language = route.params.lang;
+    onMounted(() => {   
+        data.slugText = (route.params.slug ?? "").length > 0 ? route.params.slug : "home";
+        data.language = fixLang(route.params.lang);
     })
+    
+    const fixLang = (language) => {
+        if (language in ["pt","en" ])
+            return language;
+        
+        return localStorage.selectedLanguage
+    }
 
 </script>

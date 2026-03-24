@@ -24,7 +24,7 @@ const publicRoutes: RouteRecordRaw[] = [
                 component: DynamicView
             },
             {
-                path: '/:lang/:slug',
+                path: '/:lang/:slug?',
                 name: 'dynamic',
                 component: DynamicView
             },
