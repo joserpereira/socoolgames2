@@ -32,7 +32,7 @@ const publicRoutes: RouteRecordRaw[] = [
                 path: "/not-found", 
                 component: PageNotFound 
             },
-
+            { path: '/:pathMatch(.*)*', component: PageNotFound },
         ],
 
 
