@@ -14,7 +14,7 @@
                 </p>
                     
                 <ul class="space-y-4 text-gray-800 text-lg">
-                    <li class="flex items-center gap-3" v-for="(item, index) in (props.data.items?.[props.selectedLang].split('\n') ?? [])" :key="index">
+                    <li class="flex items-center gap-3 text-shadow-lg" v-for="(item, index) in (props.data.items?.[props.selectedLang].split('\n') ?? [])" :key="index">
                         <span class="text-green-600 text-xl">✔</span> {{ item }}
                     </li>
                 </ul>
