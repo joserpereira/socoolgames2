@@ -3,8 +3,9 @@
   <header class="bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
       <!-- <div class="text-2xl font-black text-primary">So COOL Games</div> -->
-    
-      <img style="height: 80px" src="@/assets/images/logo_horiz.webp" class="rounded-xl" />
+      <a :href="'/'+data.selectedLanguage+'/'">
+        <img style="height: 80px" src="@/assets/images/logo_horiz.webp" class="rounded-xl" />
+      </a>
       <div class="md:hidden">
         <!-- @click="data.isOpen = !data.isOpen"  -->
         <button type="button" aria-label="More Options" class="block text-gray-500 hover:text-primary focus:text-primary focus:outline-none">
@@ -29,6 +30,22 @@
   </header>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+    import { watch, reactive, defineExpose, onMounted } from 'vue'
+    import { useI18n } from "vue-i18n";
+    const { locale } = useI18n();
+
+    const data = reactive({        
+        selectedLanguage: ""
+    })
+
+    watch(locale, (value) => {        
+        data.selectedLanguage = value;
+    });
+
+    onMounted(() => {
+      data.selectedLanguage = localStorage.selectedLanguage
+    })
+    defineExpose({ data })
 </script>
 
