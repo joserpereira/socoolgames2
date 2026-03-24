@@ -1,5 +1,5 @@
 <template>
-    <DynamicPage :slugText="data.slugText"></DynamicPage>
+    <DynamicPage :slugText="data.slugText" :language="data.language"></DynamicPage>
 </template>
 
 <script setup lang="ts">
@@ -10,12 +10,14 @@
     const route = useRoute();
     
     const data = reactive({        
-        slugText: '' as String
+        slugText: '' as String,
+        language: '' as String
     })
 
     
     onMounted(() => {    
-        data.slugText = route.params.slug;
+        data.slugText = route.params.slug;        
+        data.language = route.params.lang;
     })
 
 </script>

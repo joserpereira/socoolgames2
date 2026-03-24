@@ -23,6 +23,11 @@ const publicRoutes: RouteRecordRaw[] = [
                 name: 'dynamic',
                 component: DynamicView
             },
+            {
+                path: '/:lang/:slug',
+                name: 'dynamic',
+                component: DynamicView
+            },
             {   
                 path: "/not-found", 
                 component: PageNotFound 
