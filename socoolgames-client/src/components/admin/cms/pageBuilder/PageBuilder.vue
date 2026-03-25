@@ -16,10 +16,11 @@
     </div>
         
     <!-- CENTER: Canvas -->
-    <div class="flex-1 overflow-auto bg-gray-50">
-      <div class="max-w-4xl mx-auto bg-white shadow rounded p-6 space-y-6 drag-container">
+    <div class="flex-1 overflow-auto pt-4 px-8 bg-gray-100">
+      <div class="maqx-w-4xl mx-auto bg-white shadow rounded p-6 space-y-6 drag-container">
         <div v-if="item.blocks.length === 0" class="text-center m-5">
-            No Items
+            <div>No Items</div>
+            <div class="text-sm">(Click on the available widgets)</div>
         </div>
         <draggable v-else
             class="dragArea list-group min-h-64"
@@ -117,7 +118,7 @@
         </draggable>
       </div>
     </div>
-    <div class="mt-4">
+    <div class="pt-4 px-8 bg-gray-100">
         <PageMetadata  v-model:item="item" :currentLang="data.currentLang"></PageMetadata>
     </div>
 </template>

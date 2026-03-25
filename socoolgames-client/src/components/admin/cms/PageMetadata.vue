@@ -1,6 +1,6 @@
 <template>
     <div class="grid grid-cols-1">
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <input type="text" class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     required
                     maxlength="100"
@@ -10,7 +10,7 @@
             <label for="pageTitle" 
                     class="absolute rounded ms-4 mt-7 left-0 ml-3 mx-10 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500">Page Title</label>
         </div>
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <textarea
                 class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent resize-none"
                 required
@@ -22,7 +22,7 @@
 
             <label
                 for="description"
-                class="absolute left-0 ml-3 mt-7 px-3 bg-white text-sm duration-100 ease-linear
+                class="absolute rounded left-0 ml-3 mt-7 px-3 bg-white text-sm duration-100 ease-linear
                     -translate-y-6
                     peer-placeholder-shown:translate-y-0
                     peer-placeholder-shown:text-base
@@ -31,7 +31,7 @@
                 Description
             </label>
         </div>
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <textarea
                 class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent resize-none"
                 required
@@ -43,7 +43,7 @@
 
             <label
                 for="keywords"
-                class="absolute left-0 ml-3 mt-7 px-3 bg-white text-sm duration-100 ease-linear
+                class="absolute rounded left-0 ml-3 mt-7 px-3 bg-white text-sm duration-100 ease-linear
                     -translate-y-6
                     peer-placeholder-shown:translate-y-0
                     peer-placeholder-shown:text-base
