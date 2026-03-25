@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
 
-const emailServerConfigSchema = mongoose.Schema(
+const modelSchema = mongoose.Schema(
     {
         configName: {
             type: String,
             required: true
         },
         emailSubject: {
-            type: String,
+            type: Object,
             default: ""
         },
         emailContent: {
-            type: String,
+            type: Object,
             default: ""
         },
         emailName: {
-            type: String,
+            type: Object,
             default: ""
         },
         emailFrom: {
@@ -46,6 +46,6 @@ const emailServerConfigSchema = mongoose.Schema(
 )
 
 
-const EmailServerConfig = mongoose.model('EmailServerConfig', emailServerConfigSchema);
+const model = mongoose.model('EmailServerConfig', modelSchema);
 
-module.exports = EmailServerConfig;
+module.exports = model;

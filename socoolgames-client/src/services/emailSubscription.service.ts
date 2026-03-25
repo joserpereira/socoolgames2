@@ -4,8 +4,19 @@ import axiosApi from './common/api';
 const baseAPI = 'email-subscriptions/';
 
 class EmailSubscriptionService {
-  getItems() {
-    return axiosApi.get(baseAPI);
+  getItems(skip: number, limit: number, search: string) {
+    try {
+      let url = baseAPI + `?__skip=${skip}&__limit=${limit}`;
+      if (search?.length > 0) 
+        url += `&__search=${search}`;
+      return axiosApi.get(url).then((response: any) => {          
+            return response;
+        });
+    }
+    catch (error) {
+      console.error("Error fetching subscriptions:", error);
+      throw error;
+    }
   }
 
   getItem(id: string) {
@@ -21,11 +32,25 @@ class EmailSubscriptionService {
   }
 
   updateItem(id: string, item: any) {
-    return axiosApi.put(baseAPI + id + '/', { item } /*, { headers: authHeader() }*/);
+    try {
+      return axiosApi.put(baseAPI + id + '/', { item } /*, { headers: authHeader() }*/).then((response: any) => {
+          return response;
+        });
+    } catch (error) {
+      console.error("Error update subscription:", error);
+      throw error;
+    }
   }
 
   deleteItem(id: string) {
-    return axiosApi.delete(baseAPI + id + '/' /* , { headers: authHeader() }*/ );
+    try {
+        return axiosApi.delete(`${baseAPI}${id}/`).then((response: any) => {
+          return response;
+        });
+    } catch (error) {
+      console.error("Error deleting subscription:", error);
+      throw error;
+    }
   }
 
   unsubscribe(email) {

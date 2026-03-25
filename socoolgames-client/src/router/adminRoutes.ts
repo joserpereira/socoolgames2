@@ -27,9 +27,20 @@ const adminRoutes: RouteRecordRaw[] = [
                 name: 'ImageList',
                 component: () => import('@/components/admin/cms/ImageList.vue'),
                 meta: { requiresAuth: true } 
+            }, 
+            {
+                path: '/admin/subscriptions',
+                name: 'SubscriptionView',
+                component: () => import('@/components/admin/cms/SubscriptionView.vue'),
+                meta: { requiresAuth: true } 
+            },
+            {
+                path: '/admin/email-configs',
+                name: 'EmailConfigView',
+                component: () => import('@/components/admin/cms/EmailConfigView.vue'),
+                meta: { requiresAuth: true } 
             }
-            
-
+        
     //         {
     //             path: 'links',
     //             name: 'Links',

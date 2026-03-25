@@ -8,6 +8,8 @@ const { sitemapRoutes } = require('./sitemap.routes')
 const { pageRoutes } = require('./page.routes')
 const { imageRoutes } = require('./image.routes')
 const { emailSubscriptionsRoutes } = require('./emailSubscriptons.routes')
+const { emailConfigsRoutes } = require('./emailConfigs.routes')
+
 // const { fileRoutes } = require('./file.routes')
 
 // Declaration
@@ -22,6 +24,7 @@ export const routes = (router: Router) => {
     
     imageRoutes(router, '/api/images')
     emailSubscriptionsRoutes(router, '/api/email-subscriptions')
+    emailConfigsRoutes(router, '/api/email-serverconfigs')
 
     // scrapperRoutes(router, '/api/scrapper')
     // contactUsRoutes(router, '/api/contactus')
