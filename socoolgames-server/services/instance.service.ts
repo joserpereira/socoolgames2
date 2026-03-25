@@ -16,6 +16,7 @@ async function getItems(collectionName: string, filter: any, skip = 0, limit = 5
         var filter = getFilter(filter, search);
         const model = require('../models/' + collectionName)
         loggerUtils.debug("get items")
+
         const items = await model.find(filter).skip(skip).limit(limit).sort({'_id': -1});
         const total = await model.find(filter).countDocuments();
         return {error: 0, message: '', data: items, count: total}

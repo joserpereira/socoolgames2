@@ -1,6 +1,6 @@
 import { Request, Response} from 'express';
 const EmailSubscripton = require('../models/emailSubscripton');
-const EmailServerConfig = require('../models/emailServerConfig');
+const EmailServerConfig = require('../models/emailserverconfig');
 const mongoUtils = require('../utils/mongo');
 const stringUtils = require('../utils/string');
 const logger = require('@joserpereira/lazuli-labs-logger')
@@ -9,8 +9,6 @@ const mail = require('../utils/mail');
 export const insertSubscription = async (req: Request, res: Response) => {
     try
     {
-
-        console.log("body", req.body)
         const emailSubscripton = await EmailSubscripton.create(req.body.item);
         res.status(200).json({error: 0, message: '', data: emailSubscripton})
 
@@ -72,8 +70,10 @@ export const getSubscriptions = async (req: Request, res: Response) => {
     try
     {
         var filter = mongoUtils.getFilterByParameter(req)
-        const emailSubscriptons = await EmailSubscripton.find(filter);
-        res.status(200).json({error: 0, message: '', data: emailSubscriptons})
+        
+        const pagination = mongoUtils.getPaginationParameters(filter)
+        const items = await EmailSubscripton.find(pagination.filter).skip(pagination.skip).limit(pagination.limit).sort({'_id': -1});
+        res.status(200).json({error: 0, message: '', data: items, count: items.count})
     }
     catch(error: any)
     {

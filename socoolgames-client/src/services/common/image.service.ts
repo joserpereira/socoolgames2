@@ -13,7 +13,7 @@ class ImageService {
           return response;
         });
     } catch (error) {
-      console.error("Error fetching pages:", error);
+      console.error("Error fetching images:", error);
       throw error;
     }    
   }
@@ -26,8 +26,7 @@ class ImageService {
     } catch (error) {
       console.error("Error deleting image:", error);
       throw error;
-    }    
-
+    }
   }
 
   getImageInfo(path: string) {
