@@ -112,11 +112,15 @@
                 const result = await pageService.insertItem(data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem adding page";
+                } else {
+                    data.item = result.data.data;
                 }
             } else  {
                 const result = await pageService.updateItem(data.item._id, data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem updating page";
+                } else {
+                    data.item = result.data.data;
                 }
             }
             if (props.saved)

@@ -191,11 +191,15 @@
                 const result = await service.insertItem(data.item);
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem adding configuration";
+                } else {
+                    data.item = result.data.data;
                 }
             } else  {
                 const result = await service.updateItem(data.item._id, data.item);
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem updating configuration";
+                } else {
+                    data.item = result.data.data;
                 }
             }
             if (props.saved)
