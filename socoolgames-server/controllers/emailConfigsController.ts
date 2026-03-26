@@ -18,7 +18,7 @@ export const getItems = async (req: Request, res: Response) => {
     }
     catch(error: any)
     {
-        loggerUtils.error("Get pages Error: " + error.message)
+        loggerUtils.error("Get items Error: " + error.message)
         res.status(500).json({error: 999, message: error.message, data: null})
     }
 }
