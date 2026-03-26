@@ -9,6 +9,7 @@ const { pageRoutes } = require('./page.routes')
 const { imageRoutes } = require('./image.routes')
 const { emailSubscriptionsRoutes } = require('./emailSubscriptons.routes')
 const { emailConfigsRoutes } = require('./emailConfigs.routes')
+const { menusRoutes } = require('./menus.routes')
 
 // const { fileRoutes } = require('./file.routes')
 
@@ -25,6 +26,7 @@ export const routes = (router: Router) => {
     imageRoutes(router, '/api/images')
     emailSubscriptionsRoutes(router, '/api/email-subscriptions')
     emailConfigsRoutes(router, '/api/email-serverconfigs')
+    menusRoutes(router, '/api/menus')
 
     // scrapperRoutes(router, '/api/scrapper')
     // contactUsRoutes(router, '/api/contactus')
