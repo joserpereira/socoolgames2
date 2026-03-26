@@ -7,8 +7,7 @@ const modelSchema = mongoose.Schema(
             required: true
         },
         items: {
-            type: Object,
-            default: ""
+            type: Array<Object>
         }
     },
     {
