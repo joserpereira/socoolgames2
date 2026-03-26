@@ -60,7 +60,7 @@
   
   onMounted(async () => {
     if (process.env.NODE_ENV === "development") {
-      data.prefix = 'http://localhost:3000';
+      data.prefix = process.env.VUE_APP_API_URL;
     }
 
     data.value = props.modelValue;

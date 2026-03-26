@@ -38,7 +38,7 @@
     import { defineProps, /* defineEmits,*/ onMounted } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
 
-    const baseUrl = 'http://localhost:3000';
+    const baseUrl = process.env.VUE_APP_API_URL;
     
     const props = defineProps({        
         data: {

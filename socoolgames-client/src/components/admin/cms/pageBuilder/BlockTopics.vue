@@ -38,7 +38,7 @@
 </template>
 <script setup>
     import { defineProps } from 'vue';
-    const baseUrl = 'http://localhost:3000';
+    const baseUrl = process.env.VUE_APP_API_URL;
     import { formatUrl } from "@/utils/url.utils";
 
     const props = defineProps({        
