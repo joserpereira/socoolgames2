@@ -25,10 +25,11 @@
                     >
                         {{ props.data.buttonText?.[props.selectedLang] }}
                     </button>
-                    <p class="text-sm text-gray-600 mt-5">
-                        {{ props.data.note?.[props.selectedLang] }}
-                    </p>                
+                    
                 </form>
+                <p v-if="!data.sucessMessage" class="text-sm text-gray-600 mt-5">
+                    {{ props.data.note?.[props.selectedLang] }}
+                </p>                
             </div>
             <div v-if="data.sucessMessage" class="mx-5 mt-3 bg-blue-100 border-t border-b border-gray-300 text-blue-700 px-4 py-3" role="alert">
                 <p class="font-bold">Newsletter</p>
