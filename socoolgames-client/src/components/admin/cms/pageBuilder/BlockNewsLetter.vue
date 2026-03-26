@@ -9,7 +9,8 @@
                     {{ props.data.title?.[props.selectedLang] }}
                 </h3>
 
-                <form class="flex flex-col md:flex-row gap-4 justify-center mb-3">
+
+                <form v-if="!data.sucessMessage" class="flex flex-col md:flex-row gap-4 justify-center mb-3">
                     <input 
                         type="email" 
                         :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
@@ -24,13 +25,13 @@
                     >
                         {{ props.data.buttonText?.[props.selectedLang] }}
                     </button>
+                    <p class="text-sm text-gray-600 mt-5">
+                        {{ props.data.note?.[props.selectedLang] }}
+                    </p>                
                 </form>
-                <p class="text-sm text-gray-600">
-                    {{ props.data.note?.[props.selectedLang] }}
-                </p>                
             </div>
-            <div v-if="data.sucessMessage" class="mx-5 mt-3 bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                <p class="font-bold">Informational message</p>
+            <div v-if="data.sucessMessage" class="mx-5 mt-3 bg-blue-100 border-t border-b border-gray-300 text-blue-700 px-4 py-3" role="alert">
+                <p class="font-bold">Newsletter</p>
                 <p class="text-sm">{{ data.sucessMessage }}</p>
             </div>
             <div v-if="data.errorMessage" class="mx-5 mt-3 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">

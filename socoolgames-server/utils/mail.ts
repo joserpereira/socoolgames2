@@ -16,6 +16,7 @@ const sendEmail = async (subjectParam: string, content: string,
             pass: passParam
         }
         });
+
         // logger.info("fromParam", fromParam)
         // fix: remove comma with space othwise send will split name and send just a part
         fromName = (fromName || "").replace(",", " ");

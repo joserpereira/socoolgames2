@@ -4,7 +4,7 @@
     </div>
     <div class="grid grid-cols-1">
 
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     v-model="(data.item || {}).configName"
                     required
@@ -15,19 +15,19 @@
                     class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name</label>
         </div>
 
-        <div class="relative mt-4">
-            <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
+        <div class="relative mt-2">
+            <select name="service" id="service"
+                    placeholder="Name"
                     v-model="(data.item || {}).emailType"
-                    required
-                    maxlength="100"
-                    id="slug"
-                    placeholder="Name" />
+                    class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent">
+                <option value="gmail">gmail</option>
+            </select>
                     
-            <label for="slug" 
+            <label for="service" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Type</label>
         </div>
 
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <input type="email" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     v-model="(data.item || {}).emailFrom"
                     required
@@ -38,7 +38,7 @@
             <label for="slug" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Email From</label>
         </div>
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     v-model="(data.item || {}).emailUsername"
                     required
@@ -49,11 +49,10 @@
             <label for="slug" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Username</label>
         </div>        
-        <div class="relative mt-4">
+        <div class="relative mt-2">
             <input type="password" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     v-model="(data.item || {}).emailPass"
-                    required
-                    
+                    required                    
                     maxlength="100"
                     id="slug"
                     placeholder="Name" />
@@ -61,7 +60,7 @@
             <label for="slug" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Password</label>
         </div>
-        <div class="relative bg-white tab-group mt-4">
+        <div class="relative bg-white tab-group mt-2">
             <div class="flex border-b border-stone-200 relative" role="tablist">
                 <div class="absolute bottom-0 h-0.5 bg-stone-800 transition-transform duration-300 transform scale-x-0 translate-x-0 tab-indicator"></div>
 

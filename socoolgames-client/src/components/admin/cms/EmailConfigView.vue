@@ -23,7 +23,7 @@
     const createItem = () => {
       data.item = {
         name: "",
-        blocks: []
+        emailType: "gmail"
       }
       data.newItem = true;
     }

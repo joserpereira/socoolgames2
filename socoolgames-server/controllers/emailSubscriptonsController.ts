@@ -12,22 +12,18 @@ export const insertSubscription = async (req: Request, res: Response) => {
         const emailSubscripton = await EmailSubscripton.create(req.body.item);
         res.status(200).json({error: 0, message: '', data: emailSubscripton})
 
-        const serverConfig = await EmailServerConfig.find({configName: req.body.item.emailConfigName})
-        var language = req.body.item.language
+        const configName = req.body.item.emailConfigName;
+        const language = req.body.item.language;
+        const config = await EmailServerConfig.findOne({configName: configName})
 
-        if (serverConfig && serverConfig.length > 0) {
-            var config = serverConfig[0]
+        if (config) {
    
-            var content = "";
-            var emailName = "";
-            var emailSubject = ""
-
-            if (config?.translations !== undefined && config.translations[language] !== undefined) {
-                content = stringUtils.replaceAll((config.translations[language].emailContent ?? ""), "\n", "<br />");
-                emailName = config.translations[language].emailName
-                emailSubject = config.translations[language].emailSubject
-            }
-            var origin = req.get('origin');
+            
+            let content = stringUtils.replaceAll((config.emailContent?.[language] ?? ""), "\n", "<br />");
+            const emailName = config.emailName?.[language] || "";
+            const emailSubject = config.emailSubject?.[language] || ""
+            
+            const origin = req.get('origin');
 
             if (config.showDownloadlink) {
                 var file = req.body.item.downloadFile
@@ -47,11 +43,12 @@ export const insertSubscription = async (req: Request, res: Response) => {
             } else {
                 mail.sendEmail(emailSubject, 
                                 content, 
+                                null,
                                 req.body.item.email, 
+                                emailName,
                                 config.emailFrom,
                                 config.emailUsername,
-                                config.emailPass,
-                                emailName)
+                                config.emailPass)
                 logger.info("email sent to " + req.body.item.email)
             }
         } 
