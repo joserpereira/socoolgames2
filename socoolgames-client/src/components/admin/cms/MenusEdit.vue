@@ -24,10 +24,27 @@
                     :class="data.currentLang == lang ? 'bg-stone-800 text-white rounded-xl' : ''" class="tab-link text-sm active inline-block py-2 px-4 hover:text-blue transition-colors duration-300 mr-1" data-dui-tab-target="tab1-group4">
                     {{ lang }}
                 </button>
+                <span class="flex-none">
+
+                    <button type="button" class="absolute inset-y-0 right-0 flex items-center text-xs border px-4 py-2 rounded-full hover:bg-primary hover:text-white"
+                    @click.prevent="addItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pe-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+
+                    Add Item</button>
+                </span>
             </div>
         </div>
         <div v-for="(item, index) in data.item.items" :key="index" >
             <div class="relative mt-4 mx-8">
+                <button type="button" class="flex items-center absolute border text-xs top-2 right-2 z-10 px-4 py-2 rounded-full hover:bg-red-500 hover:text-white"
+                        @click.prevent="removeItem(index)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 pe-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                    </svg>
+                    Remove
+                </button>
                 <label class="block font-medium text-start text-sm mt-2">
                     Text #{{ index + 1 }}
                 </label>
@@ -68,16 +85,14 @@
     })
 
     watch(() => props.item, (value) => {        
-        console.log("value", value)
-        // if (props?.item && value) {                        
-        //     data.item = setProperties(value);
-            
-        // }
+        if (props?.item && value) {                        
+            data.item = value;
+        }
     }, { deep: true });
 
     var data = reactive({
         item: {
-            items: [],
+            items: [] as any[],
             _id: undefined
         },
         currentLang: "en",
@@ -86,38 +101,33 @@
     })
 
     onMounted(() => {
-        
         if (props.item) {
-            const value = props.item;
-            data.item = setProperties(value);
+            data.item = props.item;
         }
     })
 
-    const defaultValues = {
-            emailSubject: {
-                "pt":"",
-                "en":""
-            },
-            emailName: {
-                "pt":"",
-                "en":""
-            },
-            emailContent: {
-                "pt": "",
-                "en": "",
-            }
-        }
-
-    const setProperties = (item) => {
+    const addItem = () =>  {
         
-        const keys = Object.keys(defaultValues);
-
-        for (let i = 0; i < keys.length; i++) {
-            if (item[keys[i]] === undefined || typeof(item[keys[i]]) !== typeof(defaultValues[keys[i]])) {
-                item[keys[i]] = defaultValues[keys[i]];
-            }    
+        const item = {
+            text: {
+                "pt":"",
+                "en":""
+            },
+            link: {
+                "pt":"",
+                "en":""
+            },
+            type: 0
         }
-        return item;
+
+        if (data.item.items == undefined) {
+            data.item.items = [];
+        }
+        data.item.items.push(item);
+    }
+    
+    const removeItem = (index) => {
+        data.item.items.splice(index, 1);
     }
 
     const saveItem = async () => {
