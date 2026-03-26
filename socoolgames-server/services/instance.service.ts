@@ -67,11 +67,10 @@ async function updateItem(collectionName: string, id: string, item: any): Promis
 
         // Registration logic here
         var filter = { _id: id }
-        const newItem = await model.findOneAndUpdate(filter, item, { returnDocument: true });
+        const newItem = await model.findOneAndUpdate(filter, item, { returnDocument: 'after' });
         if (!newItem) {
             return {error: 901, message: 'There is an issue with event please try again later or contact support.', data: null};
         }
-
         loggerUtils.debug("item updated")
 
         return {error: 0, message: '', data: newItem}
@@ -111,7 +110,7 @@ async function deleteItem(collectionName: string, id: string, userId: string) {
         const model = require('../models/' + collectionName)
         var filter = { _id: id }
         const update = { deleted: true, deleteAt: new Date(Date.now()), deletedBy: userId };
-        const item = await model.findOneAndUpdate(filter, update);
+        const item = await model.findOneAndUpdate(filter, update, { returnDocument: 'after' });
         if (!item) {
             return {error: 404, message: `Cannot find any ${collectionName} with ID '${id}'`};
         }
