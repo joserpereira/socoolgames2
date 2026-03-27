@@ -49,7 +49,10 @@
     }
 
     const props = defineProps({
-      menu: []
+      menu: Object,
+        default() {
+            return []
+        }
     });
 
     watch(locale, (value) => {        
@@ -59,7 +62,7 @@
     onMounted(() => {
       data.selectedLanguage = localStorage.selectedLanguage
     })
-    
+
     defineExpose({ data, props })
 </script>
 

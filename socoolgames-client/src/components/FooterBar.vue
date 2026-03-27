@@ -75,7 +75,10 @@
     }
 
     const props = defineProps({
-      menu: []
+      menu: Object,
+        default() {
+            return []
+        }
     });
 
     const changeLanguage = (lang) => {

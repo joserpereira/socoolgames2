@@ -40,7 +40,6 @@ class MetaTagsService {
     const alternate = document.querySelector('link[rel="alternate"]') as any;
     if (canonical)
     {
-    console.log("url", url, alternateURL)
       canonical.href = url.toLowerCase();
       if (alternate != null) {
           alternate.href = alternateURL.toLowerCase();

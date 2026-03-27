@@ -64,18 +64,15 @@ class ComponentsUtils {
 
             if (["WidgetText", "WidgetUrl", "WidgetMultiline"].indexOf(schema[i].type) >= 0)
             {
-                console.log("1", schema[i].type)
                 values[schema[i].field] = {}
                 values[schema[i].field]["en"] = "";
             }                
             else if (schema[i].type !== "WidgetMultiplier")
             {
-                console.log("2", schema[i].type)
                 values[schema[i].field] = "";
             }
                 
         }
-        console.log("values", values)
        
         return values;
     }

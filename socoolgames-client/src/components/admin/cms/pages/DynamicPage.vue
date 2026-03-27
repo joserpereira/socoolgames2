@@ -40,8 +40,7 @@
         MetaTagsService.setTitle(item.pageTitle[lang]);
         MetaTagsService.setDescription(item.pageDescription[lang]);
         MetaTagsService.setKeywords(item.pageKeywords[lang]);
-        console.log(`${window.location.origin}/${lang}/${item.slug}`)
-
+        
         MetaTagsService.setCanonical(lang, 
                                      `${window.location.origin}/${lang}/${fixedHomeSlug(item.slug)}`, 
                                      `${window.location.origin}/${getAlternateLang(lang)}/${fixedHomeSlug(item.slug)}`)
