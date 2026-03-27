@@ -14,6 +14,14 @@
             <label for="name" 
                     class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name</label>
         </div>
+        <div class="relative my-4 ms-2">
+            <input type="checkbox" class1="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
+                    v-model="(data.item || {}).isMainMenu"
+                    id="isMainMenu"
+                    placeholder="Is Main Menu" />
+            <label for="isMainMenu" 
+                    class="ps-2">Is Main Menu</label>
+        </div>
 
         <div class="relative bg-white tab-group mt-2">
             <div class="flex border-b border-stone-200 relative" role="tablist">

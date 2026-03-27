@@ -8,11 +8,15 @@
       </p>
         <span class="flex flex-row justify-center align-center">
 
-          <a href="#" class="mt-4">Blog Criativo</a>
+          <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
+             :class="getStyle(item.button)" class="ms-3 hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a> 
+
+          <!-- <a href="#" class="mt-4 ms-3">Blog Criativo</a>
           <a href="#" class="mt-4 ms-3">Missão SCG</a>
           <a href="#" class="mt-4 ms-3">Artigos</a>
           <a href="#" class="mt-4 ms-3">Ebook Grátis</a>
-          <a href="#" class="ms-3 mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold">Loja</a>
+          <a href="#" class="ms-3 mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold">Loja</a> -->
+
         </span>
         <span class="flex flex-row justify-center content-center inline-block align-middle">
           <a href="#" class="mt-4 ms-3">
@@ -42,7 +46,7 @@
 
 <script lang="ts" setup>
     import localizationUtils from '@/utils/localization.utils';
-    import { watch,  reactive, onMounted } from 'vue'
+    import { watch,  reactive, onMounted, defineProps, defineExpose } from 'vue'
     import { useI18n } from "vue-i18n";
     const { locale } = useI18n();
 
@@ -56,13 +60,31 @@
       data.selectedLanguage = localStorage.selectedLanguage;
     })
 
+    const getStyle = (type) => {
+
+      switch (type) {
+        case "0":
+          return "mt-4";
+        case "1":
+          return "mt-4"
+        case "2":
+          return "mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold"
+        default: 
+          return "";
+      }
+    }
+
+    const props = defineProps({
+      menu: []
+    });
+
     const changeLanguage = (lang) => {
       localizationUtils.setLanguage(lang);
     } 
-
-     watch(locale, (value) => {        
+    
+    watch(locale, (value) => {        
         data.selectedLanguage = value;
     }, { deep: true });
 
-
+    defineExpose({ props })
 </script>

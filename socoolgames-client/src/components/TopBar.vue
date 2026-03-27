@@ -18,26 +18,39 @@
         </button>
       </div>
       <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Blog Criativo</a>
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Missão SCG</a>
-        <a href="#" class="hover:scale-105 hover:text-primary mt-2 hover:underline">Artigos</a>
-        <a href="#" class="hover:scale-105 text-primary hover:text-dark mt-2 hover:underline">Ebook Grátis</a>
-        <a href="#" class="hover:scale-105 bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen hover:underline transition">
-          Loja
-        </a>
+        <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
+           :class="getStyle(item.button)" class="hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a>
       </nav>
     </div>
   </header>
 </template>
 
 <script lang="ts" setup>
-    import { watch, reactive, defineExpose, onMounted } from 'vue'
+    import { watch, reactive, defineProps, defineExpose, onMounted } from 'vue'
     import { useI18n } from "vue-i18n";
     const { locale } = useI18n();
 
     const data = reactive({        
         selectedLanguage: ""
     })
+
+    const getStyle = (type) => {
+
+      switch (type) {
+        case "0":
+          return "hover:text-primary mt-2";
+        case "1":
+          return "text-primary hover:text-dark mt-2"
+        case "2":
+          return "bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen transition"
+        default: 
+          return "";
+      }
+    }
+
+    const props = defineProps({
+      menu: []
+    });
 
     watch(locale, (value) => {        
         data.selectedLanguage = value;
@@ -46,6 +59,7 @@
     onMounted(() => {
       data.selectedLanguage = localStorage.selectedLanguage
     })
-    defineExpose({ data })
+    
+    defineExpose({ data, props })
 </script>
 

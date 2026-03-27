@@ -23,6 +23,29 @@ export const getItems = async (req: Request, res: Response) => {
     }
 }
 
+
+export const getMainItem = async (req: Request, res: Response) => {
+
+    try
+    {
+        loggerUtils.debug("get menu")
+        const { id } = req.params;
+        let item = null;
+        const items = await service.getItems(collectionName, { isMainMenu: true });
+        if (items?.data?.length > 0) {
+            item = items.data[0];
+        }
+
+        res.status(200).json({error: 0, message: '', data: item})
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Get menus Error: " + error.message)
+        res.status(500).json({error: 999, message: error.message})
+    }
+}
+
+
 export const getItem = async (req: Request, res: Response) => {
 
     try

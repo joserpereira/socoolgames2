@@ -18,6 +18,10 @@ class EmailConfigService {
     }
   }
 
+  getMainItem() {
+    return axiosApi.get(baseAPI + 'main');
+  }
+  
   getItem(id: string) {
     return axiosApi.get(baseAPI + id + '/');
   }

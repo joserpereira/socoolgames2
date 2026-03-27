@@ -1,29 +1,27 @@
 
 <template>
 
-  <TopBar></TopBar>
+  <TopBar :menu="data.menu"></TopBar>
   <router-view></router-view>
-  <FooterBar></FooterBar>
+  <FooterBar :menu="data.menu"></FooterBar>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+<script lang="ts" setup>
+
 import TopBar from '@/components/TopBar.vue';
 import FooterBar from '@/components/FooterBar.vue';
-@Options({
-  components: {
-    TopBar,
-    FooterBar
-  },
+import { onMounted, reactive } from 'vue';
+import menusService from '@/services/menus.service';
+
+const data = reactive({
+  menu: {} as any
 })
-export default class App extends Vue {}
+onMounted(async () => {
+    const result = await menusService.getMainItem()
+    if (result.status == 200 && result.data.error == 0 && result.data?.data?.items) {
+      data.menu = result.data.data.items;
+    }
+      
+})
+
 </script>
-
-<style>
-</style>
-
-<!-- <template>
-    <main role="main" class="pt-2">
-        <router-view />
-    </main>
-</template> -->
