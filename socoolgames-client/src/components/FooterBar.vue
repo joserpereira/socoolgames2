@@ -4,19 +4,11 @@
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h3 class="text-xl font-bold mb-4">So COOL Games</h3>
       <p class="text-sm opacity-90">
-        Aprender a brincar todos os dias.
+        {{ t("footer.title") }}
       </p>
         <span class="flex flex-row justify-center align-center">
-
           <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
              :class="getStyle(item.button)" class="ms-3 hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a> 
-
-          <!-- <a href="#" class="mt-4 ms-3">Blog Criativo</a>
-          <a href="#" class="mt-4 ms-3">Missão SCG</a>
-          <a href="#" class="mt-4 ms-3">Artigos</a>
-          <a href="#" class="mt-4 ms-3">Ebook Grátis</a>
-          <a href="#" class="ms-3 mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold">Loja</a> -->
-
         </span>
         <span class="flex flex-row justify-center content-center inline-block align-middle">
           <a href="#" class="mt-4 ms-3">
@@ -36,7 +28,7 @@
           </a>
         </span>
       <p class="text-xs opacity-70 mt-4">
-        © 2026 So Cool Games · Política de Privacidade · Termos & Condições ·
+        © 2026 So Cool Games · {{ t("footer.privacy") }} · {{ t("footer.terms") }} ·
         <button class="me-1" :class="data.selectedLanguage == 'en' ? 'underline' : ''" @click="changeLanguage('en')">en</button>
         <button :class="data.selectedLanguage == 'pt' ? 'underline' : '' " @click="changeLanguage('pt')">pt</button>
       </p>
@@ -48,7 +40,7 @@
     import localizationUtils from '@/utils/localization.utils';
     import { watch,  reactive, onMounted, defineProps, defineExpose } from 'vue'
     import { useI18n } from "vue-i18n";
-    const { locale } = useI18n();
+    const { locale, t } = useI18n();
 
     const data = reactive({ 
         item: {},
@@ -89,5 +81,5 @@
         data.selectedLanguage = value;
     }, { deep: true });
 
-    defineExpose({ props })
+    defineExpose({ props, t })
 </script>

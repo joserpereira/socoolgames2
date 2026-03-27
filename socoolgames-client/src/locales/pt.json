@@ -1,3 +1,11 @@
 {
-    "hello": "Olá"
+    "pageNotFound": {
+        "title": "404 - Página não encontrada",
+        "description": "A página que procura não existe."
+    },
+    "footer": {
+        "title": "Aprender a brincar todos os dias.",
+        "privacy": "Política de Privacidade",
+        "terms": "Termos & Condiçõe"
+    }
 }
