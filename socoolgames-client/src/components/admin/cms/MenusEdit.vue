@@ -62,6 +62,32 @@
                     v-model="(item || {}).link[data.currentLang]"
                 />
             </div>
+            <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl">
+                <span>Button #{{ index + 1 }}</span>
+                <div class="timeslot-1 ps-3">
+                    <input type="radio" :name="'button'+index" :id="'Normal'+index" value="0" v-model="(item || {}).button" />
+                    <label class="ps-2" :for="'Normal'+index" >Normal</label>
+                </div>
+                <div class="timeslot-2 ps-3">
+                    <input type="radio" :name="'button'+index" :id="'Highlight'+index" value="1" v-model="(item || {}).button"  />
+                    <label :for="'Highlight'+index" class="ps-2 text-primary hover:text-dark mt-2 hover:underline">Highlight</label>
+                </div>
+                <div class="timeslot-2 ps-3">
+                    <input type="radio" :name="'button'+index" :id="'Button'+index" value="2" v-model="(item || {}).button"  />
+                    <label :for="'Button'+index" class="ms-2 bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen hover:underline">Button</label>
+                </div>
+            </div>
+            <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl">
+                <span>Active #{{ index + 1 }}</span>
+                <div class="timeslot-1 ps-3">
+                    <input type="checkbox" name="activeHeader" :id="'Header'+index" v-model="(item || {}).activeHeader" />
+                    <label class="ps-2" :for="'Header'+index" >Header</label>
+                </div>
+                <div class="timeslot-2 ps-3">
+                    <input type="checkbox" name="activeFooter" :id="'Footer'+index" v-model="(item || {}).activeFooter"  />
+                    <label class="ps-2" :for="'Footer'+index">Footer</label>
+                </div>
+            </div>
         </div>
         <div class="mt-4">
             <div class="py-2 text-red-400" v-if="data.error">{{ data.error }}</div>
@@ -117,7 +143,9 @@
                 "pt":"",
                 "en":""
             },
-            type: 0
+            button: 0,
+            activeHeader : true, 
+            activeFooter : true 
         }
 
         if (data.item.items == undefined) {
