@@ -2,7 +2,7 @@ const formatUrl = (url: string) =>  {
   if (url && url.startsWith("./public")) {
     //TODO: review in production
     if (process.env.NODE_ENV === 'development')
-      url = url.replaceAll('./public/', "http://" + window.location.hostname + ":3000/")
+      url = url.replaceAll('./public/', "http://" + window.location.hostname + ":"+ process.env.VUE_APP_API_PORT + "/")
     else 
       url = url.replaceAll('./public/', "/")
   }
