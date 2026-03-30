@@ -14,10 +14,17 @@ const RoleModel = require('./models/role');
 import "./config/env"
 
 const app = express()
+var production = !((process.env.NODE_ENV || 'production').trim() === 'development');
+
 app.use(express.static(__dirname + '/public'));
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+if (production) {
+  app.use(express.static(path.join(__dirname, '../public')));
+} else {
+  app.use(express.static(__dirname + '/public'));
+}
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 const loggerUtils = new Logger();
 
@@ -71,7 +78,6 @@ const frontendPath = path.join(__dirname, "../../frontend/dist");
 app.use(express.static(frontendPath));
 
 
-var production = !((process.env.NODE_ENV || 'production').trim() === 'development');
 
 
 function createRoutes() {
