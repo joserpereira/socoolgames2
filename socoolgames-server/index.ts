@@ -106,7 +106,7 @@ const  initial = async () => {
 }
 
 //var http = require('http');
-const http_port = process.env.PORT_HTTP || 3000; //3000
+const http_port = process.env.PORT_HTTP || 3000; 
 //const https_port = process.env.PORT_HTTPS; //4431;
 
 function startServers() {
