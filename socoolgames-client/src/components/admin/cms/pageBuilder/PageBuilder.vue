@@ -143,12 +143,10 @@
     const openMenu = ref(null)
 
     function toggleMenu(index) {
-        console.log("toggle", index)
         openMenu.value = openMenu.value === index ? null : index
     }
 
     function closeMenu() {
-        console.log("close menu")
         openMenu.value = null
     }
 
@@ -221,7 +219,6 @@
 
         data.blocks[index].data = Object.assign( {}, type, data.blocks[index].data );
 */
-console.log("edit block", index)
         data.selectedIndex = index;
         closeMenu();
     }
