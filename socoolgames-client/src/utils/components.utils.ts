@@ -1,4 +1,5 @@
 import blockHeroData from '@/components/admin/cms/pageBuilder/blockHeroData';
+import blockHtmlData from '@/components/admin/cms/pageBuilder/blockHtmlData';
 import blockTextData from '@/components/admin/cms/pageBuilder/blockTextData';
 import block4ColumnsData from '@/components/admin/cms/pageBuilder/block4ColumnsData';
 import blockMultipleCardsData from '@/components/admin/cms/pageBuilder/blockMultipleCardsData';
@@ -9,7 +10,7 @@ import blockNewsLetterData from '@/components/admin/cms/pageBuilder/blockNewsLet
 import blockImagesData from '@/components/admin/cms/pageBuilder/blockImagesData';
 
 
-const components = [blockHeroData, blockTextData, block4ColumnsData, blockMultipleCardsData, blockTextBgData, blockVideoData, blockTopicsData, blockNewsLetterData,  blockImagesData]
+const components = [blockHeroData, blockHtmlData, blockTextData, block4ColumnsData, blockMultipleCardsData, blockTextBgData, blockVideoData, blockTopicsData, blockNewsLetterData,  blockImagesData]
 
 class ComponentsUtils {
     getComponents() {
