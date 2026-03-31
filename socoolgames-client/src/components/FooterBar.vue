@@ -6,7 +6,7 @@
       <p class="text-sm opacity-90">
         {{ t("footer.title") }}
       </p>
-        <span class="flex flex-row justify-center align-center">
+        <span class="flex flex-row justify-center align-center items-center mt-4">
           <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
              :class="getStyle(item.button)" class="ms-3 hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a> 
         </span>
@@ -55,12 +55,8 @@
     const getStyle = (type) => {
 
       switch (type) {
-        case "0":
-          return "mt-4";
-        case "1":
-          return "mt-4"
         case "2":
-          return "mt-2 text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold"
+          return "text-[#7BC143] bg-white hover:text-white hover:bg-primary rounded-full px-5 py-2 font-bold"
         default: 
           return "";
       }
