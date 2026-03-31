@@ -18,8 +18,6 @@
       <table class="w-full text-sm">
         <thead class="text-left">
           <tr>
-            <!-- <th class="p-3">Name</th>
-            <th class="p-6">Description</th> -->
             <th class="ps-3">Name</th>
             <th class="p-3 w-32 text-center">Actions</th>
           </tr>
@@ -32,19 +30,10 @@
             v-on:mouseleave="data.hoverId=''"
             v-for="item in data.items"
             :key="item._id"
-            class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 "
-       
-          >
-            <!-- <td class="p-3 hover:text-gray-600 gap-2 description-cell">
-              <span class="dot" :class="item.active ? 'dotselected' : ''"></span>
-              
-            </td> -->
+            class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 ">
             <td class="p-3 hover:text-gray-600 gap-2 description-cell">
-              
-              <span >{{ item.original }}</span>
-
+              <span>{{ item.original }}</span>
               <div v-if="data.idToView==item._id">
-                
                 <div>
                   <img :src="data.prefix + item.thumb" alt="">
                   <div>{{ item.thumb }}</div>
@@ -57,12 +46,10 @@
                   <img :src="data.prefix + item.large" alt="">
                   <div>{{ item.large }}</div>
                 </div>
-                
               </div>
             </td>
 
-            <td v-if="data.hoverId!==item._id"></td>
-              
+            <td v-if="data.hoverId!==item._id"></td>              
             <td class="flex pt-2 justify-center"
                 v-else>
               <button
