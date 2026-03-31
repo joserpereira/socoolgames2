@@ -143,10 +143,12 @@
     const openMenu = ref(null)
 
     function toggleMenu(index) {
+        console.log("toggle", index)
         openMenu.value = openMenu.value === index ? null : index
     }
 
     function closeMenu() {
+        console.log("close menu")
         openMenu.value = null
     }
 
@@ -164,8 +166,11 @@
     })
 
     watch(() => props.item, () => {
-        data.selectedIndex =-1
-        data.oldPageId = item.value._id;
+        if (data.oldPageId !== item.value._id) {
+            data.selectedIndex = -1
+            data.oldPageId = item.value._id;
+        }
+        
     }, { deep: true })
 
     var data = reactive({
@@ -179,7 +184,6 @@
     })
 
     onMounted(async () => {
-        
         data.components = (await componentsUtils).getComponents();
     })
 
@@ -217,6 +221,7 @@
 
         data.blocks[index].data = Object.assign( {}, type, data.blocks[index].data );
 */
+console.log("edit block", index)
         data.selectedIndex = index;
         closeMenu();
     }
