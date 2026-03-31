@@ -3,13 +3,13 @@
         <div class="max-w-6xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
             <div class="max-w-6xl mx-auto mt-20 px-6 text-center">
 
-                <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-10" v-html="props.data.title?.[props.selectedLang]">            
+                <h3 class="text-2xl md:text-3xl font-bold text-green-700 mb-10" v-html="props.data.title?.[props.selectedLang]">
                 </h3>
 
                 <div :class="'md:grid-cols-'+ (props.data.items.length < 6 ? props.data.items.length : '5')" 
                         class="grid gap-6 mb-10">
 
-                <div v-for="value in props.data.items" :key="value">
+                <div v-for="value in props.data.items" :key="value" class="justify-items-center">
                     <img :src="formatUrl(baseUrl + value?.image?.thumb)" alt="" 
                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
                         class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
