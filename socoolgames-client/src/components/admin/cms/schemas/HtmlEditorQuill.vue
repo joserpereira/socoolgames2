@@ -47,13 +47,13 @@ import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
 
 const props = defineProps({
-  modelValue: {
+  value: {
     type: String,
     default: ''
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:value'])
 
 const editor = ref(null)
 const toolbar = ref(null)
@@ -68,17 +68,17 @@ onMounted(() => {
   })
 
   // valor inicial
-  quill.root.innerHTML = props.modelValue || ''
+  quill.root.innerHTML = props.value || ''
 
   // emitir alterações
   quill.on('text-change', () => {
     const html = quill.root.innerHTML
-    emit('update:modelValue', html)
+    emit('update:value', html)
   })
 })
 
 // sync externo → editor
-watch(() => props.modelValue, (value) => {
+watch(() => props.value, (value) => {
   if (!quill) return
   if (value !== quill.root.innerHTML) {
     quill.root.innerHTML = value || ''

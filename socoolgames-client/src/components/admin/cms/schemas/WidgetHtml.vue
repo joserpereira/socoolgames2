@@ -7,7 +7,7 @@
         <span class="px-4 py-2 bg-gray-100 rounded-r hover:bg-gray-300" :class="data.mode === 'code' ? 'bg-gray-300' : ''" @click="data.mode = 'code'">Code</span>
     </button>
     <div v-if="data.mode === 'visual'" class="h-64">
-      <HtmlEditorQuill class="mb-4 h-56" v-model="data.value[props.selectedLang]" />
+      <HtmlEditorQuill class="mb-4 h-56" :value="data.value[props.selectedLang]" />
     </div>
     <!-- HTML -->
     <textarea
