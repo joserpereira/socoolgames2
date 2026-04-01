@@ -37,13 +37,20 @@
     });
 
     const setLangsAndTranslations = (item, lang) => {
-        MetaTagsService.setTitle(item.pageTitle[lang]);
-        MetaTagsService.setDescription(item.pageDescription[lang]);
-        MetaTagsService.setKeywords(item.pageKeywords[lang]);
-        
-        MetaTagsService.setCanonical(lang, 
+        if (item.pageTitle?.[lang]) {
+            MetaTagsService.setTitle(item.pageTitle[lang]);
+        }
+        if (item.pageDescription?.[lang]) {
+            MetaTagsService.setDescription(item.pageDescription[lang]);
+        }
+        if (item.pageKeywords?.[lang]) {
+            MetaTagsService.setKeywords(item.pageKeywords[lang]);
+        }
+        if (item.slug) {
+            MetaTagsService.setCanonical(lang, 
                                      `${window.location.origin}/${lang}/${fixedHomeSlug(item.slug)}`, 
                                      `${window.location.origin}/${getAlternateLang(lang)}/${fixedHomeSlug(item.slug)}`)
+        }
     }
 
     const getAlternateLang = (lang) => {
