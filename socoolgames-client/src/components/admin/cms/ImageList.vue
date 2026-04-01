@@ -46,8 +46,9 @@
                   <img :src="data.prefix + item.large" alt="">
                   <div>{{ item.large }}</div>
                 </div>
+                <pre class="text-xs bg-gray-100 p-2 overflow-auto">{{imageHtmlStringify(item)}}</pre>
               </div>
-            </td>
+            </td>            
 
             <td v-if="data.hoverId!==item._id"></td>              
             <td class="flex pt-2 justify-center"
@@ -102,10 +103,11 @@
     import { ref, onMounted, reactive, defineExpose } from "vue"
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import ImageUploader from "@/components/admin/cms/ImageUploader.vue"
-    // import Toast from "@/components/common/toastComponent";
     import userService from "@/services/user.service";
     import imageService from "@/services/common/image.service";
+    import { formatUrl } from "@/utils/url.utils";
 
+    const baseUrl = process.env.VUE_APP_API_URL;
     const confirmationModelActive = ref(false);
     // const toast = new Toast();
 
@@ -218,6 +220,14 @@
       }        
     }
 
+    const imageHtmlStringify = (value) => {
+
+    return `<picture>
+      <source media="(width < 640px)" :srcset="${formatUrl(baseUrl + value?.thumb)}"  alt="" />
+      <source media="(width <= 768px)" :srcset="${formatUrl(baseUrl + value?.medium)}" alt="" />
+      <img :src="${formatUrl(baseUrl + value?.large)}" alt="" />
+</picture>`
+    }
 
     defineExpose({ getData, newItem, viewClick, deleteClick })
 </script>
