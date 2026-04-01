@@ -36,9 +36,9 @@
         </div>
         <div class="mt-4">
             <div class="p-2"> Preview </div>
-            <a :href="'/p/' + data.item.slug" target="_blank" v-if="data.item.slug"
+            <a :href="'/' + data.item.slug" target="_blank" v-if="data.item.slug"
                 class="ms-4 text-blue-600 hover:text-blue-800 visited:text-purple-600 no-underline hover:underline">
-                {{  getLocation() + '/p/' + data.item.slug }}
+                {{  getLocation() + '/' + data.item.slug }}
             </a>  
             <span class="ms-4 text-sm p-1 bg-yellow-100"  v-else>Please fill slug</span>
         </div>
