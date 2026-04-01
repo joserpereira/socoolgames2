@@ -1,9 +1,12 @@
 
 <template>
-
-  <TopBar :menu="data.menu"></TopBar>
-  <router-view></router-view>
-  <FooterBar :menu="data.menu"></FooterBar>
+  <div class="min-h-screen flex flex-col">
+    <TopBar :menu="data.menu"></TopBar>
+    <div class="flex-1">
+      <router-view></router-view>
+    </div>    
+    <FooterBar :menu="data.menu"></FooterBar>
+  </div>
 </template>
 
 <script lang="ts" setup>

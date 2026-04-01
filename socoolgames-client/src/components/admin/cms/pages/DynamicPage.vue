@@ -1,6 +1,14 @@
 <template>
-    <div v-for="block in data.item.blocks" :key="block._id">
-       <component :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLanguage"></component> 
+    <div v-if="data.isLoading" class="fixed inset-0 flex items-center justify-center bg-black/30 z-50">
+     <img  src="@/assets/eclipse.svg" alt="loaging" class="animate-spin">
+    </div>
+    <div v-if="!data.isLoading">
+        <div  v-for="block in data.item.blocks" :key="block._id">
+        <component :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLanguage"></component> 
+        </div>
+    </div>
+    <div v-if="data.errorMessage" class="text-red-500">
+        {{ data.errorMessage }}
     </div>
 </template>
 <script setup>
@@ -23,7 +31,9 @@
     const data = reactive({        
         item: {},
         components: {},
-        selectedLanguage: ""
+        selectedLanguage: "",
+        isLoading: true,
+        errorMessage: "",
     })
 
     const props = defineProps({
@@ -66,6 +76,8 @@
     }
 
     const setValue = (async (slug) => {
+        try {
+            data.isLoading = true;
             const result = await pageService.getItemByNameRef(slug);
             data.components = componentsUtils.getComponents();
 
@@ -73,11 +85,17 @@
             {
                 data.item = result.data.data;
                 setLangsAndTranslations(data.item, data.selectedLanguage);
+                data.isLoading = false;
             } 
             else
             {
                 router.push('/not-found');
             }
+
+        } catch (error) {
+          data.isLoading = false;    
+          data.errorMessage = "An error occurred while fetching the page data.";        
+        }
     })
     
     watch(() => props.slugText, (newValue) => {
