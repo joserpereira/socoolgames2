@@ -27,7 +27,7 @@ export const getItem = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get category")
+        loggerUtils.debug("get " + collectionName)
         const { id } = req.params;
         const item = await service.getItem(collectionName, id);
         res.status(200).json({error: 0, message: '', data: item.data})
@@ -43,7 +43,7 @@ export const getItemByNameRef = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get category")
+        loggerUtils.debug("get " + collectionName)
         const { nameref } = req.params;
         
         const item = await service.getItemWithFilter(collectionName, { slug: nameref, active: true, deleted: { $ne: true } });
