@@ -118,7 +118,7 @@
         {
             var isValid = true;
             for (const lang of data.languages) {
-                if ((data.item.header?.[lang] ?? "").length == 0 || (data.item.title?.[lang] ?? "").length == 0 || (data.item.content?.[lang] ?? "").length == 0 )
+                if ((data.item.title?.[lang] ?? "").length == 0 || (data.item.content?.[lang] ?? "").length == 0 )
                 {
                     isValid = false;
                     break;
