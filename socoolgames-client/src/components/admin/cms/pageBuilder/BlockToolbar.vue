@@ -1,12 +1,17 @@
 <template>
-    <div class="grid auto-cols-max grid-flow-col gap-3">
-      <div class="block w-full p-2 rounded">Components:</div>
-      <button v-for="item in data.items" :key="item" @click.prevent="addBlock(item.nameRef)" class="block w-full bg-gray-100 p-2 rounded">
+    <!-- <div class="grid auto-cols-max grid-flow-row-dense grid-cols-5  gap-3"> -->
+    <div class="flex">
+
+      <div class="p-2 rounded flex-none">Components:</div>
+      <div class="flex flex-wrap gap-2 col-span-5 flex-1">
+        <button v-for="item in data.items" :key="item" @click.prevent="addBlock(item.nameRef)" class="block w-auto bg-gray-100 p-2 rounded">
         {{ item.name }}
-      </button>
+        </button>
+      </div>
+    </div>
 
       
-    </div>
+    <!-- </div> -->
 </template>
 <script setup lang="ts">
     import { defineExpose, defineProps, onMounted, reactive } from 'vue'
