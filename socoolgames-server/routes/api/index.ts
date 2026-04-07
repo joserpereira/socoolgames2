@@ -6,6 +6,7 @@ const { authenticationRoutes } = require('./authentication.routes')
 // const { scrapperRoutes } = require('./scrapper.routes')
 const { sitemapRoutes } = require('./sitemap.routes')
 const { pageRoutes } = require('./page.routes')
+const { articleRoutes } = require('./article.routes')
 const { imageRoutes } = require('./image.routes')
 const { emailSubscriptionsRoutes } = require('./emailSubscriptons.routes')
 const { emailConfigsRoutes } = require('./emailConfigs.routes')
@@ -21,8 +22,8 @@ export const routes = (router: Router) => {
     // categoryRoutes(router, '/api/categories')
     authenticationRoutes(router, '/api/auth')
     pageRoutes(router, '/api/pages')
+    articleRoutes(router, '/api/articles')
 
-    
     imageRoutes(router, '/api/images')
     emailSubscriptionsRoutes(router, '/api/email-subscriptions')
     emailConfigsRoutes(router, '/api/email-serverconfigs')
