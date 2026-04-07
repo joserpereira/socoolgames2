@@ -48,7 +48,11 @@
             <label for="content" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-10 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Content</label>
         </div>
-
+        <div class="relative mt-6">
+            <WidgetImage :schema="schema"
+                         v-model="data.item.image"
+                         :index="1"></WidgetImage>
+        </div>
         <div class="mt-4">
             <label class="relative flex items-center group p-2">
                 Active Link
@@ -70,7 +74,11 @@
 <script setup lang="ts">
     import service from "@/services/article.service";
     import { watch, defineProps, onMounted, reactive } from 'vue'
+    import WidgetImage from "./cms/schemas/WidgetImage.vue";
 
+    const schema = 
+        { field: "image", type: "WidgetImage", label: "Image" };
+    
     const props = defineProps({
         item: Object,
         saved: Function
@@ -87,6 +95,7 @@
             header: {},
             title: {},
             content: {},
+            image: {} as any,
             active: false,
             _id: undefined
         },

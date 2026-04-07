@@ -38,7 +38,7 @@
 
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, onMounted, reactive } from 'vue'
+  import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
   import imageService from '@/services/common/image.service';
 
   const props = defineProps<{
@@ -58,16 +58,24 @@
   const emit = defineEmits(["update:modelValue"])
 
   
+  watch(() => props.modelValue, (value) => {        
+    if (value) {
+      setValue(value);
+    }
+  }, { deep: true });
+
   onMounted(async () => {
     if (process.env.NODE_ENV === "development") {
       data.prefix = process.env.VUE_APP_API_URL;
     }
-
-    data.value = props.modelValue;
-    data.selectedImage = props.modelValue?.original ?? "";
-    fillData();
+    setValue(props.modelValue);
   })
 
+  const setValue = (value: any) => {
+    data.value = value;
+    data.selectedImage = value?.original ?? "";
+    fillData();    
+  }
   const fillData = async () => {
     try {
       const result = await imageService.getItems(0, 5, data.selectedImage ?? "")
