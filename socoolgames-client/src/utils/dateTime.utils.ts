@@ -55,6 +55,66 @@ class DateTimeUtils {
     getTimeInterval(startDate: any, endDate: any) {
       return this.getTimeHHmm(startDate) + " - " + this.getTimeHHmm(endDate);
     }
+
+    getDateText(date: any) {
+      const value = typeof date == "string" ? new Date(date) : date;
+      if (isNaN(value?.getTime())) return "";
+      
+      return this.formatRelativeDate(value);
+      //return this.getWeekDays()[value.getDay()] + " " + value.getDate() + "/" + (value.getMonth() + 1);
+    }
+
+    formatRelativeDate(date: any) {
+        const now = new Date();
+
+        const diffMs = now.getTime() - date.getTime();
+        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+        // < 1 hora → "x minutes ago"
+        if (diffMinutes < 60) {
+            return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
+        }
+
+        // < 12 horas → "x hours ago"
+        if (diffHours < 12) {
+            return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+        }
+
+        // < 24 horas → "HH:mm"
+        if (diffHours < 24) {
+            if (date.getDate() === now.getDate()) {
+                return "Today " + date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+                });
+            } else {
+                return "Yesterday " + date.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+                });
+            }
+        }
+
+        // < 7 dias → "weekday HH:mm"
+        if (diffDays < 7) {
+            return date.toLocaleString([], {
+            weekday: 'short',
+            hour: '2-digit',
+            minute: '2-digit'
+            });
+        }
+
+        // >= 7 dias → "YYYY-MM-DD HH:mm"
+        return date.toLocaleString([], {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
 }
 
 export default new DateTimeUtils();
