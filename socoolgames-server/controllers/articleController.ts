@@ -13,7 +13,9 @@ export const getItems = async (req: Request, res: Response) => {
     {
         loggerUtils.debug("get " + collectionName + "s")
         var filter = mongoUtils.getFilterByParameter(req)
-        const result = await service.getItems(collectionName, filter);
+        var pagination = mongoUtils.getPaginationParameters(filter)
+        // console.log(pagination)
+        const result = await service.getItems(collectionName, pagination.filter, pagination.skip, pagination.limit, pagination.search);
         res.status(result.error === 0 ? 200 : 500).json(result)
     }
     catch(error: any)

@@ -14,9 +14,9 @@ class ArticleService {
     return api.put(`${baseAPI}${id}`, { item, "type": type });
   }
 
-  getItems() {
+  getItems(limit = 10) {
     try {
-        return api.get(baseAPI).then((response: any) => {
+        return api.get(baseAPI+`?__limit=${limit}`).then((response: any) => {
           return response;
         });
     } catch (error) {

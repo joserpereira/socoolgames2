@@ -155,9 +155,13 @@
   </section>    
 </template>
 <script setup>
-    import { defineProps, defineExpose } from 'vue';
+    import { defineProps, defineExpose, onMounted, reactive } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
+    import articleService from '@/services/article.service';
 
+    const data = reactive({
+        articles: []
+    });
     const props = defineProps({        
         data: {
             type: Object
@@ -167,8 +171,16 @@
         }
     })
 
-    // onMounted(() => {
-    // })
+    onMounted(() => {
+      articleService.getItems(4).then(res => {
+        if (res.data && res.data.error == 0 && res.data.data) {
+          data.articles = res.data.data;
+          // console.log("Articles:", data.articles);
+        }
+      }).catch(err => {
+        console.error("Error fetching articles:", err);
+      })
+    })
 
     defineExpose({ formatUrl });
 
