@@ -12,7 +12,7 @@
                         :componentCache="props.componentCache"
                         :selectedLang="props.selectedLang"
                         ></WidgetMultiplier> 
-      <component v-else :is="getComponent(props.item.type)" :index="props.index" :value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
+      <component v-else :is="getComponent(props.item.type)" :index="props.index" v-model:value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
 </template>
 <script setup lang="ts">
   import { defineProps, onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'

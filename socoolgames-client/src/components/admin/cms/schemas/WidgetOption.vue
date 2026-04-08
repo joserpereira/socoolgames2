@@ -3,12 +3,9 @@
         {{ props.schema.label }} {{ props.index ? '#' + props.index : '' }}
     </label>
 
-    <!-- <input type="text"
-           class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-           v-model="data.value"
-      /> -->
-
     <select name="option" id="option"
+            v-model="data.value"
+            v-on:change="change"
             class="input rounded px-2 py-3 mt-4 peer w-full border">    
         <option v-for="value in props.schema.options" :value="value" :key="value">
             {{ value }}
@@ -16,20 +13,23 @@
     </select>
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive } from 'vue'
+  import { defineProps, defineEmits, reactive, onMounted } from 'vue'
 
+  const emit = defineEmits(['update:value'])
   const props = defineProps({        
         schema: Object,        
-        value: Object,
+        value: { type: String, default: '' },
         index: Number,
         selectedLang: String
    })
 
   onMounted(() => {
-    data.value = props.value ?? "";
-    console.log("mounted", props);
-  })    
+    data.value = props.value ?? '';
+  })
 
+  const change = () => {
+    emit('update:value', data.value)
+  }
   const data = reactive({
     value: {} as any    
   })
