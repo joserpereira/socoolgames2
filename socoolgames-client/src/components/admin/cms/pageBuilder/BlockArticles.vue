@@ -172,7 +172,7 @@
     })
 
     onMounted(() => {
-      articleService.getItems(4).then(res => {
+      articleService.getItems(5).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
           data.articles = res.data.data;
           // console.log("Articles:", data.articles);
