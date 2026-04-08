@@ -17,8 +17,27 @@
       <div class="grid md:grid-cols-3 gap-8">
 
         <!-- ── ARTICLES GRID (2-col inside) ── -->
-        <div class="md:col-span-2 space-y-6">
-
+        <div class="md:col-span-2 space-y-6" :set="index3 = -1">
+          <div v-for="(value, index) in data.articleSchema" :key="index" class="grid gap-5" :class="'sm:grid-cols-'+value"  >
+            <div v-for="index2 in value" :key="index2" :set="index3 = index3 + 1" >
+              <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
+                <div class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
+                <div class="p-4">
+                  <p class="text-yellow-500 font-black text-xs mb-1" v-if="data.articles[index3]?.header?.[props.selectedLang]">
+                    {{ data.articles[index3]?.header[props.selectedLang] }}
+                  </p>
+                  <h3 class="font-display font-black text-sm leading-snug text-[#1e1a10] mb-2">
+                    {{ data.articles[index3]?.title[props.selectedLang] }}
+                  </h3>
+                  <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
+                    {{ data.articles[index3]?.content[props.selectedLang].split('\n')[0] }}
+                  </p>
+                  <p class="text-[#9a9080] text-xs mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.articles[index3]?.updatedAt ?? data.articles[index3]?.createdAt)">{{ dateTimeUtils.getDateText(data.articles[index3]?.updatedAt ?? data.articles[index3]?.createdAt, false) }}</p>
+                  <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Top 3 cards row -->
           <div class="grid sm:grid-cols-3 gap-5">
 
@@ -158,9 +177,11 @@
     import { defineProps, defineExpose, onMounted, reactive } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import articleService from '@/services/article.service';
+    import dateTimeUtils from '@/utils/dateTime.utils';
 
     const data = reactive({
-        articles: []
+        articles: [],
+        articleSchema: []
     });
     const props = defineProps({        
         data: {
@@ -172,6 +193,8 @@
     })
 
     onMounted(() => {
+      data.articleSchema = (props.data.articleSchema ?? "2-3").split("-").map(num => parseInt(num));
+      // console.log("Article Schema:", data.articleSchema);
       articleService.getItems(5).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
           data.articles = res.data.data;

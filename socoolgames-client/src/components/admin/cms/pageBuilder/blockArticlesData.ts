@@ -12,7 +12,7 @@ class BlockArticlesData {
   getDefault() {
     return {
         title: { pt: '', en: '' },
-        articleSchema: "3-2",
+        articleSchema: "",
         showNewsletter: true,
     }
   }
@@ -24,7 +24,7 @@ class BlockArticlesData {
   getSchema() {
     return [
         { field: "title", type: "WidgetText", label: "Title" },
-        { field: "articleSchema", type: "WidgetOption", label: "Article Schema", options: ["3-2", "2-3"] },
+        { field: "articleSchema", type: "WidgetOption", label: "Article Schema", options: ["3-2", "2-3", "2-2"] },
         { field: "showNewsletter", type: "WidgetBoolean", label: "Show Newsletter" }
     ]
   }
