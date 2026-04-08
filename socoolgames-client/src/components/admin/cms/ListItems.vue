@@ -35,7 +35,7 @@
           <tr>
             <!-- <th class="p-3">Name</th>
             <th class="p-6">Description</th> -->
-            <th class="ps-3" v-for="value in props.columns" :key="value">{{ value }}</th>
+            <th class="ps-3" v-for="value in props.columns" :key="value">{{ value.split('.')[0] }}</th>
             <th class="p-3 w-32 text-center">Actions</th>
           </tr>
         </thead>
@@ -57,8 +57,8 @@
             <td v-for="(value, index) in props.columns" :key="index" 
               :class="index == 0 ? 'p-3 hover:text-gray-600 gap-2 description-cell' : 'p-3 gap-2 description-cell'">
               
-              <span v-if="index == 0">{{ item[value] }}</span>
-              <span v-else class1="ps-3">{{ item[value] }}</span>
+              <span v-if="value.indexOf('.') >= 0">{{ item[value.split('.')[0]][value.split('.')[1]] }}</span>
+              <span v-else>{{ item[value] }}</span>
             </td>
             <td v-if="data.hoverId!==item._id"></td>
               
@@ -103,7 +103,7 @@ export default {
 </script>
 <script setup lang="ts">
 
-    import { ref, defineProps, onMounted, reactive, defineExpose } from "vue"
+    import { ref, defineProps, onMounted, reactive, defineExpose, PropType } from "vue"
     import instanceService from '@/services/instance.service';
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import Toast from "@/components/common/toastComponent";
@@ -117,7 +117,7 @@ export default {
             default: ""
         }, 
         columns: {
-            type: Array,
+            type: Array as PropType<string[]>,
             default: () => []
         },
         createItem: {
