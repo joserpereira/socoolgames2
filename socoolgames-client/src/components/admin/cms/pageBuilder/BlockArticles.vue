@@ -17,113 +17,28 @@
       <div class="grid md:grid-cols-3 gap-8">
 
         <!-- ── ARTICLES GRID (2-col inside) ── -->
-        <div class="md:col-span-2 space-y-6" :set="index3 = -1">
+        <div class="md:col-span-2 space-y-6" :set="indexT = -1">
           <div v-for="(value, index) in data.articleSchema" :key="index" class="grid gap-5" :class="'sm:grid-cols-'+value"  >
-            <div v-for="index2 in value" :key="index2" :set="index3 = index3 + 1" >
+            <div v-for="index2 in value" :key="index2" :set="indexT = indexT + 1" >
               <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
                 <div class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
                 <div class="p-4">
-                  <p class="text-yellow-500 font-black text-xs mb-1" v-if="data.articles[index3]?.header?.[props.selectedLang]">
-                    {{ data.articles[index3]?.header[props.selectedLang] }}
+                  <p class="text-yellow-500 font-black text-xs mb-1" v-if="data.articles[indexT]?.header?.[props.selectedLang]">
+                    {{ data.articles[indexT]?.header[props.selectedLang] }}
                   </p>
                   <h3 class="font-display font-black text-sm leading-snug text-[#1e1a10] mb-2">
-                    {{ data.articles[index3]?.title[props.selectedLang] }}
+                    {{ data.articles[indexT]?.title[props.selectedLang] }}
                   </h3>
                   <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
-                    {{ data.articles[index3]?.content[props.selectedLang].split('\n')[0] }}
+                    {{ data.articles[indexT]?.content[props.selectedLang].split('\n')[0] }}
                   </p>
-                  <p class="text-[#9a9080] text-xs mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.articles[index3]?.updatedAt ?? data.articles[index3]?.createdAt)">{{ dateTimeUtils.getDateText(data.articles[index3]?.updatedAt ?? data.articles[index3]?.createdAt, false) }}</p>
-                  <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
+                  <p class="text-[#9a9080] text-xs mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt)">{{ dateTimeUtils.getDateText(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt, false) }}</p>
+                  <!-- <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a> -->
+                  <router-link :to="'/' + props.selectedLang + '/article/'+data.articles[indexT]?.slug" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</router-link>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Top 3 cards row -->
-          <div class="grid sm:grid-cols-3 gap-5">
-
-            <!-- Card 1 – featured -->
-            <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
-              <div class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
-              <div class="p-4">
-                <p class="text-yellow-500 font-black text-xs mb-1">🎨 Destaque</p>
-                <h3 class="font-display font-black text-sm leading-snug text-[#1e1a10] mb-2">
-                  Pintura Livre para Crianças: Benefícios e Dicas para Aplicar em Casa
-                </h3>
-                <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
-                  Descubra os benefícios da pintura livre e como implementá-la de forma educativa e divertida.
-                </p>
-                <p class="text-[#9a9080] text-xs mb-3">April 2024</p>
-                <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc]">
-              <div class="h-36 bg-[#e0d8f0] flex items-center justify-center text-5xl">✂️</div>
-              <div class="p-4">
-                <h3 class="font-display font-black text-sm leading-snug text-[#1e1a10] mb-2">
-                  Ideias de Colagens Criativas para Desenvolver a Imaginação
-                </h3>
-                <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
-                  Aprenda atividades de colagens que estimulam a criatividade e coordenação nas crianças.
-                </p>
-                <p class="text-[#9a9080] text-xs mb-3">April 2024 — P121</p>
-                <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc]">
-              <div class="h-36 bg-[#fce8d0] flex items-center justify-center text-5xl">😊</div>
-              <div class="p-4">
-                <p class="text-orange-500 font-black text-xs mb-1">⚡ Popular</p>
-                <h3 class="font-display font-black text-sm leading-snug text-[#1e1a10] mb-2">
-                  Ensinar Emoções através do Desenho Infantil
-                </h3>
-                <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
-                  Saiba como ajudar as crianças a expressar emoções e desenvolver inteligência emocional através do desenho.
-                </p>
-                <p class="text-[#9a9080] text-xs mb-3">2024</p>
-                <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom 2 cards row -->
-          <div class="grid sm:grid-cols-2 gap-5">
-
-            <!-- Card 4 -->
-            <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc]">
-              <div class="h-36 bg-[#d8f0e0] flex items-center justify-center text-5xl">♻️</div>
-              <div class="p-4">
-                <h3 class="font-display font-black text-base leading-snug text-[#1e1a10] mb-1">
-                  Brinquedos Reciclados:
-                </h3>
-                <p class="text-[#4a4030] text-sm font-semibold mb-2">Como Criar e Aprender Brincando</p>
-                <p class="text-[#6a6050] text-xs leading-relaxed mb-3">
-                  Descubra ideias criativas para transformar materiais reciclados em brinquedos didáticos.
-                </p>
-                <p class="text-[#9a9080] text-xs mb-3">April 2024</p>
-                <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a>
-              </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc]">
-              <div class="h-36 bg-[#f0e8d0] flex items-center justify-center text-5xl">📖</div>
-              <div class="p-4">
-                <p class="text-primary font-black text-xs mb-1">3.</p>
-                <h3 class="font-display font-black text-base leading-snug text-[#1e1a10] mb-1">
-                  Histórias Ilustradas |
-                </h3>
-                <p class="text-[#4a4030] text-sm font-semibold mb-2">Como Criar e Desenhar com as Crianças.</p>
-                <p class="text-[#6a6050] text-xs leading-relaxed">
-                  Vamos explorar como criar e ilustrar histórias a estimular a linguagem e a imaginação infantil.
-                </p>
-              </div>
-            </div>
-
-          </div>
+          </div>          
         </div>
 
         <!-- ── SIDEBAR ── -->

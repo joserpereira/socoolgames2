@@ -3,6 +3,18 @@
         <h1 class="text-2xl font-bold">Article edit</h1>
     </div>
     <div class="grid grid-cols-1">
+        <div class="relative mt-4">
+            <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
+                    v-model="(data.item || {}).slug"
+                    required
+                    maxlength="100"
+                    id="slug"
+                    placeholder="Slug" />
+                    
+            <label for="slug" 
+                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Slug</label>
+        </div>
+
         <!-- Languages -->
         <div class="relative bg-white tab-group mt-4">
             <div class="flex border-b border-stone-200 relative" role="tablist">
@@ -117,6 +129,12 @@
         try
         {
             var isValid = true;
+            if (data.item.slug.length == 0)
+            {
+                isValid = false;
+                data.error = "Please fill all required fields."
+                return;
+            }
             for (const lang of data.languages) {
                 if ((data.item.title?.[lang] ?? "").length == 0 || (data.item.content?.[lang] ?? "").length == 0 )
                 {
@@ -126,12 +144,14 @@
             }
             if (!isValid) {
                 data.error = "Please fill all required fields."
+                return;
             }
 
             if (data.item._id === undefined) {
                 const result = await service.insertItem(data.item, "article");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem adding article";
+                    return;
                 } else {
                     data.item = result.data.data;
                 }
@@ -139,6 +159,7 @@
                 const result = await service.updateItem(data.item._id, data.item, "article");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem updating article";
+                    return;
                 } else {
                     data.item = result.data.data;
                 }

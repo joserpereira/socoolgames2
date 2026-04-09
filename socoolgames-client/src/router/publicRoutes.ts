@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue';
 import ClientLayout from '@/layouts/ClientLayout.vue';
 import DynamicView from '@/views/DynamicView.vue';
 import PageNotFound from '@/components/common/PageNotFound.vue';
+import ArticleView from '@/views/ArticleView.vue';
 // import RedirectPage from '@/components/RedirectPage.vue';
 // import Terms from '@/views/Terms.vue';
 // import Privacy from '@/views/Privacy.vue';
@@ -27,6 +28,11 @@ const publicRoutes: RouteRecordRaw[] = [
                 path: '/:lang/:slug?',
                 name: 'dynamic',
                 component: DynamicView
+            },
+            {
+                path: '/:lang/article/:slug?',
+                name: 'article',
+                component: ArticleView
             },
             {   
                 path: "/not-found", 
