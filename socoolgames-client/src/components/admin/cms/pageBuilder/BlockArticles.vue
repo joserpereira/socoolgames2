@@ -21,7 +21,13 @@
           <div v-for="(value, index) in data.articleSchema" :key="index" class="grid gap-5" :class="'sm:grid-cols-'+value"  >
             <div v-for="index2 in value" :key="index2" :set="indexT = indexT + 1" >
               <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
-                <div class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
+                <picture v-if="data.articles[indexT]?.image" class="h-36 bg-[#d8e8c0]">
+                    <source class="h-36 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + data.articles[indexT].image.thumb)" />
+                    <source class="h-36 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + data.articles[indexT].image.medium)" />
+                    <img loading="lazy" class="h-36 w-full bg-[#d8e8c0] rounded-t-2xl shadow-xl w-full" alt="Criança a utilizar jogo criativo no telemóvel"
+                            :src="formatUrl(baseUrl + data.articles[indexT].image.large)" />
+                </picture>
+                <div v-else class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
                 <div class="p-4">
                   <p class="text-yellow-500 font-black text-xs mb-1" v-if="data.articles[indexT]?.header?.[props.selectedLang]">
                     {{ data.articles[indexT]?.header[props.selectedLang] }}
@@ -48,29 +54,14 @@
               Artigos <span class="text-primary">Relacionados</span>
             </h3>
             <ul class="space-y-1">
-              <li>
-                <a href="#" class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
-                  <span>13 Atividades <strong>Criativas para</strong> Fomentar o Pensamento</span>
-                  <span class="text-primary text-lg shrink-0">›</span>
-                </a>
-              </li>
-              <li class="border-t border-[#f0e8d8]">
-                <a href="#" class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
-                  <span>Atividades Artísticas para Estimular a Autonomia das Crianças</span>
-                  <span class="text-primary text-lg shrink-0">›</span>
-                </a>
-              </li>
-              <li class="border-t border-[#f0e8d8]">
-                <a href="#" class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
-                  <span>Como Organizar uma Tarde Criativa em Família</span>
-                  <span class="text-primary text-lg shrink-0">›</span>
-                </a>
-              </li>
-              <li class="border-t border-[#f0e8d8]">
-                <a href="#" class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
-                  <span>Atividades Simples para Estimular a Imaginação Infantil.</span>
-                  <span class="text-primary text-lg shrink-0">›</span>
-                </a>
+              <li v-for="value in numberOfRelatedArticlesToFetch" :key="value" >
+                <div :set="indexT = indexT + 1" class="border-t border-[#f0e8d8]" v-if="data.articles[indexT]">
+                  <a href="#" 
+                      class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
+                    <span>{{ data.articles[indexT]?.title[props.selectedLang] }}</span>
+                    <span class="text-primary text-lg shrink-0">›</span>
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
@@ -94,6 +85,8 @@
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
 
+    const baseUrl = process.env.VUE_APP_API_URL;    
+    const numberOfRelatedArticlesToFetch = 4; 
     const data = reactive({
         articles: [],
         articleSchema: []
@@ -109,8 +102,9 @@
 
     onMounted(() => {
       data.articleSchema = (props.data.articleSchema ?? "2-3").split("-").map(num => parseInt(num));
+      const totalItems = data.articleSchema.reduce((partialSum, a) => partialSum + a, 0);
       // console.log("Article Schema:", data.articleSchema);
-      articleService.getItems(5).then(res => {
+      articleService.getItems(totalItems+numberOfRelatedArticlesToFetch).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
           data.articles = res.data.data;
           // console.log("Articles:", data.articles);
