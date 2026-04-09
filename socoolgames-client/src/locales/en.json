@@ -7,5 +7,11 @@
         "title": "Learning to play every day.",
         "privacy": "Privacy Policy",
         "terms": "Terms & Policy"
+    },
+    "newsletter": {
+        "title": "📩 Newsletter",
+        "description": "Receive creative activities every week directly to your email.",
+        "emailPlaceholder": "Your email…",
+        "subscribeButton": "Subscribe"
     }
 }

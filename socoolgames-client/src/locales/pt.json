@@ -6,6 +6,12 @@
     "footer": {
         "title": "Aprender a brincar todos os dias.",
         "privacy": "Política de Privacidade",
-        "terms": "Termos & Condiçõe"
+        "terms": "Termos & Condições"
+    },
+    "newsletter": {
+        "title": "📩 Newsletter",
+        "description": "Recebe atividades criativas todas as semanas diretamente no teu email.",
+        "emailPlaceholder": "O teu email…",
+        "subscribeButton": "Subscrever"
     }
 }

@@ -65,13 +65,7 @@
             </ul>
           </div>
 
-          <!-- Newsletter mini CTA -->
-          <div class="bg-[#edf5e0] rounded-2xl p-5 border border-[#c8e0a0]">
-            <p class="font-display font-black text-sm text-primary mb-2">📩 Newsletter</p>
-            <p class="text-xs text-[#4a6030] leading-relaxed mb-3">Recebe atividades criativas todas as semanas diretamente no teu email.</p>
-            <input type="email" placeholder="O teu email…" class="w-full text-xs bg-white border border-[#c8e0a0] rounded-lg px-3 py-2 mb-2 outline-none focus:ring-2 focus:ring-[--color-brand-green-light]" />
-            <button class="w-full bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Subscrever</button>
-          </div>
+          <MiniNewsLetter v-if="props.data.showNewsletter" />
         </aside>
 
       </div>
@@ -83,6 +77,7 @@
     import { formatUrl } from "@/utils/url.utils";
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
+    import MiniNewsLetter from "@/components/admin/cms/pageBuilder/MiniNewsLetter.vue";
 
     const baseUrl = process.env.VUE_APP_API_URL;    
     const numberOfRelatedArticlesToFetch = 4; 
