@@ -21,7 +21,7 @@
                     required
                     maxlength="100"
                     id="slug"
-                    placeholder="Name" />
+                    placeholder="Slug" />
                     
             <label for="slug" 
                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Slug</label>
@@ -112,6 +112,7 @@
                 const result = await pageService.insertItem(data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem adding page";
+                    return;
                 } else {
                     data.item = result.data.data;
                 }
@@ -119,6 +120,7 @@
                 const result = await pageService.updateItem(data.item._id, data.item, "page");
                 if (result.status !== 200 || result.data.error !== 0) {
                     data.error = "Problem updating page";
+                    return;
                 } else {
                     data.item = result.data.data;
                 }
