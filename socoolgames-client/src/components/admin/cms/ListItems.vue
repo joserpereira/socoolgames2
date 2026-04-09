@@ -47,9 +47,7 @@
             v-on:mouseleave="data.hoverId=''"
             v-for="item in data.items"
             :key="item._id"
-            class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 "
-       
-          >
+            class="border-t hover:bg-gray-400 hover:text-black even:bg-text-gray-600">
             <!-- <td class="p-3 hover:text-gray-600 gap-2 description-cell">
               <span class="dot" :class="item.active ? 'dotselected' : ''"></span>
               
@@ -57,7 +55,7 @@
             <td v-for="(value, index) in props.columns" :key="index" 
               :class="index == 0 ? 'p-3 hover:text-gray-600 gap-2 description-cell' : 'p-3 gap-2 description-cell'">
               
-              <span v-if="value.indexOf('.') >= 0">{{ item[value.split('.')[0]][value.split('.')[1]] }}</span>
+              <span v-if="value.indexOf('.') >= 0">{{ item[value.split('.')[0]]?.[value.split('.')[1]] ?? "" }}</span>
               <span v-else>{{ item[value] }}</span>
             </td>
             <td v-if="data.hoverId!==item._id"></td>

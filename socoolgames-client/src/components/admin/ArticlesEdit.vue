@@ -98,7 +98,7 @@
 
     watch(() => props.item, (value) => {        
         if (props?.item && value) {
-            data.item = value;
+            data.item = validateItem(value);
         }
     }, { deep: true });
 
@@ -117,9 +117,18 @@
 
     })
 
+    const validateItem = (item) => {
+        if (item.content == undefined)
+            item.content = {};
+        if (item.title == undefined)
+            item.title = {};
+        if (item.header == undefined)
+            item.header = {};
+        return item;
+    }
     onMounted(() => {
         if (props.item) {
-            data.item = props.item;
+            data.item = validateItem(props.item);
         }
     })
 
@@ -161,7 +170,7 @@
                     data.error = "Problem updating article";
                     return;
                 } else {
-                    data.item = result.data.data;
+                    data.item = validateItem(result.data.data);
                 }
             }
             if (props.saved)
