@@ -122,6 +122,8 @@
             item.content = {};
         if (item.title == undefined)
             item.title = {};
+        if (item.otherTitle == undefined)
+            item.otherTitle = {};
         if (item.header == undefined)
             item.header = {};
         return item;

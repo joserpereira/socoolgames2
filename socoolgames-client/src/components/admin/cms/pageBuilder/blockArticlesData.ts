@@ -25,7 +25,8 @@ class BlockArticlesData {
     return [
         { field: "title", type: "WidgetText", label: "Title" },
         { field: "articleSchema", type: "WidgetOption", label: "Article Schema", options: ["3-2", "2-3", "2-2"] },
-        { field: "showNewsletter", type: "WidgetBoolean", label: "Show Newsletter" }
+        { field: "showNewsletter", type: "WidgetBoolean", label: "Show Newsletter" },
+        { field: "otherTitle", type: "WidgetText", label: "Other Title" },
     ]
   }
   

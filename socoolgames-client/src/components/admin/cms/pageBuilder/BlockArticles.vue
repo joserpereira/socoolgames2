@@ -50,8 +50,7 @@
         <!-- ── SIDEBAR ── -->
         <aside class="space-y-6">
           <div class="bg-white rounded-2xl p-5 shadow-sm border border-[#e8e0cc]">
-            <h3 class="font-display font-black text-base text-[#1e1a10] mb-4">
-              Artigos <span class="text-primary">Relacionados</span>
+            <h3 class="font-display font-black text-base text-[#1e1a10] mb-4" v-html="props.data.otherTitle?.[props.selectedLang]">              
             </h3>
             <ul class="space-y-1">
               <li v-for="value in numberOfRelatedArticlesToFetch" :key="value" >
