@@ -1,4 +1,4 @@
-const json = require('./allowedOrigins.json')
+const json = require('./allowedOrigins.json');
 export const corsOptions = {
     origin: (origin: any, callback: any) => {
         if (json.indexOf(origin) !== -1 || json.indexOf('*') !== -1 || !origin) {

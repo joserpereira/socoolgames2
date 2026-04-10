@@ -5,10 +5,12 @@
     "outDir": "dist",
     //"rootDir": "./src",
     "strict": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleDetection": "force",
     "lib": [ "ES2021.String", "es2015", "es2022"],
-  }
+  },
+  "include": ["**/*", "allowedOrigins.json"],
 }
