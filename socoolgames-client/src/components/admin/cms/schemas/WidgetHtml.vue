@@ -30,7 +30,10 @@
     </div>
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive } from 'vue'
+  import { onMounted, reactive, defineProps, defineEmits } from 'vue'
+  import { languages } from '../../../../locales/index'
+  const emit = defineEmits(['update:value'])
+
   import HtmlEditorQuill from '@/components/admin/cms/schemas/HtmlEditorQuill.vue'
 /*
   import DOMPurify from 'dompurify'
@@ -44,13 +47,20 @@
         selectedLang: String
    })
 
-  onMounted(() => {
+  const setDefaultValue = () => {
     let d = props.value ?? {};
-    if (!(props.selectedLang in d)) {
-      d[props.selectedLang] = "";
-    }
-    data.value = props.value;
-  })    
+    Object.keys(languages).forEach(l => {
+      if (!(l in d)) {
+        d[l] = "";
+      }
+    })
+    data.value = d;
+    emit('update:value', data.value)
+  }
+
+  onMounted(() => {
+    setDefaultValue();    
+  })
 
   const data = reactive({
     value: {} as any,
