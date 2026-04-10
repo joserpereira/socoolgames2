@@ -59,8 +59,12 @@
 
   
   watch(() => props.modelValue, (value) => {        
+    data.selectedImage = "";
+    data.value = undefined as any;
     if (value) {
       setValue(value);
+    } else {
+      fillData(); 
     }
   }, { deep: true });
 
