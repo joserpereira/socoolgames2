@@ -40,7 +40,7 @@
                   </p>
                   <p class="text-[#9a9080] text-xs mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt)">{{ dateTimeUtils.getDateText(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt, false) }}</p>
                   <!-- <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a> -->
-                  <router-link :to="'/' + props.selectedLang + '/article/'+data.articles[indexT]?.slug" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</router-link>
+                  <router-link :to="'/' + props.selectedLang + '/article/'+data.articles[indexT]?.slug" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">{{ t('article.readArticle') }}</router-link>
                 </div>
               </div>
             </div>
@@ -80,6 +80,8 @@
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
     import MiniNewsLetter from "@/components/admin/cms/pageBuilder/MiniNewsLetter.vue";
+    import { useI18n } from "vue-i18n";
+    const { t } = useI18n();
 
     const baseUrl = process.env.VUE_APP_API_URL;    
     const numberOfRelatedArticlesToFetch = 4; 

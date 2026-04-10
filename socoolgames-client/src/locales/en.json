@@ -13,5 +13,8 @@
         "description": "Receive creative activities every week directly to your email.",
         "emailPlaceholder": "Your email…",
         "subscribeButton": "Subscribe"
+    },
+    "article": {
+        "readArticle": "Read"        
     }
 }
