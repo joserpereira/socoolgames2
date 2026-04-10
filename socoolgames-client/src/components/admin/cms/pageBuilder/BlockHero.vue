@@ -3,11 +3,11 @@
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
-                <h1 class="bg-green-500/40 text-4xl backdrop-blur-sm md:text-5xl font-black mb-6 leading-tight rounded-lg px-6 py-4 inline-block">
+                <h1 class="text-4xl backdrop-blur-sm md:text-5xl font-black mb-6 leading-tight rounded-lg px-6 py-4 inline-block">
                     {{ props.data.title?.[props.selectedLang] }}
                 </h1>
 
-                <p class="bg-white/30 backdrop-blur-sm text-lg text-gray-700 mb-8 px-6 rounded-lg py-4 inline-block" v-html="formatText(props.data.subTitle?.[props.selectedLang])">
+                <p class="backdrop-blur-sm text-lg text-gray-700 mb-8 px-6 rounded-lg py-4 inline-block" v-html="formatText(props.data.subTitle?.[props.selectedLang])">
                     
                 </p>
                 <div>
