@@ -39,10 +39,7 @@
 </template>
 <script setup lang="ts">
   import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
-  import { languages } from '../../../../locales/index'
   import imageService from '@/services/common/image.service';
-
-    const emit = defineEmits(['update:value'])
 
   const props = defineProps<{
     schema: Object,
