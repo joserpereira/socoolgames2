@@ -14,9 +14,13 @@ class ArticleService {
     return api.put(`${baseAPI}${id}`, { item, "type": type });
   }
 
-  getItems(limit = 10) {
+  getItems(limit = 10, active = false) {
     try {
-        return api.get(baseAPI+`?__limit=${limit}`).then((response: any) => {
+      let url = baseAPI+`?__limit=${limit}`;
+      if (active) {
+        url += `&active=${active}`;
+      }
+      return api.get(url).then((response: any) => {
           return response;
         });
     } catch (error) {

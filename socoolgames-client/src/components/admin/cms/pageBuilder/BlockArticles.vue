@@ -53,13 +53,15 @@
             <h3 class="font-display font-black text-base text-[#1e1a10] mb-4" v-html="props.data.otherTitle?.[props.selectedLang]">              
             </h3>
             <ul class="space-y-1">
-              <li v-for="value in numberOfRelatedArticlesToFetch" :key="value" >
-                <div :set="indexT = indexT + 1" class="border-t border-[#f0e8d8]" v-if="data.articles[indexT]">
-                  <a href="#" 
+              <li v-for="value in numberOfRelatedArticlesToFetch" :key="value">
+                <div v-show="data.articles[indexT] !== undefined" >
+                  <div :set="indexT = indexT + 1" class="border-t border-[#f0e8d8]">
+                  <a :href="'/' + props.selectedLang + '/article/'+data.articles[indexT]?.slug" 
                       class="sidebar-link flex items-center justify-between gap-2 py-3 px-3 rounded-xl text-sm font-semibold text-[#3a3020] hover:text-primary transition-all">
                     <span>{{ data.articles[indexT]?.title[props.selectedLang] }}</span>
                     <span class="text-primary text-lg shrink-0">›</span>
                   </a>
+                </div>
                 </div>
               </li>
             </ul>
@@ -98,7 +100,7 @@
       data.articleSchema = (props.data.articleSchema ?? "2-3").split("-").map(num => parseInt(num));
       const totalItems = data.articleSchema.reduce((partialSum, a) => partialSum + a, 0);
       // console.log("Article Schema:", data.articleSchema);
-      articleService.getItems(totalItems+numberOfRelatedArticlesToFetch).then(res => {
+      articleService.getItems(totalItems+numberOfRelatedArticlesToFetch, true).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
           data.articles = res.data.data;
           // console.log("Articles:", data.articles);
