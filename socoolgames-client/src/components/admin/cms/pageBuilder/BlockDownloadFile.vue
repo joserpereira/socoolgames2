@@ -22,15 +22,15 @@
             </label>
         </div> -->
             <input 
-                        type="email" 
-                        :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
-                        v-model="data.email"
-                        class="px-6 py-4 rounded-full text-gray-700 border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
-                        required
-                    />
-        <button class="btn-pulse bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap">
-            {{ props.data.buttonText?.[props.selectedLang] }}
-        </button>
+                type="email" 
+                :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
+                v-model="data.email"
+                class="px-6 py-4 rounded-full text-gray-700 border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
+                required
+            />
+            <button class="btn-pulse bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap">
+                {{ props.data.buttonText?.[props.selectedLang] }}
+            </button>
         </div>
 
         <!-- trust row -->
