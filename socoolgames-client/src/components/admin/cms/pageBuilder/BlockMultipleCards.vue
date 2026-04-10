@@ -35,7 +35,7 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, /* defineEmits,*/ onMounted } from 'vue';
+    import { defineProps, /* defineEmits,*/ } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
 
     const baseUrl = process.env.VUE_APP_API_URL;
@@ -49,14 +49,4 @@
         }
     })
 
-    // const formatText = (text) => {
-    //     if (text)
-    //         return text.replaceAll('\n', '<br />')
-    //     return "";
-    // }
-
-    onMounted(() => {
-    })
-
-    // defineEmits({ formatUrl })
 </script>

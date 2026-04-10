@@ -9,8 +9,7 @@
             <h1 class="font-black text-[#1e1a10] mt-4 mb-2">
                 {{ data.article?.title?.[data.language] ?? "" }}
             </h1>
-            <p class="text-[#6a6050] leading-relaxed mb-3">
-                {{ data.article?.content?.[data.language] ?? "" }}
+            <p class="text-[#6a6050] leading-relaxed mb-3" v-html="formatText(data.article?.content?.[data.language] ?? '')">
             </p>
             <p class="text-[#9a9080] text-xs mt-4 mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.article?.updatedAt ?? data.article?.createdAt)">{{ dateTimeUtils.getDateText(data.article?.updatedAt ?? data.article?.createdAt, false) }}</p>
         </div>
@@ -23,7 +22,8 @@
     import { useRoute, useRouter } from 'vue-router';
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
-    
+    import { formatText } from '@/utils/html.utils';
+
     const route = useRoute();
     const router = useRouter()
 

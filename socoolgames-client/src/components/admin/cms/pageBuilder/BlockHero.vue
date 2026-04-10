@@ -28,6 +28,7 @@
 <script setup>
     import { defineProps, defineEmits, onMounted } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
+    import { formatText } from '@/utils/html.utils';
 
     const baseUrl = process.env.VUE_APP_API_URL;
     const props = defineProps({        
@@ -38,12 +39,6 @@
             type: String
         }
     })
-
-    const formatText = (text) => {
-        if (text)
-            return text.replaceAll('\n', '<br />')
-        return "";
-    }
 
     onMounted(() => {
     })
