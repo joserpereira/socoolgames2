@@ -1,110 +1,68 @@
 import { Request, Response} from 'express';
 import { Logger } from '../utils/loggerUtils';
 
-const fileService = require('../services/image.service')
-const loggerUtils = new Logger();
+const service = require('../services/file.service')
 const mongoUtils = require('../utils/mongo')
+const loggerUtils = new Logger();
 
-export const getFiles = async (req: Request, res: Response) => {
+export const getItems = async (req: Request, res: Response) => {
 
     try
     {
+        console.log("get files")
         loggerUtils.debug("get files")
+
         var filter = mongoUtils.getFilterByParameter(req)
         var pagination = mongoUtils.getPaginationParameters(filter)
-        const result = await fileService.getFiles(pagination.filter, pagination.skip, pagination.limit, pagination.search);
-        res.status(200).json({error: 0, message: '', data: result.data, count: result.count})
+        delete filter.search;
+
+        const result = await service.getItems(pagination.filter, pagination.skip, pagination.limit, pagination.search);
+        res.status(result.error === 0 ? 200 : 500).json(result)
     }
     catch(error: any)
     {
         loggerUtils.error("Get files Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
+        res.status(500).json({error: 999, message: error.message, data: null})
     }
 }
 
-export const uploadFile = async (req: Request, res: Response) => {
+export const deleteItem = async (req: Request, res: Response) => {
 
-    try {
+    try
+    {
+        loggerUtils.debug("delete file")
+        const { id } = req.params;
+
+        const result = await service.deleteItem(id);
+        res.status(result.error === 0 ? 200 : 500).json(result)
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Delete file Error: " + error.message)
+        res.status(500).json({error: 999, message: error.message, data: null})
+    }
+}
+
+export const uploadFile = async (req: any, res: Response) => {
+
+    try
+    {
         loggerUtils.debug("upload files")
-        const { instance_id, file_category, idx } = req.params
-        const body = req.body;
-        const { name } = body;   
 
-        const result = await fileService.uploadFile(instance_id, file_category, idx, name);
-        res.status(200).json(result);
-    } 
-    catch(error: any)
-    {
-        loggerUtils.error("Upload Files Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
-    }
-}
-
-export const getImageInfo = async (req: Request, res: Response) => {
-
-    try
-    {
-        loggerUtils.debug("get link by path")
-        const { path } = req.params;
-        const items = await fileService.getImageInfo(path);
-        res.status(200).json({error: 0, message: '', data: items})
-    }
-    catch(error: any)
-    {
-        loggerUtils.error("Get files Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
-    }
-}
-
-export const getImageConvert = async (req: Request, res: Response) => {
-
-    try
-    {
-        loggerUtils.debug("get image info")
-        const { path } = req.params;
-        const items = await fileService.getImageConvert(path);
-        res.status(200).json({error: 0, message: '', data: items})
-    }
-    catch(error: any)
-    {
-        loggerUtils.error("Get files Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
-    } 
-}
-
-export const getImageResize = async (req: Request, res: Response) => {
-
-    try
-    {
-        loggerUtils.debug("get link by path")
-        const { path, width, height } = req.params;
-        const items = await fileService.getImageResize(path, width, height);
-        res.status(200).json({error: 0, message: '', data: items})
-    }
-    catch(error: any)
-    {
-        loggerUtils.error("Get files Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
-    }
-}
-
-
-export const deleteFile = async (req: any, res: Response) => {
-    try
-    {
-        const {id} = req.params;
-        const userId = req["userId"]
-        const item = await fileService.deleteLink(id, userId);
-        if (!item) {
-            res.status(404).json({error: 404, message: `Cannot find any file with ID '${id}'`})                
+        if (!req.file) {
+            return res.status(400).json({ error: 999, message: "No file uploaded" })
         }
-        else {
-            res.status(200).json({error: 0, message: '', data: item})
-        }
-    }
-    catch(error: any)
-    {
-        loggerUtils.error("Delete File Error: " + error.message)
-        res.status(500).json({error: 999, message: error.message})
+
+        console.log("req.file:", req.file);
+        // if (!req.file.mimetype.startsWith("image/")) {
+        //     return res.status(400).json({ error: 999, message: "Invalid file type" })
+        // }
+
+        const result = service.uploadFile(req.file);
+        res.status(200).json({error: 0, message: '', data: result.data})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 999, message: "Upload failed" })
     }
 }
+

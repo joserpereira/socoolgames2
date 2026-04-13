@@ -1,0 +1,146 @@
+<template>
+<div class="max-w-xl mx-auto">
+
+  <div
+    class="border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition hover:bg-gray-50"
+    @dragover.prevent
+    @drop.prevent="handleDrop"
+    @click="openFile"
+  >
+
+    <input
+      ref="fileInput"
+      type="file"
+      accept="file/*"
+      class="hidden"
+      @change="handleFile"
+    />
+
+    <p class="text-gray-600">
+      Drag & Drop file here
+    </p>
+
+    <p class="text-sm text-gray-400 mt-1">
+      or click to upload
+    </p>
+
+  </div>
+
+  <!-- preview -->
+
+  <div v-if="preview" class="mt-6">
+
+    <img
+      :src="preview"
+      class="rounded-xl shadow max-h-80 mx-auto"
+    />
+
+    <button
+      @click="upload"
+      class="mt-4 bg-primary px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black">
+      Upload
+    </button>
+
+  </div>
+
+  <!-- progress -->
+
+  <div v-if="progress > 0" class="mt-4">
+
+    <div class="w-full bg-gray-200 rounded">
+      <div
+        class="bg-green-500 text-xs text-white text-center py-1 rounded"
+        :style="{ width: progress + '%' }"
+      >
+        {{ progress }}%
+      </div>
+    </div>
+
+  </div>
+  <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+    <p class="font-bold">Be Warned</p>
+    <p>{{ data.errorMessage }}</p>
+  </div>
+</div>
+</template>
+
+<script setup>
+import { ref, defineProps, reactive } from "vue"
+import axiosAPI from '@/services/common/api';
+
+ const props = defineProps({
+    newItem: {
+      type: Function
+    }
+  });
+
+ const data = reactive({
+    errorMessage: ""
+ });
+
+
+const baseAPI = 'files/';
+
+const preview = ref(null)
+const file = ref(null)
+const progress = ref(0)
+
+const fileInput = ref(null)
+
+const openFile = () => {
+  fileInput.value.click()
+}
+
+const handleFile = (e) => {
+  setFile(e.target.files[0])
+}
+
+const handleDrop = (e) => {
+  const dropped = e.dataTransfer.files[0]
+  setFile(dropped)
+}
+
+function setFile(selected) {
+
+  if (!selected) return
+
+  file.value = selected
+  preview.value = URL.createObjectURL(selected)
+
+}
+
+const upload = async () => {
+  const formData = new FormData()
+  formData.append("file", file.value)
+
+  try {
+    const res = await axiosAPI.post(baseAPI + 'upload',
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: (event) => {
+
+          progress.value = Math.round(
+            (event.loaded * 100) / event.total
+          )
+          if (progress.value >= 100) {
+            setTimeout(() => {
+              if (props?.newItem != null)
+                props?.newItem(); 
+            }, 1000);
+
+          }
+
+        }
+      });
+      if (res.status !== 200) {
+        data.errorMessage = "Oops. Failed to upload file, please try again.";
+      }
+  } catch (err) {
+    data.errorMessage = "Ooops. Failed to upload file, please try again.";
+  }
+
+}
+</script>
