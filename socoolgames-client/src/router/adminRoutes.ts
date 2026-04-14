@@ -57,6 +57,12 @@ const adminRoutes: RouteRecordRaw[] = [
                 name: 'EmailConfigView',
                 component: () => import('@/components/admin/cms/EmailConfigView.vue'),
                 meta: { requiresAuth: true } 
+            },
+            {
+                path: '/admin/email-templates',
+                name: 'EmailTemplateView',
+                component: () => import('@/components/admin/cms/EmailTemplateView.vue'),
+                meta: { requiresAuth: true } 
             }
         
     //         {

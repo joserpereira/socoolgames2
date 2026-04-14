@@ -5,7 +5,7 @@ const service = require('../services/instance.service')
 const mongoUtils = require('../utils/mongo')
 
 const loggerUtils = new Logger();
-const collectionName = "emailserverconfig";
+const collectionName = "emailtemplate";
 
 export const getItems = async (req: Request, res: Response) => {
 

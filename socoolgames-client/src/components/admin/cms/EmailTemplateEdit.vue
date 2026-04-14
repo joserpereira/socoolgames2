@@ -1,65 +1,31 @@
 <template>
     <div class="flex items-center justify-between mb-6 mt-4 ">
-        <h1 class="text-2xl font-bold">Email Configuration edit</h1>
+        <h1 class="text-2xl font-bold">Email Templates edit</h1>
     </div>
     <div class="grid grid-cols-1">
-
         <div class="relative mt-2">
             <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
-                    v-model="(data.item || {}).configName"
+                    v-model="(data.item || {}).templateName"
                     required
                     maxlength="100"
                     id="name"
-                    placeholder="Name" />
+                    placeholder="Template Name" />
             <label for="name" 
-                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Name</label>
+                    class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Template Name</label>
         </div>
 
         <div class="relative mt-2">
             <select name="service" id="service"
                     placeholder="Name"
-                    v-model="(data.item || {}).emailType"
+                    v-model="(data.item || {}).configName"
                     class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent">
-                <option value="gmail">gmail</option>
+                <option v-for="value in data.configs" :key="value._id" :value="value.configName">{{ value.configName }}</option>
             </select>
                     
             <label for="service" 
-                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Type</label>
+                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Configuration Name</label>
         </div>
 
-        <div class="relative mt-2">
-            <input type="email" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
-                    v-model="(data.item || {}).emailFrom"
-                    required
-                    maxlength="100"
-                    id="slug"
-                    placeholder="Name" />
-                    
-            <label for="slug" 
-                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Email From</label>
-        </div>
-        <div class="relative mt-2">
-            <input type="text" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
-                    v-model="(data.item || {}).emailUsername"
-                    required
-                    maxlength="100"
-                    id="slug"
-                    placeholder="Name" />
-                    
-            <label for="slug" 
-                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Username</label>
-        </div>        
-        <div class="relative mt-2">
-            <input type="password" class="input rounded-xl px-2 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
-                    v-model="(data.item || {}).emailPass"
-                    required                    
-                    maxlength="100"
-                    id="slug"
-                    placeholder="Name" />
-                    
-            <label for="slug" 
-                   class="absolute rounded mt-7 left-0 ml-3 -translate-y-6 bg-white px-3 text-sm duration-100 ease-linear peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 ">Password</label>
-        </div>
         <div class="relative bg-white tab-group mt-2">
             <div class="flex border-b border-stone-200 relative" role="tablist">
                 <div class="absolute bottom-0 h-0.5 bg-stone-800 transition-transform duration-300 transform scale-x-0 translate-x-0 tab-indicator"></div>
@@ -70,15 +36,6 @@
                     {{ lang }}
                 </button>
             </div>
-        </div>
-        <div class="relative mt-4 mx-8">
-            <label class="block font-medium text-start text-sm mt-2">
-                Email Name
-            </label>
-            <input type="text"
-                class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-                v-model="(data.item || {}).emailName[data.currentLang]"
-            /> 
         </div>
         <div class="relative mt-4 mx-8">
             <label class="block font-medium text-start text-sm mt-2">
@@ -114,7 +71,8 @@
     </div>
 </template>
 <script setup lang="ts">
-    import service from "@/services/emailConfig.service";
+    import service from "@/services/emailTemplate.service";
+    import emailConfigService from "@/services/emailConfig.service";
     import { watch, defineProps, onMounted, reactive } from 'vue'
 
     const props = defineProps({
@@ -138,6 +96,7 @@
         },
         currentLang: "en",
         languages: ["en", "pt"],
+        configs: [],
         error: ""
     })
 
@@ -147,7 +106,16 @@
             const value = props.item;
             data.item = setProperties(value);
         }
+
+        loadConfigs();
     })
+
+    const loadConfigs = async () => {
+        const result = await emailConfigService.getItems(0, 100, ""); // Adjust the limit as needed
+        if (result.status === 200 && result.data.error === 0) {
+            data.configs = result.data.data;
+        }
+    }
 
     const defaultValues = {
             emailSubject: {
@@ -181,17 +149,16 @@
         data.error = "";
         try
         {
-            if ((data.item.configName ?? "").length == 0 || (data.item.emailType ?? "").length == 0 ||
-                (data.item.emailFrom ?? "").length == 0)
+            if ((data.item.configName ?? "").length == 0)
             {
-                data.error = "Please fill config name, email type and email from."
+                data.error = "Please fill config name."
                 return;
             }
 
             if (data.item._id === undefined) {
                 const result = await service.insertItem(data.item);
                 if (result.status !== 200 || result.data.error !== 0) {
-                    data.error = "Problem adding configuration";
+                    data.error = "Problem adding template";
                     return;
                 } else {
                     data.item = result.data.data;
@@ -199,7 +166,7 @@
             } else  {
                 const result = await service.updateItem(data.item._id, data.item);
                 if (result.status !== 200 || result.data.error !== 0) {
-                    data.error = "Problem updating configuration";
+                    data.error = "Problem updating template";
                     return;
                 } else {
                     data.item = result.data.data;
