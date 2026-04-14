@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
-class BlockTextData {
+class BlockDownloadFileData {
 
   getNames() {
     return {
@@ -14,7 +14,8 @@ class BlockTextData {
         title: { pt: '', en: '' },
         subTitle: { pt: '', en: '' },
         buttonText: { pt: '', en: '' },
-        footer: { pt: '', en: '' }
+        footer: { pt: '', en: '' },
+        downloadFile: { pt: '', en: '' }
     }
   }
 
@@ -29,8 +30,9 @@ class BlockTextData {
         { field: "inputPlaceholder", type: "WidgetText", label: "Input Placeholder" },
         { field: "buttonText", type: "WidgetText", label: "Button Text" },
         { field: "footer", type: "WidgetText", label: "Footer" },
+        { field: "downloadFile", type: "WidgetFile", label: "Download File" },
     ]
   }
 }
 
-export default new BlockTextData();
+export default new BlockDownloadFileData();
