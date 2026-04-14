@@ -13,7 +13,7 @@ class FileService {
           return response;
         });
     } catch (error) {
-      console.error("Error fetching images:", error);
+      console.error("Error fetching files:", error);
       throw error;
     }    
   }
@@ -24,12 +24,45 @@ class FileService {
           return response;
         });
     } catch (error) {
-      console.error("Error deleting image:", error);
+      console.error("Error deleting file:", error);
       throw error;
     }
   }
 
-  
-}
+  async downloadItem(id: string) {
+  try {
+    const response = await axiosApi.get(`${baseAPI}${id}/download`, { responseType: 'blob' } );
 
+    // 👉 try to get original filename
+    let filename = "file.pdf";
+    const disposition = response.headers["content-disposition"];
+    if (disposition) {
+      const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^\\";]+)"?/i);
+      if (match?.[1]) {
+        filename = match?.[1]?.trim()
+      }
+    }
+
+    // create blob and link
+    const blob = new Blob([response.data], { type: "application/pdf" });
+
+    // create link
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = downloadUrl;
+    link.setAttribute("download", filename);
+
+    document.body.appendChild(link);
+    link.click();
+
+    // cleanup
+    link.remove();
+    window.URL.revokeObjectURL(downloadUrl);
+
+  } catch (err) {
+    console.error("Error downloading file:", err);
+  }
+}
+}
 export default new FileService();

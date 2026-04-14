@@ -1,5 +1,6 @@
 import { Request, Response} from 'express';
 import { Logger } from '../utils/loggerUtils';
+import fs from "fs";
 
 const service = require('../services/file.service')
 const mongoUtils = require('../utils/mongo')
@@ -66,3 +67,59 @@ export const uploadFile = async (req: any, res: Response) => {
     }
 }
 
+export const downloadFile = async (req: Request, res: any) => {
+
+    try
+    {
+        loggerUtils.debug("download file")
+
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ error: 999, message: "No file uploaded" })
+        }
+
+        const result = await service.downloadFile(id);
+        if (result.error !== 0) {
+            return res.status(404).json(result)
+        }
+
+        res.setHeader("Content-Type", result.data.type);
+        res.setHeader("Content-Disposition", 'attachment; filename="'+result.data.original +'"');
+        res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+        
+        // ✅ Stream (better than readFile)
+        const stream = fs.createReadStream(result.data.fullPath);
+        stream.pipe(res);
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 999, message: "Download failed" })
+    }
+}
+
+export const previewFile = async (req: Request, res: any) => {
+
+    try
+    {        
+        loggerUtils.debug("download file")
+
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ error: 999, message: "No file uploaded" })
+        }
+
+        const result = await service.downloadFile(id);
+        if (result.error !== 0) {
+            return res.status(404).json(result)
+        }
+
+        res.setHeader("Content-Type", result.data.type);
+    
+        const stream = fs.createReadStream(result.data.fullPath);
+        stream.pipe(res);
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 999, message: "Download failed" })
+    }
+}

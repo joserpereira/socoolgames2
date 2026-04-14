@@ -18,6 +18,7 @@
       <table class="w-full text-sm">
         <thead class="text-left">
           <tr>
+            <th class="ps-3">Original Name</th>
             <th class="ps-3">Name</th>
             <th class="p-3 w-32 text-center">Actions</th>
           </tr>
@@ -33,13 +34,24 @@
             class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 ">
             <td class="p-3 hover:text-gray-600 gap-2 description-cell">
               <span>{{ item.original }}</span>
+            </td>   
+            <td class="p-3 hover:text-gray-600 gap-2 description-cell">
               <span>{{ item.name }}</span>
             </td>            
 
             <td v-if="data.hoverId!==item._id"></td>              
             <td class="flex pt-2 justify-center" v-else>
               <button
-                @click="viewClick(item._id)"
+                @click="downloadClick(item)"
+                title="Download File"
+                class="hover:bg-gray-500 hover:text-white/80 hover:rounded-lg p-1 icons">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                  <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <button
+                @click="previewClick(item)"
+                title="Preview File"
                 class="hover:bg-gray-500 hover:text-white/80 hover:rounded-lg p-1 icons">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -48,6 +60,7 @@
               </button>
               <button
                 @click="deleteClick(item._id)"
+                title="Delete File"
                 class="text-red-600 hover:bg-red-800 hover:text-white/80 hover:rounded-lg p-1 icons">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
@@ -68,6 +81,16 @@
     <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
       <p class="font-bold">Be Warned</p>
       <p>{{ data.errorMessage }}</p>
+    </div>
+    <div v-if="data.idToPreview">
+      <div class="flex justify-between items-center p-4 border-b">
+        <span class="font-semibold">Preview PDF</span>
+        <button @click="closeFile">✕</button>
+      </div>
+      <iframe :src="data.prefix + '/api/files/' + data.idToPreview + '/preview'" 
+              class="w-full h-svh border-0 mt-5">
+        
+      </iframe>
     </div>
     <div class="mt-5">
         <FileUploader :newItem="newItem"></FileUploader>
@@ -99,7 +122,7 @@
     var data = reactive({
         authenticated: false,
         idToDelete: "",
-        idToView: "",
+        idToPreview: "",
         isLoading: false,
         confirmationMessage: "",
         items: [],
@@ -186,13 +209,16 @@
       getData();
     }
 
-    const viewClick = async (id) => {
-      if (data.idToView === id)
-        data.idToView = "";
-      else
-        data.idToView = id;
+    const previewClick = async (item) => {
+      data.idToPreview = item._id;
+    }
+    const downloadClick = async (item) => {
+      fileService.downloadItem(item._id);
     }
     
+    const closeFile = async () => {
+      data.idToPreview = "";
+    }
     const nextPage = () => {
       data.page = data.page + 1;
       getData();
@@ -206,5 +232,5 @@
     }
 
     
-    defineExpose({ getData, newItem, viewClick, deleteClick })
+    defineExpose({ getData, newItem, downloadClick, deleteClick, closeFile })
 </script>

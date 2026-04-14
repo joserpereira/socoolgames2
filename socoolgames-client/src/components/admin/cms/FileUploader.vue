@@ -31,9 +31,22 @@
   <div v-if="preview" class="mt-6">
 
     <img
-      :src="preview"
+      :src="preview" v-if="data.isImage"
       class="rounded-xl shadow max-h-80 mx-auto"
     />
+    <div v-else class="flex items-center justify-center h-20 bg-gray-100 rounded-xl text-gray-600">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+          <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z" />
+          <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+        </svg>
+      </span>
+      <span class="ms-4">
+        {{ file.name }}
+      </span>  
+      
+      
+    </div>
 
     <button
       @click="upload"
@@ -75,6 +88,7 @@ import axiosAPI from '@/services/common/api';
   });
 
  const data = reactive({
+    isImage: false,
     errorMessage: ""
  });
 
@@ -102,14 +116,22 @@ const handleDrop = (e) => {
 
 function setFile(selected) {
 
+  data.errorMessage = "";
   if (!selected) return
 
+  data.isImage = selected.type.startsWith("image/")
+  if (!data.isImage && !selected.type.startsWith("video/") && !selected.type.startsWith("audio/") &&
+      !(selected.type == "application/pdf")) {
+    data.errorMessage = "Only image and pdf files are allowed";
+    return;
+  }
   file.value = selected
   preview.value = URL.createObjectURL(selected)
 
 }
 
 const upload = async () => {
+  data.errorMessage = "";
   const formData = new FormData()
   formData.append("file", file.value)
 
@@ -127,8 +149,12 @@ const upload = async () => {
           )
           if (progress.value >= 100) {
             setTimeout(() => {
-              if (props?.newItem != null)
+              if (props?.newItem != null) {
                 props?.newItem(); 
+                preview.value = null;
+                file.value = null;
+                progress.value = 0;
+              }                
             }, 1000);
 
           }

@@ -34,6 +34,26 @@ function getFilter(filter: any, search: string) {
     return filter;
 }
 
+async function downloadFile(id: string): Promise<any> {
+    try {
+        const file = await model.findOne({ _id: id });
+
+        if (!file || !file.fullPath) {
+            return { error: 999, message: "File not found in database", data: null     };
+        }
+
+        if (!fs.existsSync(file.fullPath)) {
+            return { error: 999, message: "File not found on disk", data: null };
+        }
+
+        return { error: 0, message: "", data: file };
+    }
+    catch (err: any) {
+        console.error(err);
+        return { error: 999, message: err.message, data: null };
+    }
+}
+
 async function uploadFile(file: any): Promise<any> {
 
     const timestamp = Date.now()
@@ -49,11 +69,9 @@ async function uploadFile(file: any): Promise<any> {
     }
 
 
-    console.log("services uploadFile2")
-
     const fullPath = path.join(folder, baseName);
     let errorMessage = "";
-console.log("services uploadFile3", fullPath)    
+
     await fs.writeFile(fullPath, file.buffer, (err: any) => {
       if (err) {
         console.error("Failed to save " + file.originalname + ".\n" + err.message);
@@ -61,13 +79,13 @@ console.log("services uploadFile3", fullPath)
       }
     });
 
-    console.log("services uploadFile4", fullPath)
     const fileInstance = {
       original: file.originalname,
       name: baseName,
-      fullPath: fullPath
+      fullPath: fullPath,
+      type: file.mimetype,
+      size: file.size
     } as any
-
     
     const newitem = await model.create(fileInstance);
     return {error: errorMessage ? 999 : 0, message: errorMessage, data: newitem}          
@@ -107,6 +125,6 @@ async function deleteFile(file: string) {
 }
 
 const exportedFunctions = {
-    uploadFile, getItems, deleteItem
+    uploadFile, getItems, deleteItem, downloadFile
 };
 module.exports = exportedFunctions;
