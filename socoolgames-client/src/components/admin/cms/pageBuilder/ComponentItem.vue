@@ -1,5 +1,5 @@
 <template>  
-      <component v-if="(props.item.type === 'WidgetImage' || props.item.type === 'WidgetFile' || props.item.type === 'WidgetColor' )" 
+      <component v-if="(props.item.type === 'WidgetEmailTemplate' || props.item.type === 'WidgetImage' || props.item.type === 'WidgetFile' || props.item.type === 'WidgetColor' )" 
                   :is="getComponent(props.item.type)" 
                   :index="index"
                   :schema="item"

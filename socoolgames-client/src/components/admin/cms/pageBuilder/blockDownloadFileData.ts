@@ -30,6 +30,7 @@ class BlockDownloadFileData {
         { field: "inputPlaceholder", type: "WidgetText", label: "Input Placeholder" },
         { field: "buttonText", type: "WidgetText", label: "Button Text" },
         { field: "footer", type: "WidgetText", label: "Footer" },
+        { field: "emailTemplate", type: "WidgetEmailTemplate", label: "Email Template" },
         { field: "downloadFile", type: "WidgetFile", label: "Download File" },
     ]
   }
