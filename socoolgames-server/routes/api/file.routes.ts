@@ -15,4 +15,5 @@ export const fileRoutes = (router: Router, baseUrl: string) => {
   router.get(baseUrl + '/:id/preview', controller.previewFile);
   router.delete(baseUrl + '/:id', verifyJWTToken.verifyJWTToken, controller.deleteItem);
   router.post(baseUrl + '/upload', verifyJWTToken.verifyJWTToken, upload.single("file"), controller.uploadFile);
+  router.post(baseUrl + '/:id/submit', controller.submit);
 }

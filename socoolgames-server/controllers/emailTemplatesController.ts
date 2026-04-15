@@ -11,12 +11,13 @@ export const getItems = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get configs")
+        loggerUtils.debug("get configs2")
         var filter = mongoUtils.getFilterByParameter(req)
         var pagination = mongoUtils.getPaginationParameters(filter)
         delete filter.search;
 
         const result = await service.getItems(collectionName, pagination.filter, pagination.skip, pagination.limit, pagination.search);
+
         res.status(result.error === 0 ? 200 : 500).json(result)
     }
     catch(error: any)

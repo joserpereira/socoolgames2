@@ -6,7 +6,6 @@
             </h2>
             <p class="text-[#4a4428] text-base mb-8" v-html="props.data.subTitle?.[props.selectedLang]">
             </p>
-
             <!-- Language + submit row -->
             <div class="flex flex-col sm:flex-row gap-3 bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
                 <input 
@@ -37,6 +36,7 @@
     import { defineProps, defineExpose, reactive } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import utilsService from '@/services/common/utils.service';
+    import fileService from '@/services/common/file.service';
 
     const props = defineProps({        
         data: {
@@ -63,8 +63,11 @@
             return
         }
         data.errorMessage = "";
+
+        fileService.submit(props.data.downloadFile._id, data.email, props.data.emailTemplate, props.selectedLang);
+
         // You can add your API call here to submit the email
-        console.log("Email submitted:", data.email);
+        console.log("Email submitted1:", data.email);
         
      };
 

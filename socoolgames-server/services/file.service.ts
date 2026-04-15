@@ -7,6 +7,10 @@ const fs = require("fs")
 
 const baseDir = './public/'
 const model = require('../models/file')
+const FileDownloadModel = require('../models/fileDownload')
+const EmailConfigModel = require('../models/emailserverconfig')
+const mail = require('../utils/mail');
+const service = require('../services/instance.service')
 
 async function getItems(filter: any, skip = 0, limit = 5, search = ''): Promise<any> {
     try
@@ -117,14 +121,74 @@ async function deleteItem(id: string) {
 
 async function deleteFile(file: string) {
   fs.unlink(file, (err: any) => {
-  if (err) {
-    console.error("Failed to delete " + file + ".\n" + err.message);
+    if (err) {
+        console.error("Failed to delete " + file + ".\n" + err.message);
 
-  }
-})
+    }
+  })
 }
 
+async function submitEmail(id: string, email: string, emailTemplate: string, language: string): Promise<any> {
+    try {
+        const file = await model.findOne({ _id: id });
+
+        if (!file || !file.fullPath) {
+            return { error: 999, message: "File not found in database", data: null};
+        }
+
+        if (!fs.existsSync(file.fullPath)) {
+            return { error: 999, message: "File not found on disk", data: null };
+        }
+
+        const fileDownload = new FileDownloadModel({
+            email: email,
+            emailTemplate: emailTemplate,
+            fileId: id,
+            fileOriginalName: file.original,
+            fileFullPath: file.fullPath,
+        });
+
+        FileDownloadModel.create(fileDownload);
+
+        const filter = {templateName: emailTemplate, deleted: { $ne: true } };
+        const result = await service.getItems("emailtemplate", filter, 0, 1, "");
+
+        if (result.error == 0 && result.data.length == 0) {
+            console.error("Couldn't find Email Template");
+            return { error: 0, message: "", data: file.fullPath };    
+        }
+        
+        const templateItem = result.data[0]
+        const config = await EmailConfigModel.findOne({configName: templateItem.configName, deleted: { $ne: true } })
+        if (!config) {
+            console.error("Couldn't find Email Config");
+            return { error: 0, message: "", data: file.fullPath };    
+        }
+
+        const emailSubject = templateItem.emailSubject[language];
+        const content = templateItem.emailContent[language];
+        const emailName = templateItem.emailName[language];
+
+        mail.sendEmail(emailSubject, 
+                                content, 
+                                null,
+                                email, 
+                                emailName,
+                                config.emailFrom,
+                                config.emailUsername,
+                                config.emailPass)
+
+        return { error: 0, message: "", data: file.fullPath };
+    }
+    catch (err: any) {
+        console.error(err);
+        return { error: 999, message: err.message, data: null };
+    }
+}
+
+
+
 const exportedFunctions = {
-    uploadFile, getItems, deleteItem, downloadFile
+    uploadFile, getItems, deleteItem, downloadFile, submitEmail
 };
 module.exports = exportedFunctions;

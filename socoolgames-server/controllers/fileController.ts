@@ -123,3 +123,29 @@ export const previewFile = async (req: Request, res: any) => {
         res.status(500).json({ error: 999, message: "Download failed" })
     }
 }
+
+export const submit = async (req: Request, res: any) => {
+
+    try
+    {        
+        loggerUtils.debug("download file")
+
+        const { id } = req.params;
+        const { email, emailTemplate, language } = req.body;
+        if (!id) {
+            return res.status(400).json({ error: 999, message: "No file uploaded" })
+        }
+        console.log("submit", id, email);
+
+        const result = await service.submitEmail(id, email, emailTemplate, language);
+        if (result.error !== 0) {
+            return res.status(500).json(result)
+        }
+
+        res.status(200).json({error: 0, message: '', data: result.data})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 999, message: "Download failed" })
+    }
+}
+

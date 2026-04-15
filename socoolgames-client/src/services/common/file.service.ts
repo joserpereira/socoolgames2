@@ -1,3 +1,4 @@
+import { languages } from '@/locales';
 import axiosApi from './api';
 
 const baseAPI = 'files/';
@@ -30,39 +31,45 @@ class FileService {
   }
 
   async downloadItem(id: string) {
-  try {
-    const response = await axiosApi.get(`${baseAPI}${id}/download`, { responseType: 'blob' } );
+    try {
+      const response = await axiosApi.get(`${baseAPI}${id}/download`, { responseType: 'blob' } );
 
-    // 👉 try to get original filename
-    let filename = "file.pdf";
-    const disposition = response.headers["content-disposition"];
-    if (disposition) {
-      const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^\\";]+)"?/i);
-      if (match?.[1]) {
-        filename = match?.[1]?.trim()
+      // 👉 try to get original filename
+      let filename = "file.pdf";
+      const disposition = response.headers["content-disposition"];
+      if (disposition) {
+        const match = disposition.match(/filename\*?=(?:UTF-8'')?"?([^\\";]+)"?/i);
+        if (match?.[1]) {
+          filename = match?.[1]?.trim()
+        }
       }
+
+      // create blob and link
+      const blob = new Blob([response.data], { type: "application/pdf" });
+
+      // create link
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = downloadUrl;
+      link.setAttribute("download", filename);
+
+      document.body.appendChild(link);
+      link.click();
+
+      // cleanup
+      link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
+
+    } catch (err) {
+      console.error("Error downloading file:", err);
     }
-
-    // create blob and link
-    const blob = new Blob([response.data], { type: "application/pdf" });
-
-    // create link
-    const downloadUrl = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = downloadUrl;
-    link.setAttribute("download", filename);
-
-    document.body.appendChild(link);
-    link.click();
-
-    // cleanup
-    link.remove();
-    window.URL.revokeObjectURL(downloadUrl);
-
-  } catch (err) {
-    console.error("Error downloading file:", err);
   }
-}
+
+  async submit(id, email, emailTemplate, language: string) {
+    const response = await axiosApi.post(`${baseAPI}${id}/submit`, { email, emailTemplate, language } );
+    console.log("response123", email, response.data.data)
+    return response.data;
+  }
 }
 export default new FileService();

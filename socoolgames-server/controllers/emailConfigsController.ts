@@ -11,7 +11,7 @@ export const getItems = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get configs")
+        loggerUtils.debug("get configs1")
         var filter = mongoUtils.getFilterByParameter(req)
         var pagination = mongoUtils.getPaginationParameters(filter)
         delete filter.search;
