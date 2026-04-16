@@ -121,7 +121,11 @@
 
   const selectFile = (item: any) => {
     data.selectedFile = item.original;
-    data.value[props.selectedLang] = item;
+    
+    data.value[props.selectedLang] = {
+      _id: item._id,
+      original: item.original
+    }
 
     emit("update:modelValue", data.value)
   }
