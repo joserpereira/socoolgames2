@@ -7,24 +7,29 @@
             <p class="text-[#4a4428] text-base mb-8" v-html="props.data.subTitle?.[props.selectedLang]">
             </p>
             <!-- Language + submit row -->
-            <div class="flex flex-col sm:flex-row gap-3 bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
+            <div v-if="!data.showFile" class="flex flex-col sm:flex-row gap-3 bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
                 <input 
                     type="email" 
                     :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
                     v-model="data.email"
+                    :disabled="!props.data?.downloadFile"
                     class="px-6 py-4 rounded-full text-gray-700 border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
                 <button class="btn-pulse bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                    :disabled="!props.data?.downloadFile"
                     @click="submitEmail">
                     {{ props.data.buttonText?.[props.selectedLang] }}
                 </button>
             </div>
 
-            <!-- trust row -->
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-[#3a6418]" v-html="props.data.footer?.[props.selectedLang]">
+            <div v-if="!data.showFile" class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-[#3a6418]" v-html="props.data.footer?.[props.selectedLang]">
             </div>
 
+            <div v-else class="flex sm:flex-row bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
+                <button class="btn-pulse bg-primary w-full hover:bg-black hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                        @click="downloadFileClick">Download</button>                
+            </div>
             <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                 <p class="font-bold">Be Warned</p>
                 <p>{{ data.errorMessage }}</p>
@@ -49,10 +54,18 @@
 
     const data = reactive({
         email: "",
-
+        downloadFile: "",
+        showFile: false
     })
 
-    const submitEmail = () => {
+    const downloadFileClick = async () => {
+        if (props.data?.downloadFile?._id) {
+            fileService.downloadItem(props.data.downloadFile._id);
+        }
+        else
+            data.errorMessage = "Ooops. Couldn't download file.";
+    }
+    const submitEmail = async () => {
         // Implement your email submission logic here
         if (!data.email) {
             data.errorMessage = "Please enter a email address.";
@@ -63,15 +76,17 @@
             return
         }
         data.errorMessage = "";
+        const result = await fileService.submit(props.data.downloadFile._id, data.email, props.data.emailTemplate, props.selectedLang);
 
-        fileService.submit(props.data.downloadFile._id, data.email, props.data.emailTemplate, props.selectedLang);
-
-        // You can add your API call here to submit the email
-        console.log("Email submitted1:", data.email);
-        
+        if (result.error == 0 && result.data) {
+            data.downloadFile = result.data;
+            data.showFile = true;
+        } else {
+            data.errorMessage = "Oops. Sorry we couldn't submit your request. Please try again or contact us."
+        }
      };
 
-     defineExpose({ formatUrl, props, data });
+     defineExpose({ formatUrl, props, data, downloadFileClick });
 
      
 </script>
