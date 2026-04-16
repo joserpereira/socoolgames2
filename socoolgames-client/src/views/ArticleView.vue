@@ -58,9 +58,7 @@
             data.slugText = (route.params.slug ?? "").length > 0 ? route.params.slug : "home";
             data.language = fixLang(route.params.lang);
         }
-        console.log("article slug", data.language);
         articleService.getItemByNameRef(data.slugText).then(result => {
-            console.log("article result", result);
             if (result.status === 200 && result.data.error === 0) {
                 data.article = result.data.data;
             }
