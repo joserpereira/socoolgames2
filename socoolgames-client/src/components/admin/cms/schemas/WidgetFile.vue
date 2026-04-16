@@ -54,15 +54,14 @@
   const emit = defineEmits(["update:modelValue"])
 
 
-   watch(() => props.selectedLang, () => {        
-     if (data.value && (Object.keys(data.value).indexOf(props.selectedLang) == -1)) {
-       data.value[props.selectedLang] = undefined;
-     }
-     setValue(data.value);
+  watch(() => props.selectedLang, () => {        
+    if (data.value && (Object.keys(data.value).indexOf(props.selectedLang) == -1)) {
+      data.value[props.selectedLang] = undefined;
+    }
+    setValue(data.value);
   }, { deep: true });
 
   watch(() => props.modelValue, (value) => {        
-    console.log("props.modelValue1111", data.value)
     data.selectedFile = "";
     if (value) {
       setValue(value);
@@ -79,10 +78,9 @@
   })
 
   const setValue = (value: any) => {
-    console.log("aaa", data.value)
-    if (data.value == undefined || typeof(data.value) === 'string' )
+    if (value == undefined || typeof(value) === 'string' )
+      value = {};
     data.value = value;
-
     data.selectedFile = value?.[props.selectedLang]?.original ?? "";
     fillData();    
   }
@@ -99,7 +97,7 @@
 
   const fillAndSelect = () =>{
     fillData();
-    if (data.value[props.selectedLang]?._id === undefined && data.selectedFile.length > 0) {
+    if (data.value?.[props.selectedLang]?._id === undefined && data.selectedFile.length > 0) {
       const found = data.items.find((item) => item.original === data.selectedFile);
       if (found) {
         selectFile(found);
@@ -109,8 +107,10 @@
 
   const keyup = () => {
     try {
+      if (data.value == undefined)
+        data.value = {};
       if (data.selectedFile !== data.value?.original) {
-        data.value = {}
+        data.value[props.selectedLang] = ""
       }
       clearTimeout(data.timeoutID);
       data.timeoutID = setTimeout( fillAndSelect, 450);

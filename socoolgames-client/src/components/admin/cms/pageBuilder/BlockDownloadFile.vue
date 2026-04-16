@@ -12,12 +12,12 @@
                     type="email" 
                     :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
                     v-model="data.email"
-                    :disabled="!props.data?.downloadFile"
+                    :disabled="!props.data?.downloadFile?.[props.selectedLang]"
                     class="px-6 py-4 rounded-full text-gray-700 border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
                 <button class="btn-pulse bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
-                    :disabled="!props.data?.downloadFile"
+                    :disabled="!props.data?.downloadFile?.[props.selectedLang]"
                     @click="submitEmail">
                     {{ props.data.buttonText?.[props.selectedLang] }}
                 </button>
@@ -59,8 +59,8 @@
     })
 
     const downloadFileClick = async () => {
-        if (props.data?.downloadFile?._id) {
-            fileService.downloadItem(props.data.downloadFile._id);
+        if (props.data?.downloadFile?.[props.selectedLang]?._id) {
+            fileService.downloadItem(props.data.downloadFile[props.selectedLang]._id);
         }
         else
             data.errorMessage = "Ooops. Couldn't download file.";
@@ -76,7 +76,8 @@
             return
         }
         data.errorMessage = "";
-        const result = await fileService.submit(props.data.downloadFile._id, data.email, props.data.emailTemplate, props.selectedLang);
+
+        const result = await fileService.submit(props.data.downloadFile[props.selectedLang]._id, data.email, props.data.emailTemplate, props.selectedLang);
 
         if (result.error == 0 && result.data) {
             data.downloadFile = result.data;
