@@ -68,7 +68,6 @@ class FileService {
 
   async submit(id, email, emailTemplate, language: string) {
     const response = await axiosApi.post(`${baseAPI}${id}/submit`, { email, emailTemplate, language } );
-    console.log("response123", email, response.data.data)
     return response.data;
   }
 }

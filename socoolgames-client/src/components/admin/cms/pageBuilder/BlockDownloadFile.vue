@@ -27,7 +27,7 @@
             </div>
 
             <div v-else class="flex sm:flex-row bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
-                <button class="btn-pulse bg-primary w-full hover:bg-black hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                <button class="btn-pulse bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
                         @click="downloadFileClick">Download</button>                
             </div>
             <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">

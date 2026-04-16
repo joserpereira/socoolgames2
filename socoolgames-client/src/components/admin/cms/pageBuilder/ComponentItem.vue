@@ -3,6 +3,7 @@
                   :is="getComponent(props.item.type)" 
                   :index="index"
                   :schema="item"
+                  :selectedLang="props.selectedLang"
                   v-model="data.value[props.item.field]">
       </component>
        

@@ -19,7 +19,8 @@
 
   const props = defineProps<{
     schema: Object,
-    modelValue: String
+    modelValue: String,
+    selectedLang: String,
     index: Number
   }>()
 

@@ -39,7 +39,8 @@
   const props = defineProps<{
     schema: Object,
     modelValue: String
-    index: Number
+    index: Number,
+    selectedLang: String
   }>()
 
   const data = reactive({
@@ -47,15 +48,22 @@
     selectIndex: null as any,
     timeoutID: -1 as number,    
     selectedFile: "" as String,
-    value: "" as String,    
+    value: {} as any,    
     prefix: "" as String
   })
   const emit = defineEmits(["update:modelValue"])
 
-  
+
+   watch(() => props.selectedLang, () => {        
+     if (data.value && (Object.keys(data.value).indexOf(props.selectedLang) == -1)) {
+       data.value[props.selectedLang] = undefined;
+     }
+     setValue(data.value);
+  }, { deep: true });
+
   watch(() => props.modelValue, (value) => {        
+    console.log("props.modelValue1111", data.value)
     data.selectedFile = "";
-    data.value = undefined as any;
     if (value) {
       setValue(value);
     } else {
@@ -71,8 +79,11 @@
   })
 
   const setValue = (value: any) => {
+    console.log("aaa", data.value)
+    if (data.value == undefined || typeof(data.value) === 'string' )
     data.value = value;
-    data.selectedFile = value?.original ?? "";
+
+    data.selectedFile = value?.[props.selectedLang]?.original ?? "";
     fillData();    
   }
   const fillData = async () => {
@@ -88,7 +99,7 @@
 
   const fillAndSelect = () =>{
     fillData();
-    if (data.value?._id === undefined && data.selectedFile.length > 0) {
+    if (data.value[props.selectedLang]?._id === undefined && data.selectedFile.length > 0) {
       const found = data.items.find((item) => item.original === data.selectedFile);
       if (found) {
         selectFile(found);
@@ -110,7 +121,7 @@
 
   const selectFile = (item: any) => {
     data.selectedFile = item.original;
-    data.value = item;
+    data.value[props.selectedLang] = item;
 
     emit("update:modelValue", data.value)
   }
