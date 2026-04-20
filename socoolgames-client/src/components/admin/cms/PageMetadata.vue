@@ -3,7 +3,7 @@
         <div class="relative mt-2">
             <input type="text" class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent" 
                     required
-                    maxlength="100"
+                    maxlength="70"
                     id="pageTitle"                    
                     v-model="pageTitleModel"
                     placeholder="Page Title" />
@@ -14,7 +14,7 @@
             <textarea
                 class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent resize-none"
                 required
-                maxlength="100"
+                maxlength="155"
                 id="description"
                 v-model="pageDescription"
                 placeholder="Description"
@@ -35,7 +35,7 @@
             <textarea
                 class="input rounded-xl px-3 py-3 mt-4 peer w-full border-b placeholder:text-transparent resize-none"
                 required
-                maxlength="100"
+                maxlength="255"
                 id="keywords"
                 v-model="pageKeywords"
                 placeholder="Keywords"
