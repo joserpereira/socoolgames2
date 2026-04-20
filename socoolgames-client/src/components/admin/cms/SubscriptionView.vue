@@ -11,7 +11,7 @@
     const listItems = ref(null);
 
     var data = reactive({
-        cols: ["email", "type", "isActive"],
+        cols: ["email", "type","language", "createdAt", "isActive"],
         item: null,
         newItem: false
     })
