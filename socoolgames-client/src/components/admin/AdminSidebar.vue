@@ -51,36 +51,6 @@
         v-html="collapsed ? icons.expand : icons.collapse" />
     </button>
   </aside>
-  <!-- <div>
-    <div>
-      <router-link to="/admin/">Dashboard</router-link>
-    </div>
-    <div>
-      <router-link to="/admin/pages">Pages</router-link>
-    </div>
-    <div>
-      So Cool Games
-    </div>
-
-    <div>
-      So Cool Games
-    </div>
-
-    <div>
-      So Cool Games
-    </div>
-
-    <div>
-      So Cool Games
-    </div>
-    <div>
-      So Cool Games
-    </div>
-    <div>
-      <button @click.prevent="logOut">Logout</button>
-    </div>
-
-  </div> -->
 </template>
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'

@@ -29,7 +29,7 @@
           </a>
         </span>
       <p class="text-xs opacity-70 mt-4">
-        © 2026 So Cool Games · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/privacy'">{{ t("footer.privacy") }}</a> · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/terms'">{{ t("footer.terms") }}</a> ·
+        © 2026 So COOL Games · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/privacy'">{{ t("footer.privacy") }}</a> · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/terms'">{{ t("footer.terms") }}</a> ·
         <button class="me-1" :class="data.selectedLanguage == 'en' ? 'underline' : ''" @click="changeLanguage('en')">en</button>
         <button :class="data.selectedLanguage == 'pt' ? 'underline' : '' " @click="changeLanguage('pt')">pt</button>
       </p>
