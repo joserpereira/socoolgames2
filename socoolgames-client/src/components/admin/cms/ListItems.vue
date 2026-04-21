@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-items-stretch items-center mb-2">
         <span class="flex-none1 me-3">
-            {{ props.title }}
+            {{ props.title }} 
         </span>
         <span class="flex-none1">
             <button type="button" :disabled="!data.authenticated" class="bg-primary text-xs px-4 py-2 rounded-full text-white hover:bg-secondary hover:text-black" @click.prevent="createClick">Create</button>
@@ -208,19 +208,21 @@ export default {
     }
     const fillItems = async () => {
       userService.getAdminBoard().then(
+        
         async (response) => {
+          if (response.status == 200) {
+            data.authenticated = true;
+            data.items = [];
+            const skip = (data.page - 1) * data.limit;
 
-          data.items = [];
-          const skip = (data.page - 1) * data.limit;
-
-          var result = await instanceService.getItems(props?.collectionRefName ?? "",
-            skip, data.limit, data.search)
-          
-          if (result.data.data) {
+            var result = await instanceService.getItems(props?.collectionRefName ?? "",
+              skip, data.limit, data.search)
+            
+            if (result.data.data) {
               data.items = result.data.data;
               data.total = result.data.count
-              console.log("data.total", data.total)
-          }
+            }
+          }          
         },
         (error) => {
           data.isLoading = false;
