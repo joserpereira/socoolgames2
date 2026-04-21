@@ -1,13 +1,14 @@
 <template>
   <div>
     <header class="line-b fixed inset-x-0 top-0 z-20 mr-[calc(100%-100vw)] flex h-14 items-center justify-between bg-white px-4 text-black after:-bottom-px sm:px-6 dark:bg-gray-950 dark:text-white">
-      So COOL Games
+      <a href="/admin">So COOL Games</a>
       <div class="@container flex flex-1 justify-start pl-8">
         
       </div>
       <div v-if="currentUser" >
 
         <div class="flex items-center gap-5 max-md:hidden lg:gap-6">        
+          <a target="_blank" href="/">Visit Site</a>
           <div class="rounded-full bg-gray-950 px-2.5 py-0.5 text-sm/6 font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950 dark:bg-gray-700 dark:text-white dark:focus-visible:outline-white">
             {{ currentUser.email }}
           </div>
