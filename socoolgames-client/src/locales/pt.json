@@ -1,7 +1,8 @@
 {
     "pageNotFound": {
         "title": "404 - Página não encontrada",
-        "description": "A página que procura não existe."
+        "description": "A página que procura não existe.",
+        "back": "Voltar"
     },
     "footer": {
         "title": "Aprender a brincar todos os dias.",
