@@ -8,11 +8,10 @@
 
                 <div :class="'md:grid-cols-'+ (props.data.items.length < 6 ? props.data.items.length : '5')" 
                         class="grid gap-6 mb-10">
-
                 <div v-for="value in props.data.items" :key="value" class="justify-items-center">
-                    <img :src="formatUrl(baseUrl + value?.image?.thumb)" alt="" 
-                        :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
-                        class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
+                    <img :src="getImage(value.image, value.imageSize)" alt="" 
+                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
+                         class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
 
                 </div>
 <!--
@@ -25,9 +24,10 @@
 -->                    
                 </div>
 
-                <a :href="props.data.buttonLink?.[props.selectedLang]" target="_blank"
-                class="inline-block bg-primary hover:bg-darkgreen text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg transition">
-                    {{ props.data.buttonText?.[props.selectedLang] }}
+                <a v-if="props.data.buttonText?.[props.selectedLang]" 
+                   :href="props.data.buttonLink?.[props.selectedLang]" target="_blank"
+                   class="inline-block bg-primary hover:bg-darkgreen text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg transition">
+                   {{ props.data.buttonText?.[props.selectedLang] }}
                 </a>
 
             </div>        
@@ -48,5 +48,22 @@
         }
     })
 
-    defineExpose({ formatUrl });
+    const getImage = (image, imageSize) => {
+        if (image == undefined)
+            return undefined;
+
+        var imageUrl = "";
+        if (imageSize == "medium") {
+            imageUrl = image.medium;
+        }            
+        else if (imageSize == "large") {
+            imageUrl = image.large;
+        }
+        else 
+            imageUrl = image.thumb;
+        
+        return formatUrl(baseUrl + imageUrl)
+    }
+
+    defineExpose({ getImage });
 </script>

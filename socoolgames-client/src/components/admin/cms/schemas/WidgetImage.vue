@@ -7,10 +7,9 @@
         :src="data.prefix + data.value?.thumb" alt="thumbnail">
     <span v-else>
       <svg title="Please select image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
-      class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3">
+           class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3">
         <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636" />
       </svg>
-
     </span>
     <input type="text"
             class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"

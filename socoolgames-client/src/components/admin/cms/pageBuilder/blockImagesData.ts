@@ -42,6 +42,7 @@ class BlockImagesData {
         { field: "backgroundImage", type: "WidgetImage", label: "Background Image" },
         { field: "items", type: "WidgetMultiplier", label: "Items",
               items: [
+                { field: "imageSize", type: "WidgetOption", label: "Image Size", options: ["thumb", "medium", "large"] },
                 { field: "image", type: "WidgetImage", label: "Image" }
               ]
         }        
