@@ -82,7 +82,8 @@
                         v-model="(item || {}).link[data.currentLang]"
                     />
                 </div>
-                <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl">
+                <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl items-center"
+                style="margin: 0px 20px;">
                     <span>Button #{{ index + 1 }}</span>
                     <div class="timeslot-1 ps-3">
                         <input type="radio" :name="'button'+index" :id="'Normal'+index" value="0" v-model="(item || {}).button" />
@@ -95,6 +96,17 @@
                     <div class="timeslot-2 ps-3">
                         <input type="radio" :name="'button'+index" :id="'Button'+index" value="2" v-model="(item || {}).button"  />
                         <label :for="'Button'+index" class="ms-2 bg-primary text-white px-4 py-2 rounded-full hover:bg-darkgreen hover:underline">Button</label>
+                    </div>
+                    <div class="timeslot-2 ps-3" :set="(item || {}).target = (item || {}).target || '_self'">
+                        <select name="target" id="target" style="margin: 0px;"
+                                
+                                v-model="(item || {}).target"
+                                class="input rounded-xl px-4 py-2 mt-4 peer w-48 border-b placeholder:text-transparent">
+                            <option value="_self">Same Frame</option>
+                            <option value="_blank">New Window</option>
+                            <option value="_parent">Parent</option>
+                            <option value="_top">Top</option>
+                        </select>
                     </div>
                 </div>
                 <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl">
@@ -148,6 +160,7 @@
         },
         currentLang: "en",
         languages: ["en", "pt"],
+        targets: [],
         error: ""
     })
 
@@ -169,6 +182,7 @@
                 "en":""
             },
             button: 0,
+            target: "",
             activeHeader : true, 
             activeFooter : true 
         }

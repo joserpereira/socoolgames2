@@ -12,6 +12,7 @@
       <div class="hidden md:flex gap-6">
 
         <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
+            :target="item.target"
             :class="getStyle(item.button)" class="hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a>
 
         <!-- Dropdown -->

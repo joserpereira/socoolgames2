@@ -8,6 +8,7 @@
       </p>
         <span class="flex flex-row justify-center align-center items-center mt-4">
           <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
+             :target="item.target"          
              :class="getStyle(item.button)" class="ms-3 hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a> 
         </span>
         <span class="flex flex-row justify-center content-center inline-block align-middle">
