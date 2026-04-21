@@ -1,9 +1,12 @@
 <template>
     <section>
-      <span v-if="props.data.content?.raw && props.data.content.raw[props.selectedLang]?.length > 0 && props.data.content.raw[props.selectedLang] != '<p><br></p>'" class="my-5" v-html="props.data.content.raw[props.selectedLang]"></span>
+      <span v-if="props.data.content?.raw && props.data.content.raw[props.selectedLang]?.length > 0 && props.data.content.raw[props.selectedLang] != '<p><br></p>'" 
+        class="my-5 max-w-7xl mx-auto px-6 grid items-center"
+        v-html="props.data.content.raw[props.selectedLang]"></span>
       <span v-if="props.data.content?.html && props.data.content.html[props.selectedLang]?.length > 0" class="my-5" v-html="props.data.content.html[props.selectedLang]"></span>
       <!-- to mantain retro values, delete in the future -->
       <span v-else class="my-5" v-html="props.data.content[props.selectedLang]"></span>
+        
     </section>
     
 </template>
