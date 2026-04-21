@@ -222,7 +222,10 @@ export default {
               data.items = result.data.data;
               data.total = result.data.count
             }
-          }          
+          } 
+          else {
+            toast.error("Something went wrong! Please try again.");
+          }     
         },
         (error) => {
           data.isLoading = false;
