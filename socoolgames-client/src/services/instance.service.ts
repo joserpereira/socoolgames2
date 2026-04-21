@@ -15,9 +15,13 @@ class InstanceService {
     return api.delete(`${collectionName}/${id}`);
   }
   
-  getItems(collectionName: string) {
+  getItems(collectionName: string, skip: number, limit: number, search: string) {
     try {
-        return api.get(`${collectionName}/`).then((response: any) => {
+        let url = `${collectionName}/?__skip=${skip}&__limit=${limit}`;
+        if (search?.length > 0) 
+          url += `&__search=${search}`;
+        console.log(url)
+        return api.get(url).then((response: any) => {
           return response;
         });
     } catch (error) {

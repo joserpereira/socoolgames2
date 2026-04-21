@@ -82,6 +82,13 @@
         </tbody>
       </table>
     </div>
+    <div class="flex justify-center">
+      <button v-if="data.page > 1" @click.prevent="previousPage" class="m-3 font-extrabold">&lt;&lt;</button>
+      <button v-else disabled="true" @click.prevent="previousPage" class="m-3">&lt;&lt;</button>
+      <div class="m-3">{{ data.page }}</div>
+      <button v-if="data.total > (data.page * data.limit)" @click.prevent="nextPage" class="m-3 font-extrabold">&gt;&gt;</button>
+      <button v-else disabled="true" @click.prevent="nextPage" class="m-3">&gt;&gt;</button>
+    </div>
     <div>
       <ConfirmationModel  
         aria-hidden="true"
@@ -142,33 +149,30 @@ export default {
         isLoading: false,
         confirmationMessage: "",
         items: [],
-        hoverId: ""
+        hoverId: "",
+        page: 1,
+        skip: 0,
+        limit: 6,
+        total: 0,
+        search: ""
     })
 
-    onMounted(() => {
-      
-      userService.getAdminBoard().then(
-        (response) => {
-/*          
-          this.content = response.data;
-          this.isAdmin = true
-*/          
-          data.authenticated = true; 
-          fillItems()
-
-        },
-        (error) => {
-
-/*          this.content =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-*/            
-        }
-      );
+    onMounted(() => {      
+        fillItems()
     });
+
+    const nextPage = () => {
+      data.page = data.page + 1;
+      fillItems();
+    }
+
+    const previousPage = () => {
+      if (data.page > 1) {
+        data.page = data.page - 1;
+        fillItems();
+      }
+        
+    }
 
     const editClick = (item) => {
       if (props?.editItem != null)
@@ -203,12 +207,32 @@ export default {
       confirmationModelActive.value = true;
     }
     const fillItems = async () => {
-      data.items = [];
-      var result = await instanceService.getItems(props?.collectionRefName ?? "")
-      
-      if (result.data.data) {
-          data.items = result.data.data;
-      }
+      userService.getAdminBoard().then(
+        async (response) => {
+
+          data.items = [];
+          const skip = (data.page - 1) * data.limit;
+
+          var result = await instanceService.getItems(props?.collectionRefName ?? "",
+            skip, data.limit, data.search)
+          
+          if (result.data.data) {
+              data.items = result.data.data;
+              data.total = result.data.count
+              console.log("data.total", data.total)
+          }
+        },
+        (error) => {
+          data.isLoading = false;
+          toast.error("Something went wrong! Please try again.");
+  /*          this.content =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+  */            
+      })
     };
 
     defineExpose({ fillItems })
