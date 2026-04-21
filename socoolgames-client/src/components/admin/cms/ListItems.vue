@@ -43,15 +43,11 @@
         <tbody>
           <!-- Table Rows -->
           <tr
+            v-for="item in data.items"
             v-on:mouseover="data.hoverId=item._id"
             v-on:mouseleave="data.hoverId=''"
-            v-for="item in data.items"
             :key="item._id"
             class="border-t hover:bg-gray-400 hover:text-black even:bg-text-gray-600">
-            <!-- <td class="p-3 hover:text-gray-600 gap-2 description-cell">
-              <span class="dot" :class="item.active ? 'dotselected' : ''"></span>
-              
-            </td> -->
             <td v-for="(value, index) in props.columns" :key="index" 
               :class="index == 0 ? 'p-3 hover:text-gray-600 gap-2 description-cell' : 'p-3 gap-2 description-cell'">
               
