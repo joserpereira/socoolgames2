@@ -11,6 +11,7 @@ const upload = multer({
 
 export const fileRoutes = (router: Router, baseUrl: string) => {
   router.get(baseUrl + '/', controller.getItems);
+  router.get(baseUrl + '/count',  controller.getStats);
   router.get(baseUrl + '/:id/download', controller.downloadFile);
   router.get(baseUrl + '/:id/preview', controller.previewFile);
   router.delete(baseUrl + '/:id', verifyJWTToken.verifyJWTToken, controller.deleteItem);

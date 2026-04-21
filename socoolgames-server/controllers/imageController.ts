@@ -64,3 +64,17 @@ export const uploadFile = async (req: any, res: Response) => {
     }
 }
 
+export const getStats = async (req: Request, res: Response) => {
+
+    try
+    {
+        loggerUtils.debug("get image stats")
+        const item = await service.getStats();        
+        res.status(200).json({error: 0, message: '', data: item})
+    }
+    catch(error: any)
+    {
+        loggerUtils.error("Get Image Stats Error: " + error.message)
+        res.status(500).json({error: 999, message: error.message})
+    }
+}

@@ -30,6 +30,14 @@ class FileService {
     }
   }
 
+  getStats() {
+    return axiosApi.get(baseAPI + "count").then((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      throw error;
+    });
+  }
+
   async downloadItem(id: string) {
     try {
       const response = await axiosApi.get(`${baseAPI}${id}/download`, { responseType: 'blob' } );

@@ -117,13 +117,13 @@ export const getStats = async (req: Request, res: Response) => {
 
     try
     {
-        loggerUtils.debug("get page stats")
+        loggerUtils.debug("get article stats")
         const item = await service.getStats(collectionName);        
         res.status(200).json({error: 0, message: '', data: item})
     }
     catch(error: any)
     {
-        loggerUtils.error("Get Page Stats Error: " + error.message)
+        loggerUtils.error("Get article Stats Error: " + error.message)
         res.status(500).json({error: 999, message: error.message})
     }
 }

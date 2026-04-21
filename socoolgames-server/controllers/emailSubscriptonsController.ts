@@ -137,3 +137,20 @@ export const deleteSubscription = async (req: Request, res: Response) => {
         res.status(500).json({error: 999, message: error.message})
     }
 }
+
+export const getStats = async (req: Request, res: Response) => {
+    try
+    {
+        const itemTotal = await EmailSubscripton.countDocuments({deleted: { $ne: true }});
+        const itemActive = await EmailSubscripton.countDocuments({ deleted: { $ne: true }, active: true });
+        const itemDeleted = await EmailSubscripton.countDocuments({ deleted: true });
+
+        const result =  { total: itemTotal, active: itemActive, deleted: itemDeleted };
+        res.status(200).json({error: 0, message: '', data: result})
+    }
+    catch(error: any)
+    {
+        logger.error(error.message)
+        res.status(500).json({error: 999, message: error.message})
+    }
+}

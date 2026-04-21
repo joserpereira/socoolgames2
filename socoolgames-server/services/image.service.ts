@@ -113,7 +113,15 @@ async function deleteFile(file: string) {
 })
 }
 
+async function getStats(): Promise<any>    {
+   const itemTotal = await model.countDocuments({deleted: { $ne: true }});
+   const itemActive = await model.countDocuments({ deleted: { $ne: true }, active: true });
+   const itemDeleted = await model.countDocuments({ deleted: true });
+
+   return { total: itemTotal, active: itemActive, deleted: itemDeleted };
+}
+
 const exportedFunctions = {
-    uploadFile, getItems, deleteItem
+    uploadFile, getItems, deleteItem, getStats
 };
 module.exports = exportedFunctions;

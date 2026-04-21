@@ -39,7 +39,15 @@ class ImageService {
       throw error;
     }    
   }
-  
+
+  getStats() {
+    return axiosApi.get(baseAPI + "count").then((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      throw error;
+    });
+  }
+
   resize(path: string, width: number, height: number) {
     try {
         return axiosApi.post(baseAPI + `resize/${encodeURIComponent(path)}/${width}/${height}`).then((response: any) => {

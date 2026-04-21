@@ -60,6 +60,15 @@ class EmailSubscriptionService {
     emailSubscription.unsubscriptionDate = Date.UTC.toString()
     return axiosApi.put(baseAPI + emailSubscription._id + '/', { emailSubscription } /*, { headers: authHeader() } */ );
   }
+
+  getStats() {
+    return axiosApi.get(baseAPI + "count").then((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      throw error;
+    });
+  }
+  
 }
 
 export default new EmailSubscriptionService();
