@@ -68,6 +68,19 @@
         </div>
     </div>
     <div class="mx-auto p-4">
+        <div v-if="loadingContactUs">Loading ContactUs...</div>
+        <div v-else>            
+            <div class="flex flex-wrap justify-center ">
+                <h2 class="text-xl font-bold">Contact Us</h2>
+            </div>
+            <div class="flex flex-wrap justify-center ">
+                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Total: {{ data.contactusstats.total }}</div>
+                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Active: {{ data.contactusstats.active }}</div>
+                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Deleted: {{ data.contactusstats.deleted }}</div>
+            </div>
+        </div>
+    </div>    
+    <div class="mx-auto p-4">
         <div v-if="loadingUsers">Loading Users...</div>
         <div v-else>            
             <div class="flex flex-wrap justify-center ">
@@ -89,8 +102,8 @@
     import articleService from "@/services/article.service";
     import fileService from "@/services/common/file.service";
     import imageService from "@/services/common/image.service";
-import emailSubscriptionService from "@/services/emailSubscription.service";
-    //import categoryService from "@/services/category.service";
+    import emailSubscriptionService from "@/services/emailSubscription.service";
+    import contactusService from "@/services/contactus.service";
 
     export default {
         name: 'DashboardComponent',
@@ -104,6 +117,7 @@ import emailSubscriptionService from "@/services/emailSubscription.service";
             imagestats: {} as any,
             substats: {} as any,
             categorystats: {} as any,
+            contactusstats: {} as any,
             errorMessage: "" as string
           })
 
@@ -113,7 +127,7 @@ import emailSubscriptionService from "@/services/emailSubscription.service";
           const loadingFiles = ref(false);
           const loadingImages = ref(false);
           const loadingSubscriptions = ref(false);
-          //const loadingCategories = ref(false);
+          const loadingContactUs = ref(false);
           
           onMounted(async () => {
                 getData();   
@@ -122,8 +136,7 @@ import emailSubscriptionService from "@/services/emailSubscription.service";
                 getFileData();         
                 getImageData();         
                 getSubscriptionsData();
-
-                //getCategoriesData();         
+                getContactUsData();
           });
 
           const getData = async () => {
@@ -228,8 +241,26 @@ import emailSubscriptionService from "@/services/emailSubscription.service";
             }
           }
 
+          const getContactUsData = async () => {
+            try {
+                loadingContactUs.value = true;
+                contactusService.getStats().then((response: any) => {
+                if (response && response.data && response.data.data) {
+                    data.contactusstats = response.data.data
+                }
+                }).catch((error: any) => {
+                    data.errorMessage = error.message || "Error fetching stats";
+                });
+                loadingContactUs.value = false;
+            } catch {
+                loadingContactUs.value = false;
+                console.debug("error getting samples")
+            }
+          }
+
+
           return {
-            data, loading, loadingUsers, loadingArticles, loadingFiles, loadingImages, loadingSubscriptions
+            data, loading, loadingUsers, loadingArticles, loadingFiles, loadingImages, loadingSubscriptions, loadingContactUs
           }
 
         }

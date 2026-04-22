@@ -23,6 +23,14 @@ class ContactUsService {
     return result;
   }
 
+  getStats() {
+    return axiosApi.get(baseAPI + "count").then((response: any) => {
+      return response;
+    }).catch((error: any) => {
+      throw error;
+    });
+  }
+  
 
 }
 
