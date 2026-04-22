@@ -7,7 +7,7 @@
             <p class="text-[#4a4428] text-base mb-8" v-html="props.data.subTitle?.[props.selectedLang]">
             </p>
             <!-- Language + submit row -->
-            <div v-if="!data.showFile" class="flex flex-col sm:flex-row gap-3 bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
+            <div v-if="!data.showFile" class="flex flex-col sm:flex-row gap-3 bg-white rounded-3xl sm:rounded-full p-4 shadow-md border border-[#ddd8c0] mb-5">
                 <input 
                     type="email" 
                     :placeholder="props.data.inputPlaceholder?.[props.selectedLang]"
