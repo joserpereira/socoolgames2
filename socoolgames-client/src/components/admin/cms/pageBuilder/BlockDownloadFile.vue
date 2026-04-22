@@ -28,8 +28,24 @@
 
             <div v-else :class="data.downloaded ? 'rounded-3xl' : 'rounded-3xl sm:rounded-full'" class="bg-white hover:scale-105 p-2 shadow-md border border-[#ddd8c0] mb-5">
                 <div class="flex sm:flex-row ">
-                    <button class="btn-pulse bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
-                            @click="downloadFileClick">{{ props.data.buttonDownloadText?.[props.selectedLang] || "Download" }}</button>                
+                    <button class="flex btn-pulse  flex-row justify-center align-center items-center bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                            @click="downloadFileClick">
+                        <span v-if="data.downloading">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hourglass-icon lucide-hourglass">
+                                <path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
+                            </svg>
+                        </span> 
+                        <span v-else>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                            </svg>
+                        </span>
+                        <span class="ms-2"> 
+                            {{ props.data.buttonDownloadText?.[props.selectedLang] || "Download" }}
+                        </span>
+
+                        
+                    </button>                
                 </div>
                 <div v-if="data.downloaded" class="w-full textcenter my-3">
                     <p>{{ props.data?.downloadedMessage?.[props.selectedLang] || "Thanks for your download" }}</p>
@@ -63,13 +79,16 @@
         downloadFile: "",
         showFile: false,
         downloaded: false,
+        downloading: false,
         url: ""
     })
 
     const downloadFileClick = async () => {
+        data.downloading = true;
         if (props.data?.downloadFile?.[props.selectedLang]?._id) {
             const result = await fileService.downloadItem(props.data.downloadFile[props.selectedLang]._id);
             data.downloaded = true;
+            data.downloading = false;
             if (result.error == 0)
                 data.url = result.data;
         }
