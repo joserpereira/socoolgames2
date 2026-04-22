@@ -1,4 +1,3 @@
-import { languages } from '@/locales';
 import axiosApi from './api';
 
 const baseAPI = 'files/';
@@ -68,9 +67,11 @@ class FileService {
       // cleanup
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
+      return { error: 0, message: "", data: `${process.env.VUE_APP_API_URL}/api/${baseAPI}${id}/download`}
 
     } catch (err) {
       console.error("Error downloading file:", err);
+      return { error: 900, message: "", data: ""}
     }
   }
 

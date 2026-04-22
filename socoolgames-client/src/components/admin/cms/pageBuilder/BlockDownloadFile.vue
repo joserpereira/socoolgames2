@@ -26,9 +26,15 @@
             <div v-if="!data.showFile" class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-[#3a6418]" v-html="props.data.footer?.[props.selectedLang]">
             </div>
 
-            <div v-else class="flex sm:flex-row bg-white rounded-full px-2 py-2 shadow-md border border-[#ddd8c0] mb-5">
-                <button class="btn-pulse bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
-                        @click="downloadFileClick">Download</button>                
+            <div v-else :class="data.downloaded ? 'rounded-3xl' : 'rounded-3xl sm:rounded-full'" class="bg-white  p-2 shadow-md border border-[#ddd8c0] mb-5">
+                <div class="flex sm:flex-row">
+                    <button class="btn-pulse bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                            @click="downloadFileClick">{{ props.data.buttonDownloadText?.[props.selectedLang] || "Download" }}</button>                
+                </div>
+                <div v-if="data.downloaded" class="w-full textcenter my-3">
+                    <p>{{ props.data?.downloadedMessage?.[props.selectedLang] || "Thanks for your download" }}</p>
+                    <a :href="data.url" class="button" target="_blank">{{ props.data?.downloadedMessage?.[props.selectedLang] || "Download Here" }}</a>
+                </div>
             </div>
             <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
                 <p class="font-bold">Be Warned</p>
@@ -55,12 +61,17 @@
     const data = reactive({
         email: "",
         downloadFile: "",
-        showFile: false
+        showFile: false,
+        downloaded: false,
+        url: ""
     })
 
     const downloadFileClick = async () => {
         if (props.data?.downloadFile?.[props.selectedLang]?._id) {
-            fileService.downloadItem(props.data.downloadFile[props.selectedLang]._id);
+            const result = await fileService.downloadItem(props.data.downloadFile[props.selectedLang]._id);
+            data.downloaded = true;
+            if (result.error == 0)
+                data.url = result.data;
         }
         else
             data.errorMessage = "Ooops. Couldn't download file.";
