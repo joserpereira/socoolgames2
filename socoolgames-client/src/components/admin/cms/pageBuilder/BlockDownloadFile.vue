@@ -31,12 +31,12 @@
                     <button class="flex btn-pulse  flex-row justify-center align-center items-center bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
                             @click="downloadFileClick">
                         <span v-if="data.downloading">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hourglass-icon lucide-hourglass">
+                            <svg class="rotate lucide lucide-hourglass-icon lucide-hourglass" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
                             </svg>
                         </span> 
                         <span v-else>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                             </svg>
                         </span>
@@ -121,3 +121,30 @@
 
      
 </script>
+<style>
+/* .rotate {
+	animation-duration: 5s;
+	animation-delay: 1s;
+	animation-iteration-count: infinite;
+    animation-name: hourglass-rotation;
+}
+@keyframes hourglass-rotation {
+    0%{transform: rotateZ(0);}
+	25%{transform: rotateZ(90deg);}
+    75%{transform: rotateZ(170deg);}
+	100%{transform: rotateZ(300deg);}
+} */
+
+@keyframes rotate-steps {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotate-steps 2s steps(8, end) infinite;
+}
+</style>
