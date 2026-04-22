@@ -14,6 +14,8 @@ class BlockDownloadFileData {
         title: { pt: '', en: '' },
         subTitle: { pt: '', en: '' },
         buttonText: { pt: '', en: '' },
+        buttonDownloadText: { pt: '', en: '' },
+        downloadedLinkMessage: { pt: '', en: '' },
         footer: { pt: '', en: '' },
         downloadFile: { pt: '', en: '' }
     }
@@ -32,9 +34,9 @@ class BlockDownloadFileData {
         { field: "buttonDownloadText", type: "WidgetText", label: "Download Button Text" },        
         { field: "footer", type: "WidgetText", label: "Footer" },
         { field: "emailTemplate", type: "WidgetEmailTemplate", label: "Email Template" },
+        { field: "downloadedMessage", type: "WidgetText", label: "Downloaded Message" },
+        { field: "downloadedLinkMessage", type: "WidgetText", label: "Downloaded Link Message" },
         { field: "downloadFile", type: "WidgetFile", label: "Download File" },
-        { field: "downloadedMessage", type: "WidgetFile", label: "Downloaded Message" },
-        { field: "downloadedLinkMessage", type: "WidgetFile", label: "Downloaded Link Message" }        
     ]
   }
 }

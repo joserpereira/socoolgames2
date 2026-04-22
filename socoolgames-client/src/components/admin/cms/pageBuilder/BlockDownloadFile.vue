@@ -33,7 +33,7 @@
                 </div>
                 <div v-if="data.downloaded" class="w-full textcenter my-3">
                     <p>{{ props.data?.downloadedMessage?.[props.selectedLang] || "Thanks for your download" }}</p>
-                    <a :href="data.url" class="button" target="_blank">{{ props.data?.downloadedMessage?.[props.selectedLang] || "Download Here" }}</a>
+                    <a :href="data.url" class="button" target="_blank">{{ props.data?.downloadedLinkMessage?.[props.selectedLang] || "Download Here" }}</a>
                 </div>
             </div>
             <div v-if="data.errorMessage" class="mt-5 bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
