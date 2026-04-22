@@ -47,6 +47,12 @@ const adminRoutes: RouteRecordRaw[] = [
                 meta: { requiresAuth: true } 
             }, 
             {
+                path: '/admin/contactus',
+                name: 'ContactUsView',
+                component: () => import('@/components/admin/cms/ContactUsView.vue'),
+                meta: { requiresAuth: true } 
+            },
+            {
                 path: '/admin/subscriptions',
                 name: 'SubscriptionView',
                 component: () => import('@/components/admin/cms/SubscriptionView.vue'),

@@ -13,7 +13,7 @@ export const getItems = async (req: Request, res: Response) => {
         var filter = mongoUtils.getFilterByParameter(req)
         var pagination = mongoUtils.getPaginationParameters(filter)
 
-        const result = await contactUsService.getLinks(pagination.filter, pagination.skip, pagination.limit);
+        const result = await contactUsService.getItems(pagination.filter, pagination.skip, pagination.limit);
         res.status(200).json({error: 0, message: '', data: result.data, count: result.count})
     }
     catch(error: any)
@@ -88,6 +88,7 @@ export const deleteItem = async (req: Request, res: Response) => {
     try
     {
         const {id} = req.params;
+        console.log("delete", id)
         const item = await contactUsService.deleteItem(id);
         if (!item) {
             res.status(404).json({error: 404, message: `Cannot find any contact with ID '${id}'`})                

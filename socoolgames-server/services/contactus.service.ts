@@ -45,13 +45,13 @@ const updateItem = async (id: string, item: any) => {
 const deleteItem = async (id: string) => {
     var filter = { _id: id }
     const update = { deleted: true, deleteAt: new Date(Date.now()) };
+    const item = await ContactUsModel.findOneAndUpdate(filter, update);
 
-    const link = await ContactUsModel.findOneAndUpdate(filter, update);
-    if (!link) {
+    if (!item) {
         return {error: 901, message: 'There is an issue with event please try again later or contact support.', data: null};
     }
 
-    return {error: 0, message: '', data: link};
+    return {error: 0, message: '', data: item};
 }
 
 const exportedFunctions = {

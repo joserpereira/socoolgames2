@@ -14,6 +14,7 @@ const contactUsSchema = mongoose.Schema(
         },  
     },
     {
+        strict: false,
         timestamps: true
     })
 
