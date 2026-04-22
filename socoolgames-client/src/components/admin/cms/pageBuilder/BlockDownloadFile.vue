@@ -16,7 +16,7 @@
                     class="px-6 py-4 rounded-full text-gray-700 border border-gray-300 w-full md:w-96 focus:outline-none focus:ring-2 focus:ring-green-500"
                     required
                 />
-                <button class="btn-pulse bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
+                <button class="btn-pulse hover:scale-105 bg-primary hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
                     :disabled="!props.data?.downloadFile?.[props.selectedLang]"
                     @click="submitEmail">
                     {{ props.data.buttonText?.[props.selectedLang] }}
@@ -26,8 +26,8 @@
             <div v-if="!data.showFile" class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold text-[#3a6418]" v-html="props.data.footer?.[props.selectedLang]">
             </div>
 
-            <div v-else :class="data.downloaded ? 'rounded-3xl' : 'rounded-3xl sm:rounded-full'" class="bg-white  p-2 shadow-md border border-[#ddd8c0] mb-5">
-                <div class="flex sm:flex-row">
+            <div v-else :class="data.downloaded ? 'rounded-3xl' : 'rounded-3xl sm:rounded-full'" class="bg-white hover:scale-105 p-2 shadow-md border border-[#ddd8c0] mb-5">
+                <div class="flex sm:flex-row ">
                     <button class="btn-pulse bg-primary w-full hover:bg-secondary transition-colors text-white font-display font-black text-base tracking-widest uppercase px-8 py-3 rounded-full shadow-md whitespace-nowrap"
                             @click="downloadFileClick">{{ props.data.buttonDownloadText?.[props.selectedLang] || "Download" }}</button>                
                 </div>
