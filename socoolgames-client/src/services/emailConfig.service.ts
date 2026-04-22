@@ -47,7 +47,6 @@ class EmailConfigService {
       throw error;
     }
   }
-
 }
 
 export default new EmailConfigService();

@@ -1,7 +1,7 @@
 import { Router } from "express";
 const { userRoutes } = require('./user.routes')
 const { authenticationRoutes } = require('./authentication.routes')
-// const { contactUsRoutes } = require('./contactus.routes')
+const { contactUsRoutes } = require('./contactus.routes')
 // const { categoryRoutes } = require('./category.routes')
 // const { scrapperRoutes } = require('./scrapper.routes')
 const { sitemapRoutes } = require('./sitemap.routes')
@@ -33,5 +33,5 @@ export const routes = (router: Router) => {
     menusRoutes(router, '/api/menus')
 
     // scrapperRoutes(router, '/api/scrapper')
-    // contactUsRoutes(router, '/api/contactus')
+    contactUsRoutes(router, '/api/contactus')
 }

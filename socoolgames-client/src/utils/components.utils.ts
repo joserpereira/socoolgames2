@@ -10,12 +10,14 @@ import blockNewsLetterData from '@/components/admin/cms/pageBuilder/blockNewsLet
 import blockImagesData from '@/components/admin/cms/pageBuilder/blockImagesData';
 import blockArticlesData from '@/components/admin/cms/pageBuilder/blockArticlesData';
 import blockDownloadFileData from '@/components/admin/cms/pageBuilder/blockDownloadFileData';
+import blockContactUsData from '@/components/admin/cms/pageBuilder/blockContactUsData';
 
 
 const components = [blockHeroData, blockHtmlData, blockTextData, 
                     block4ColumnsData, blockMultipleCardsData, blockTextBgData, 
                     blockVideoData, blockTopicsData, blockNewsLetterData,  
-                    blockImagesData, blockArticlesData, blockDownloadFileData
+                    blockImagesData, blockArticlesData, blockDownloadFileData,
+                    blockContactUsData
 ]
 
 class ComponentsUtils {
