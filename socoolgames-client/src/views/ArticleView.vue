@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-5xl mx-auto my-auto px-5 grid gap-10 items-center m-10">
+    <div class="max-w-7xl mx-auto my-auto px-5 grid gap-10 items-center m-10">
         <div v-if="data.article?.image" class="h-96  mt-5 flex items-center justify-center text-5xl">
             <picture>
                 <source class="h-96 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + data.article.image.thumb)" />
