@@ -13,7 +13,7 @@
     </div>
 
     <!-- CARD -->
-    <div class="bg-secondary rounded-3xl shadow-lg p-8 md:p-12 max-w-3xl mx-auto">
+    <div class="bg-yellow-200 rounded-3xl shadow-lg p-8 md:p-12 max-w-3xl mx-auto">
 
       <form class="space-y-6">
 
@@ -63,7 +63,7 @@
             <button
                 type="submit" 
                 @click.prevent="sendContact"
-                class="px-5 bg-primary text-white/80 hover:text-white hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition duration-300">
+                class="px-5 bg-[#7BC143] hover:text-white hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition duration-300">
                 {{ props.data.buttonText?.[props.selectedLang] }}
             </button>
         </div>
