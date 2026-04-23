@@ -1,6 +1,6 @@
 <template>
     <section class="py-16 bg-white">
-        <div class="max-w-6xl mx-auto px-6 text-center">
+        <div class="max-w-7xl mx-auto px-6 text-center">
 
             <h2 class="text-3xl md:text-4xl font-bold mb-12">
             {{ props.data.title?.[props.selectedLang] }}

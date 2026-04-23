@@ -1,7 +1,7 @@
 <template>
     <section :class="'md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.medium)+')] bg-cover'">
-        <div class="max-w-6xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
-            <div class="max-w-6xl mx-auto mt-20 px-6 text-center">
+        <div class="max-w-7xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
+            <div class="mx-auto mt-20 px-6 text-center">
 
                 <h3 v-if="props.data.title?.[props.selectedLang]"
                     class="text-2xl md:text-3xl font-bold text-green-700 mb-10" v-html="props.data.title?.[props.selectedLang]">

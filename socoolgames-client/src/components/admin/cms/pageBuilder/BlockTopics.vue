@@ -2,7 +2,7 @@
     <section :class="'py-16 md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.medium)+')] bg-cover'">
 
         <!-- BLOCK 1 -->
-        <div class="max-w-6xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
+        <div class="max-w-7xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
 
             <!-- Text -->
             <div class="py-5">

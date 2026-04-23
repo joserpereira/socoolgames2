@@ -4,7 +4,7 @@
     </section> -->
 <!-- ════════════════════════════════ ARTICLES SECTION ════════════════════════════════ -->
   <section class="py-14 animate-fadeup delay-200">
-    <div class="max-w-5xl mx-auto px-5">
+    <div class="max-w-7xl mx-auto px-5">
 
       <h2 class="font-display font-black text-3xl text-center text-[#1e1a10] mb-2"
           v-html="props.data.title[props.selectedLang]">

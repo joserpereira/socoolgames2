@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="max-w-6xl mx-auto px-6 py-5 mb-14 grid items-center">
+        <div class="max-w-7xl mx-auto px-6 py-5 mb-14 grid items-center">
 
             <!-- BLOCK 2 - NEWSLETTER -->
             <div class="row mt-24 px-6 text-center">

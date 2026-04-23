@@ -1,6 +1,6 @@
 <template>
      <!-- SECTION -->
-  <section class="max-w-6xl mx-auto px-6 py-16">
+  <section class="max-w-7xl mx-auto px-6 py-16">
 
     <!-- HEADER -->
     <div class="text-center mb-12">
@@ -63,7 +63,7 @@
             <button
                 type="submit" 
                 @click.prevent="sendContact"
-                class="px-5 bg-[#7bc143] text-white/80 hover:text-white hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition duration-300">
+                class="px-5 bg-primary text-white/80 hover:text-white hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition duration-300">
                 {{ props.data.buttonText?.[props.selectedLang] }}
             </button>
         </div>

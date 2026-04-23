@@ -1,7 +1,7 @@
 <template>
   <!-- FOOTER -->
   <footer class="bg-[#7BC143] text-white py-12">
-    <div class="max-w-6xl mx-auto px-6 text-center">
+    <div class="max-w-7xl mx-auto px-6 text-center">
       <h3 class="text-xl font-bold mb-4">So COOL Games</h3>
       <p class="text-sm opacity-90">
         {{ t("footer.title") }}
