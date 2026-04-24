@@ -11,13 +11,13 @@
       </div>
 
       <!-- Main content + sidebar grid -->
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="grid gap-8" :class="props.data.showRelated || props.data.showNewsletter ? 'md:grid-cols-3' : ''">
 
         <!-- ── ARTICLES GRID (2-col inside) ── -->
         <div class="md:col-span-2 space-y-6" :set="indexT = -1">
           <div v-for="(value, index) in data.articleSchema" :key="index" class="grid gap-5" :class="'sm:grid-cols-'+value"  >
             <div v-for="index2 in value" :key="index2" :set="indexT = indexT + 1" >
-              <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
+              <div v-if="value > 0" class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
                 <picture v-if="data.articles[indexT]?.image" class="h-36 bg-[#d8e8c0]">
                     <source class="h-36 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).thumb)" />
                     <source class="h-36 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).medium)" />
@@ -44,8 +44,8 @@
         </div>
 
         <!-- ── SIDEBAR ── -->
-        <aside class="space-y-6">
-          <div class="bg-white rounded-2xl p-5 shadow-sm border border-[#e8e0cc]">
+        <aside class="space-y-6" v-if="props.data.showRelated || props.data.showNewsletter">
+          <div v-if="props.data.showRelated" class="bg-white rounded-2xl p-5 shadow-sm border border-[#e8e0cc]">
             <h3 class="font-display font-black text-base text-[#1e1a10] mb-4" v-html="props.data.otherTitle?.[props.selectedLang]">              
             </h3>
             <ul class="space-y-1">
@@ -98,7 +98,7 @@
       data.articleSchema = (props.data.articleSchema ?? "2-3").split("-").map(num => parseInt(num));
       const totalItems = data.articleSchema.reduce((partialSum, a) => partialSum + a, 0);
       // console.log("Article Schema:", data.articleSchema);
-      articleService.getItems(totalItems+numberOfRelatedArticlesToFetch, true).then(res => {
+      articleService.getItems(totalItems+(props.data.showRelated ? numberOfRelatedArticlesToFetch : 0), true).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
           data.articles = res.data.data;
           // console.log("Articles:", data.articles);
