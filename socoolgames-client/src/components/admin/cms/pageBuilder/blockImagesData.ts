@@ -15,16 +15,16 @@ class BlockImagesData {
         buttonText: { pt: '', en: '' },
         buttonLink: { pt: '', en: '' },
         note: { pt: '', en: '' },
-        backgroundImage: '',
+        backgroundImage: { pt: '', en: '' },
         items: [
           {
-            image: ''
+            image: { pt: '', en: '' }
           },
           {
-            image: ''
+            image: { pt: '', en: '' }
           },
           {
-            image: ''
+            image: { pt: '', en: '' }
           }
 
         ]

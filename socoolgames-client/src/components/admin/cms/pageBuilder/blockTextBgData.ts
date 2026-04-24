@@ -14,7 +14,7 @@ class BlockTextBgData {
         title: { pt: '', en: '' },
         subTitle: { pt: '', en: '' },
         text: { pt: '', en: '' },
-        backgroundImage: ''
+        backgroundImage: { pt: '', en: '' }
     }
   }
 

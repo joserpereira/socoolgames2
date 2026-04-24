@@ -2,18 +2,16 @@
     <section id="produtos" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-14">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    {{ props.data.title?.[props.selectedLang] }}
+                <h2 v-if="props.data.title?.[props.selectedLang]" class="text-3xl md:text-4xl font-bold mb-4" v-html="props.data.title?.[props.selectedLang]">
                 </h2>
-                <p class="text-gray-600">
-                    {{ props.data.subTitle?.[props.selectedLang] }}
+                <p v-if="props.data.subTitle?.[props.selectedLang]" class="text-gray-600" v-html="props.data.subTitle?.[props.selectedLang]">
                 </p>
             </div>
 
             <div :class="props.data.items.length % 4 == 0 ? 'md:grid-cols-4' : 'md:grid-cols-3'" class="grid gap-8 items-stretch">                
                 <article v-for="(item, index) in props.data.items" :key="index"
                     class="flex flex-col bg-white hover:scale-105 rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
-                    <img :src="formatUrl(baseUrl+item?.image?.thumb)" alt="Jogo Caça Palavras" 
+                    <img :src="formatUrl(baseUrl+(item?.image?.[props.selectedLang]?.thumb || item?.image?.thumb))" alt="" 
                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
                         class="w-full object-cover" loading="lazy">
                     <span v-if="item.header?.[props.selectedLang]" 

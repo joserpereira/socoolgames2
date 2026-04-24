@@ -3,8 +3,8 @@
       {{ props.schema.label }} {{ props.index ? '#' + props.index : '' }}
   </label>
   <div class="flex items-center">
-    <img v-if="data.value?.thumb" class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3" 
-        :src="data.prefix + data.value?.thumb" alt="thumbnail">
+    <img v-if="data.value?.[props.selectedLang]?.thumb" class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3" 
+        :src="data.prefix + data.value?.[props.selectedLang]?.thumb" alt="thumbnail">
     <span v-else>
       <svg title="Please select image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
            class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3">
@@ -38,12 +38,14 @@
 </template>
 <script setup lang="ts">
   import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
+  import { languages } from '../../../../locales/index'
   import imageService from '@/services/common/image.service';
 
   const props = defineProps<{
     schema: Object,
     modelValue: String
-    index: Number
+    index: Number,
+    selectedLang: String
   }>()
 
   const data = reactive({
@@ -56,7 +58,13 @@
   })
   const emit = defineEmits(["update:modelValue"])
 
-  
+
+  watch(() => props.selectedLang, (value) => {        
+    data.selectedImage = "";
+    data.selectedImage = data.value?.[value]?.original ?? "";
+    fillData(); 
+  }, { deep: true });
+
   watch(() => props.modelValue, (value) => {        
     data.selectedImage = "";
     data.value = undefined as any;
@@ -75,8 +83,19 @@
   })
 
   const setValue = (value: any) => {
+    data.selectedImage ="";
+    if (value && value._id) {
+      let dict = {}
+      Object.keys(languages).forEach(l => {
+        if (!(l in dict)) {
+          dict[l] = value;
+        }
+      })
+      
+      value = dict;
+    }
     data.value = value;
-    data.selectedImage = value?.original ?? "";
+    data.selectedImage = value?.[props.selectedLang]?.original ?? "";
     fillData();    
   }
   const fillData = async () => {
@@ -92,7 +111,7 @@
 
   const fillAndSelect = () =>{
     fillData();
-    if (data.value?._id === undefined && data.selectedImage.length > 0) {
+    if (data.value?.[props.selectedLang]?._id === undefined && data.selectedImage.length > 0) {
       const found = data.items.find((item) => item.original === data.selectedImage);
       if (found) {
         selectImage(found);
@@ -102,7 +121,7 @@
 
   const keyup = () => {
     try {
-      if (data.selectedImage !== data.value?.original) {
+      if (data.selectedImage !== data.value?.[props.selectedLang]?.original) {
         data.value = {}
       }
       clearTimeout(data.timeoutID);
@@ -114,7 +133,7 @@
 
   const selectImage = (item: any) => {
     data.selectedImage = item.original;
-    data.value = item;
+    data.value[props.selectedLang] = item;
 
     emit("update:modelValue", data.value)
   }

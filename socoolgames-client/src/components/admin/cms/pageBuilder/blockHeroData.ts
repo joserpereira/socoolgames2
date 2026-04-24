@@ -15,7 +15,7 @@ class BlockHeroData {
         subTitle: { pt: '', en: '' },
         buttonText: { pt: '', en: '' },
         buttonLink: { pt: '', en: '' },
-        backgroundImage: ''
+        backgroundImage: { pt: '', en: '' }
     }
   }
 

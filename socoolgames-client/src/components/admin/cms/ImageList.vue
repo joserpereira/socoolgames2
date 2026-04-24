@@ -223,9 +223,9 @@
     const imageHtmlStringify = (value) => {
 
     return `<picture>
-      <source media="(width < 640px)" :srcset="${formatUrl(baseUrl + value?.thumb)}"  alt="" />
-      <source media="(width <= 768px)" :srcset="${formatUrl(baseUrl + value?.medium)}" alt="" />
-      <img :src="${formatUrl(baseUrl + value?.large)}" alt="" />
+      <source media="(width < 640px)" srcset="${formatUrl(baseUrl + value?.thumb)}"  alt="" />
+      <source media="(width <= 768px)" srcset="${formatUrl(baseUrl + value?.medium)}" alt="" />
+      <img src="${formatUrl(baseUrl + value?.large)}" alt="" />
 </picture>`
     }
 

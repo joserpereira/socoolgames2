@@ -1,5 +1,5 @@
 <template>
-    <section :class="'relative py-20 px-6 text-center md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.medium)+')]  bg-cover'">
+    <section :class="'relative py-20 px-6 text-center md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).medium)+')]  bg-cover'">
 
         <div class="max-w-4xl mx-auto ">
 

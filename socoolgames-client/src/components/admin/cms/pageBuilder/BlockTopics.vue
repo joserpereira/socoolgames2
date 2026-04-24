@@ -1,5 +1,5 @@
 <template>
-    <section :class="'py-16 md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage.medium)+')] bg-cover'">
+    <section :class="'py-16 md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).medium)+')] bg-cover'">
 
         <!-- BLOCK 1 -->
         <div class="max-w-7xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
@@ -27,10 +27,10 @@
             <!-- Imagem -->
             <div class="flex justify-center">
                 <picture>
-                    <source media="(width < 640px)" :srcset="formatUrl(baseUrl + props.data?.image.thumb)" />
-                    <source media="(width <= 768px)" :srcset="formatUrl(baseUrl + props.data?.image.medium)" />
-                    <img loading="lazy" class="rounded-2xl shadow-xl w-full max-w-md" alt="Criança a utilizar jogo criativo no telemóvel"
-                            :src="formatUrl(baseUrl + props.data?.image.large)" />
+                    <source media="(width < 640px)" :srcset="formatUrl(baseUrl + (props.data?.image?.[props.selectedLang] || props.data?.image).thumb)" />
+                    <source media="(width <= 768px)" :srcset="formatUrl(baseUrl + (props.data?.image?.[props.selectedLang] || props.data?.image).medium)" />
+                    <img loading="lazy" class="rounded-2xl shadow-xl w-full max-w-md" alt=""
+                            :src="formatUrl(baseUrl + (props.data?.image?.[props.selectedLang] || props.data?.image).large)" />
                 </picture>
             </div>
         </div>

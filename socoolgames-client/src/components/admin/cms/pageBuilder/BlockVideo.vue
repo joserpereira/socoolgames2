@@ -4,10 +4,10 @@
         <!-- Background Image -->
         <div class="absolute inset-0">
             <picture>
-                <source media="(width < 640px)" :srcset="formatUrl(baseUrl + props.data?.backgroundImage.thumb)" />
-                <source media="(width <= 768px)" :srcset="formatUrl(baseUrl + props.data?.backgroundImage.medium)" />
-                <img loading="lazy" class="w-full h-full object-cover" alt="Criança a utilizar jogo criativo no telemóvel"
-                     :src="formatUrl(baseUrl + props.data?.backgroundImage.large)" />
+                <source media="(width < 640px)" :srcset="formatUrl(baseUrl + (props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).thumb)" />
+                <source media="(width <= 768px)" :srcset="formatUrl(baseUrl + (props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).medium)" />
+                <img loading="lazy" class="w-full h-full object-cover" alt=""
+                     :src="formatUrl(baseUrl + (props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage)?.large)" />
             </picture>
             <div class="absolute inset-0 bg-black/50"></div>
         </div>

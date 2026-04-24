@@ -1,5 +1,5 @@
 <template>
-    <section :class="'md:bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.large)+')] bg-[url('+formatUrl(baseUrl+props.data?.backgroundImage?.medium)+')] bg-cover'">
+    <section :class="'md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage)?.large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage)?.medium)+')] bg-cover'">
         <div class="max-w-7xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
             <div class="mx-auto mt-20 px-6 text-center">
 
@@ -10,7 +10,7 @@
                 <div :class="'md:grid-cols-'+ (props.data.items.length < 6 ? props.data.items.length : '5')" 
                         class="grid gap-6 mb-10">
                 <div v-for="value in props.data.items" :key="value" class="justify-items-center">
-                    <img :src="getImage(value.image, value.imageSize)" alt="" 
+                    <img :src="getImage((props.data?.image?.[props.selectedLang] || props.data?.image), value.imageSize)" alt="" 
                          :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
                          class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
 

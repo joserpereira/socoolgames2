@@ -1,8 +1,5 @@
 <template>
-    <!-- <section>
-        <span class="my-5" v-html="props.data.title[props.selectedLang]"></span>
-    </section> -->
-<!-- ════════════════════════════════ ARTICLES SECTION ════════════════════════════════ -->
+  <!-- ════════════════════════════════ ARTICLES SECTION ════════════════════════════════ -->
   <section class="py-14 animate-fadeup delay-200">
     <div class="max-w-7xl mx-auto px-5">
 
@@ -22,10 +19,10 @@
             <div v-for="index2 in value" :key="index2" :set="indexT = indexT + 1" >
               <div class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
                 <picture v-if="data.articles[indexT]?.image" class="h-36 bg-[#d8e8c0]">
-                    <source class="h-36 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + data.articles[indexT].image.thumb)" />
-                    <source class="h-36 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + data.articles[indexT].image.medium)" />
+                    <source class="h-36 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).thumb)" />
+                    <source class="h-36 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).medium)" />
                     <img loading="lazy" class="h-36 w-full bg-[#d8e8c0] rounded-t-2xl shadow-xl w-full" alt="Criança a utilizar jogo criativo no telemóvel"
-                            :src="formatUrl(baseUrl + data.articles[indexT].image.large)" />
+                            :src="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).large)" />
                 </picture>
                 <div v-else class="h-36 bg-[#d8e8c0] flex items-center justify-center text-5xl">🖼️</div>
                 <div class="p-4">
@@ -39,7 +36,6 @@
                     {{ data.articles[indexT]?.content[props.selectedLang].split('\n')[0] }}
                   </p>
                   <p class="text-[#9a9080] text-xs mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt)">{{ dateTimeUtils.getDateText(data.articles[indexT]?.updatedAt ?? data.articles[indexT]?.createdAt, false) }}</p>
-                  <!-- <a href="#" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">Ler artigo</a> -->
                   <router-link :to="'/' + props.selectedLang + '/article/'+data.articles[indexT]?.slug" class="block text-center bg-primary text-white text-xs font-bold py-2 rounded-lg hover:bg-secondary transition-colors">{{ t('article.readArticle') }}</router-link>
                 </div>
               </div>

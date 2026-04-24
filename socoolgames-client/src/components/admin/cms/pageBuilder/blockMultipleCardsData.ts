@@ -21,7 +21,7 @@ class BlockMultipleCardsData {
             buttonText: { pt: '', en: '' },
             buttonLink: { pt: '', en: '' },
             buttonColor: '',
-            image: ''
+            image: { pt: '', en: '' }
           },
           {
             header: { pt: '', en: '' },
@@ -30,7 +30,7 @@ class BlockMultipleCardsData {
             buttonText: { pt: '', en: '' },
             buttonLink: { pt: '', en: '' },
             buttonColor: '',
-            image: ''
+            image: { pt: '', en: '' }
           },
           {
             header: { pt: '', en: '' },
@@ -39,7 +39,7 @@ class BlockMultipleCardsData {
             buttonText: { pt: '', en: '' },
             buttonLink: { pt: '', en: '' },
             buttonColor: '',
-            image: ''
+            image: { pt: '', en: '' }
           },
           {
             header: { pt: '', en: '' },
@@ -48,7 +48,7 @@ class BlockMultipleCardsData {
             buttonText: { pt: '', en: '' },
             buttonLink: { pt: '', en: '' },
             buttonColor: '',
-            image: ''
+            image: { pt: '', en: '' }
           }
         ]
     }  }

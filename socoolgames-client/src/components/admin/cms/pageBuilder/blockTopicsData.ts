@@ -16,8 +16,8 @@ class BlockTopicsData {
         items: { pt: '', en: '' },
         buttonText: { pt: '', en: '' },
         buttonLink: { pt: '', en: '' },
-        image: '',
-        backgroundImage: ''
+        image: { pt: '', en: '' },
+        backgroundImage: { pt: '', en: '' }
     }  }
 
   getComponent() {
