@@ -14,7 +14,6 @@
         </div>
         <div class="p-4">
             <p class="text-yellow-500 font-black mb-1" v-if="data.article?.header?.[data.language]">
-                 <!-- > -->
                 {{ data.article?.header?.[data.language] ?? "" }}
             </p>
             <h1 class="font-black text-[#1e1a10] mt-4 mb-2">
@@ -24,17 +23,23 @@
             </p>
             <p class="text-[#9a9080] text-xs mt-4 mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.article?.updatedAt ?? data.article?.createdAt)">{{ dateTimeUtils.getDateText(data.article?.updatedAt ?? data.article?.createdAt, false) }}</p>
         </div>
+        <div class="p-4">
+            <BlockArticles :data="data.articles" :selectedLang="data.language">
+                
+            </BlockArticles>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">    
     import { languages } from '../locales/index'
-    import { onMounted, reactive } from 'vue'
+    import { onMounted, reactive, watch } from 'vue'
     import { useRoute, useRouter } from 'vue-router';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
     import dateTimeUtils from '@/utils/dateTime.utils';
     import articleService from '@/services/article.service';
+    import BlockArticles from '@/components/admin/cms/pageBuilder/BlockArticles.vue';
 
     const baseUrl = process.env.VUE_APP_API_URL;    
     const route = useRoute();
@@ -45,25 +50,46 @@
         language: '' as String,
         article: {} as any,
         languages: ["en", "pt"],
+        articles: {
+                "title" : {
+                    "pt" : "", 
+                    "en" : ""
+                }, 
+                "otherTitle" : {
+                    "pt" : "", 
+                    "en" : ""
+                }, 
+                "articleSchema" : "3-0", 
+                "showNewsletter" : false, 
+                "showRelated" : false
+            }
     })
 
+    watch(() => route.params.slug, (value) => {        
+        fillData((value ?? "").length > 0 ? value : "home", data.language)
+    }, { deep: true });
+
+
     onMounted(() => {   
-        const lang = route.params.lang as string;
-        if (!Object.keys(languages).includes(lang)) {
-            
+        
+        let lang = route.params.lang as string;
+        if (!Object.keys(languages).includes(lang)) {            
             router.push('/'+localStorage.selectedLanguage+'/'+route.params.lang);
-            data.slugText = route.params.lang as string;
-            data.language = localStorage.selectedLanguage;
-        } else {
-            data.slugText = (route.params.slug ?? "").length > 0 ? route.params.slug : "home";
-            data.language = fixLang(route.params.lang);
         }
+        fillData((route.params.slug ?? "").length > 0 ? route.params.slug : "home", fixLang(lang))
+
+    })
+
+    const fillData = (slug, language) => {
+        data.slugText = slug;
+        data.language = language;
         articleService.getItemByNameRef(data.slugText).then(result => {
             if (result.status === 200 && result.data.error === 0) {
                 data.article = result.data.data;
             }
         })
-    })
+
+    }
     
     const fixLang = (language) => {
         if (language in ["pt","en" ])
