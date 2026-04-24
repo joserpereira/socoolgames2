@@ -1,3 +1,23 @@
+//import { defineAsyncComponent } from 'vue'
+/*
+const componentsDict = {
+
+
+"blockHeroData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockHeroData')),
+"blockHtmlData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockHtmlData')),
+"blockTextData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockTextData')),
+"block4ColumnsData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/block4ColumnsData')),
+"blockMultipleCardsData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockMultipleCardsData')),
+"blockTextBgData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockTextBgData')),
+"blockVideoData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockVideoData')),
+"blockTopicsData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockTopicsData')),
+"blockNewsLetterData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockNewsLetterData')),
+"blockImagesData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockImagesData')),
+"blockArticlesData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockArticlesData')),
+"blockDownloadFileData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockDownloadFileData')),
+"blockContactUsData": defineAsyncComponent(() => import('@/components/admin/cms/pageBuilder/blockContactUsData'))
+}
+*/
 import blockHeroData from '@/components/admin/cms/pageBuilder/blockHeroData';
 import blockHtmlData from '@/components/admin/cms/pageBuilder/blockHtmlData';
 import blockTextData from '@/components/admin/cms/pageBuilder/blockTextData';
