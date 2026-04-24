@@ -4,10 +4,9 @@
             <picture>
                 <source class="h-96 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + data.article.image.thumb)" />
                 <source class="h-96 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + data.article.image.medium)" />
-                <img loading="lazy" class="h-96 bg-[#d8e8c0] rounded-t-2xl shadow-xl " alt="Criança a utilizar jogo criativo no telemóvel"
+                <img loading="lazy" class="h-96 bg-[#d8e8c0] rounded-t-2xl shadow-xl " alt=""
                         :src="formatUrl(baseUrl + data.article.image.large)" />
             </picture>
-
         </div>
         <div v-else class="h-36 mt-5 rounded-2xl bg-[#d8e8c0] flex items-center justify-center text-5xl">            
             🖼️
@@ -24,8 +23,7 @@
             <p class="text-[#9a9080] text-xs mt-4 mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.article?.updatedAt ?? data.article?.createdAt)">{{ dateTimeUtils.getDateText(data.article?.updatedAt ?? data.article?.createdAt, false) }}</p>
         </div>
         <div class="p-4">
-            <BlockArticles :data="data.articles" :selectedLang="data.language">
-                
+            <BlockArticles  :exceptID="data.article?._id" :data="data.articles" :selectedLang="data.language">
             </BlockArticles>
         </div>
     </div>

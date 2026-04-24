@@ -12,12 +12,11 @@
 
       <!-- Main content + sidebar grid -->
       <div class="grid gap-8" :class="props.data.showRelated || props.data.showNewsletter ? 'md:grid-cols-3' : ''">
-
         <!-- ── ARTICLES GRID (2-col inside) ── -->
         <div class="md:col-span-2 space-y-6" :set="indexT = -1">
           <div v-for="(value, index) in data.articleSchema" :key="index" class="grid gap-5" :class="'sm:grid-cols-'+value"  >
             <div v-for="index2 in value" :key="index2" :set="indexT = indexT + 1" >
-              <div v-if="value > 0" class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
+              <div v-if="value > 0 && data.articles[indexT]" class="article-card bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e0cc] sm:col-span-1">
                 <picture v-if="data.articles[indexT]?.image" class="h-36 bg-[#d8e8c0]">
                     <source class="h-36 bg-[#d8e8c0]" media="(width < 640px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).thumb)" />
                     <source class="h-36 bg-[#d8e8c0]" media="(width <= 768px)" :srcset="formatUrl(baseUrl + (data.articles[indexT].image?.[props.selectedLang] || data.articles[indexT].image).medium)" />
@@ -71,19 +70,21 @@
   </section>    
 </template>
 <script setup>
-    import { defineProps, defineExpose, onMounted, reactive } from 'vue';
+    import { defineProps, defineExpose, onMounted, reactive, watch } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
     import MiniNewsLetter from "@/components/admin/cms/pageBuilder/MiniNewsLetter.vue";
     import { useI18n } from "vue-i18n";
+
     const { t } = useI18n();
 
     const baseUrl = process.env.VUE_APP_API_URL;    
     const numberOfRelatedArticlesToFetch = 4; 
     const data = reactive({
         articles: [],
-        articleSchema: []
+        articleSchema: [],
+        exceptID: ""
     });
     const props = defineProps({        
         data: {
@@ -91,21 +92,42 @@
         },
         selectedLang: {
             type: String
+        },
+        exceptID: {
+            type: String,
+            required: false,
+            default: '-'
         }
     })
 
-    onMounted(() => {
+    watch(() => props.exceptID, (value) => {        
+      if (value !== data.exceptID)  {
+        fillData();
+      }
+          
+    }, { deep: true });
+
+    const fillData = () => {
+      data.exceptID = props.exceptID;
       data.articleSchema = (props.data.articleSchema ?? "2-3").split("-").map(num => parseInt(num));
-      const totalItems = data.articleSchema.reduce((partialSum, a) => partialSum + a, 0);
-      // console.log("Article Schema:", data.articleSchema);
+      let totalItems = data.articleSchema.reduce((partialSum, a) => partialSum + a, 0);
+      if (props.exceptID !== '-')
+        totalItems = totalItems + 1;
+
       articleService.getItems(totalItems+(props.data.showRelated ? numberOfRelatedArticlesToFetch : 0), true).then(res => {
         if (res.data && res.data.error == 0 && res.data.data) {
-          data.articles = res.data.data;
-          // console.log("Articles:", data.articles);
+          data.articles = props.exceptID ? res.data.data.filter(item => item._id !== props.exceptID) : res.data.data;
         }
       }).catch(err => {
         console.error("Error fetching articles:", err);
       })
+    }
+
+    onMounted(() => {
+      setTimeout(function() {
+        if (props.exceptID == '-')
+          fillData();
+      }, 100)
     })
 
     defineExpose({ formatUrl });
