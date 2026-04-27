@@ -32,7 +32,10 @@
             :key="item._id"
             class="border-t hover:bg-gray-400 hover:text-black  even:bg-text-gray-600 ">
             <td class="p-3 hover:text-gray-600 gap-2 description-cell">
-              <span>{{ item.original }}</span>
+              <div class="flex inline-block align-middle">
+                <img class="h-12 w-12" :src="formatUrl(baseUrl + item?.thumb)" alt="" />
+                <span class="ms-2">{{ item.original }}</span>
+              </div>
               <div v-if="data.idToView==item._id">
                 <div>
                   <img :src="data.prefix + item.thumb" alt="">
