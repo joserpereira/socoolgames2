@@ -60,14 +60,13 @@
 
 
   watch(() => props.selectedLang, (value) => {        
-    data.selectedImage = "";
     data.selectedImage = data.value?.[value]?.original ?? "";
     fillData(); 
   }, { deep: true });
 
   watch(() => props.modelValue, (value) => {        
     data.selectedImage = "";
-    data.value = undefined as any;
+    // data.value = undefined as any;
     if (value) {
       setValue(value);
     } else {
@@ -83,12 +82,11 @@
   })
 
   const setValue = (value: any) => {
-    data.selectedImage ="";
-    if (value && value._id) {
+    if (value) {
       let dict = {}
       Object.keys(languages).forEach(l => {
         if (!(l in dict)) {
-          dict[l] = value;
+          dict[l] = value[l];
         }
       })
       
@@ -122,7 +120,7 @@
   const keyup = () => {
     try {
       if (data.selectedImage !== data.value?.[props.selectedLang]?.original) {
-        data.value = {}
+        data.value[props.selectedLang] = {}
       }
       clearTimeout(data.timeoutID);
       data.timeoutID = setTimeout( fillAndSelect, 450);
@@ -133,8 +131,10 @@
 
   const selectImage = (item: any) => {
     data.selectedImage = item.original;
+    if (!data.value) {
+      data.value = {}
+    }
     data.value[props.selectedLang] = item;
-
     emit("update:modelValue", data.value)
   }
 
