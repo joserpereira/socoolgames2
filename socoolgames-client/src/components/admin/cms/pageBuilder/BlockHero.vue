@@ -1,5 +1,8 @@
 <template>
-    <section :class="'bg-gradient-to-r1 from-green-100 to-green-200 py-20 md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang]?.large || props.data?.backgroundImage.large))+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang]?.medium || props.data?.backgroundImage.medium))+')] bg-cover' "  >
+    <section 
+    
+        :style="sectionStyle"
+        class="bg-gradient-to-r1 from-green-100 to-green-200 py-20 bg-cover bg-center">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center" >
 
             <div>
@@ -21,10 +24,13 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineEmits, onMounted } from 'vue';
+    import { defineProps, defineExpose, onMounted, computed } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
 
+    const sectionStyle = computed(() => ({
+        backgroundImage: `url('${formatUrl(baseUrl + (props.data?.backgroundImage?.[props.selectedLang]?.large || props.data?.backgroundImage?.large))}')`
+    }))
     const baseUrl = process.env.VUE_APP_API_URL;
     const props = defineProps({        
         data: {
@@ -38,5 +44,5 @@
     onMounted(() => {
     })
 
-    defineEmits({ formatUrl })
+    defineExpose({ formatUrl, sectionStyle })
 </script>
