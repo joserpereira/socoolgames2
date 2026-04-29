@@ -1,2 +1,13 @@
 @config "../../tailwind.config.js";
 @import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* avoid errors made by padding and border */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}

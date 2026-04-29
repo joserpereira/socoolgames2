@@ -2,7 +2,6 @@
   <nav class="bg-white shadow-md">
     <!-- <div class="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center"></div> -->
     <div class="space-x-6 text-sm ms-auto font-semibold max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
-
       <!-- Logo -->
       <a @click="closeAll" :href="'/'+data.selectedLanguage+'/'">
         <img style="height: 80px" src="@/assets/images/logo_horiz.webp" class="rounded-xl" />
