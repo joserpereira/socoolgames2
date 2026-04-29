@@ -6,13 +6,18 @@
                 <h3 v-if="props.data.title?.[props.selectedLang]"
                     class="text-2xl md:text-3xl font-bold text-green-700 mb-10" v-html="props.data.title?.[props.selectedLang]">
                 </h3>
-                <div :class="'md:grid-cols-'+ (props.data.items.length < 6 ? props.data.items.length : '5')" 
-                        class="grid gap-6 mb-10">
+                <div :class="['grid gap-6 mb-10 place-items-center', 
+                                'grid-cols-1', 
+                                props.data.items.length >= 5 ? 'md:grid-cols-5' : 
+                                props.data.items.length === 4 ? 'md:grid-cols-4' :
+                                props.data.items.length === 3 ? 'md:grid-cols-3' :
+                                'md:grid-cols-2']">
                 <div v-for="value in props.data.items" :key="value" class="justify-items-center">
                     <img :src="getImage((value?.image?.[props.selectedLang] || value?.image), value.imageSize)" alt="" 
-                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
+                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-64'" 
                          class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
 
+                </div>
                 </div>
 <!--
                     
@@ -22,7 +27,6 @@
                 <img :src="formatUrl('./public/images/insta4.webp')" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
                 <img :src="formatUrl('./public/images/insta5.webp')" class="rounded-xl shadow-md hover:scale-105 transition" alt="">
 -->                    
-                </div>
 
                 <a v-if="props.data.buttonText?.[props.selectedLang]" 
                    :href="props.data.buttonLink?.[props.selectedLang]" target="_blank"

@@ -12,7 +12,7 @@
                 <article v-for="(item, index) in props.data.items" :key="index"
                     class="flex flex-col bg-white hover:scale-105 rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
                     <img :src="formatUrl(baseUrl+(item?.image?.[props.selectedLang]?.thumb || item?.image?.thumb))" alt="" 
-                        :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-100'" 
+                        :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-64'" 
                         class="w-full object-cover" loading="lazy">
                     <span v-if="item.header?.[props.selectedLang]" 
                         :class="(item.headerColor ?? '').length > 0 ? item.headerColor : 'bg-yellow-100 text-yellow-700'"
