@@ -147,4 +147,6 @@ dist
 .svelte-kit
 
 # End 
-/socoolgames-server/public/uploads
+/socoolgames-server/public/uploads*/
+
+
