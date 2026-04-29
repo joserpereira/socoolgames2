@@ -2,9 +2,9 @@
     <section id="produtos" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-14">
-                <h2 v-if="props.data.title?.[props.selectedLang]" class="text-3xl md:text-4xl font-bold mb-4" v-html="props.data.title?.[props.selectedLang]">
+                <h2 v-if="props.data.title?.[props.selectedLang]" class="text-3xl md:text-4xl font-bold mb-4" v-html="formatText(props.data.title?.[props.selectedLang])">
                 </h2>
-                <p v-if="props.data.subTitle?.[props.selectedLang]" class="text-gray-600" v-html="props.data.subTitle?.[props.selectedLang]">
+                <p v-if="props.data.subTitle?.[props.selectedLang]" class="text-gray-600" v-html="formatText(props.data.subTitle?.[props.selectedLang])">
                 </p>
             </div>
 
@@ -18,7 +18,8 @@
                         :class="(item.headerColor ?? '').length > 0 ? item.headerColor : 'bg-yellow-100 text-yellow-700'"
                         class="w-fit mx-6 mt-6 text-xs px-3 py-1 rounded-full">{{ item.header?.[props.selectedLang] }}</span>
                     <h3 v-if="item.title?.[props.selectedLang]" class="px-6 text-xl font-bold mt-4 mb-2">{{ item.title?.[props.selectedLang] }}</h3>
-                    <p v-if="item.subTitle?.[props.selectedLang]" class="flex-1 px-6 flex-1 text-gray-600 mb-4">{{ item.subTitle?.[props.selectedLang] }}</p>
+                    <p v-if="item.subTitle?.[props.selectedLang]" class="flex-1 px-6 flex-1 text-gray-600 mb-4" v-html="formatText(item.subTitle?.[props.selectedLang])">
+                    </p>
                     <div class="px-6 pb-6">
                         <a :href="item.buttonLink?.[props.selectedLang]" v-if="item.buttonText?.[props.selectedLang]"
                         :class="(item.buttonColor ?? '').length > 0 ? item.buttonColor : 'bg-primary text-white'"
@@ -35,6 +36,7 @@
 <script setup>
     import { defineProps, /* defineEmits,*/ } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
+    import { formatText } from '@/utils/html.utils';
 
     const baseUrl = process.env.VUE_APP_API_URL;
     
