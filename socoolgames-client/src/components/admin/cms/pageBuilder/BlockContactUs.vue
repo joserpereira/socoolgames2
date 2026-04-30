@@ -32,7 +32,7 @@
             v-model="data.item.email"
             :placeholder="props.data.emailPlaceholder?.[props.selectedLang]"
             required
-            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+            class="w-full bg-white px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
 
@@ -47,7 +47,7 @@
             rows="5"
             :placeholder="props.data.messagePlaceholder?.[props.selectedLang]"
             required
-            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            class="w-full bg-white px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           ></textarea>
         </div>
 

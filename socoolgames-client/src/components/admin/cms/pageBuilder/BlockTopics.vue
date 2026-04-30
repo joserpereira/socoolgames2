@@ -1,5 +1,5 @@
 <template>
-    <section :class="'py-16 md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).medium)+')] bg-cover'">
+    <section :style="bgImage" class="py-16 bg-cover">
 
         <!-- BLOCK 1 -->
         <div class="max-w-7xl mx-auto px-6 py-5 grid md:grid-cols-2 gap-12 items-center">
@@ -37,7 +37,7 @@
     </section>
 </template>
 <script setup>
-    import { defineProps } from 'vue';
+    import { defineProps, computed } from 'vue';
     const baseUrl = process.env.VUE_APP_API_URL;
     import { formatUrl } from "@/utils/url.utils";
 
@@ -49,5 +49,13 @@
             type: String
         }
     })
+
+        const bgImage = computed(() => {
+        const images = props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage
+        const isMobile = window.innerWidth < 768
+        const url = formatUrl(baseUrl + (isMobile ? images?.medium : images?.large))
+        return { backgroundImage: `url('${url}')` }
+    })
+
 
 </script>

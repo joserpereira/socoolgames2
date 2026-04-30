@@ -1,5 +1,5 @@
 <template>
-    <section :class="'md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage)?.large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage)?.medium)+')] bg-cover'">
+    <section :style="bgImage" class="bg-cover bg-center">
         <div class="max-w-7xl mx-auto px-6 py-5 grid gap-12 items-center">        <!-- BLOCK 3 - INSTAGRAM -->
             <div class="mx-auto mt-20 px-6 text-center">
 
@@ -14,8 +14,8 @@
                                 'md:grid-cols-2']">
                 <div v-for="value in props.data.items" :key="value" class="justify-items-center">
                     <img :src="getImage((value?.image?.[props.selectedLang] || value?.image), value.imageSize)" alt="" 
-                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-64'" 
-                         class="rounded-xl shadow-md hover:scale-105 transition" loading="lazy">
+                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-48'" 
+                         class="rounded-xl shadow-md hover:scale-105 transition h-48" loading="lazy">
 
                 </div>
                 </div>
@@ -39,10 +39,16 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineExpose } from 'vue';
+    import { defineProps, defineExpose, computed } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     const baseUrl = process.env.VUE_APP_API_URL;
-
+    
+    const bgImage = computed(() => {
+        const images = props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage
+        const isMobile = window.innerWidth < 768
+        const url = formatUrl(baseUrl + (isMobile ? images?.medium : images?.large))
+        return { backgroundImage: `url('${url}')` }
+    })
     const props = defineProps({        
         data: {
             type: Object

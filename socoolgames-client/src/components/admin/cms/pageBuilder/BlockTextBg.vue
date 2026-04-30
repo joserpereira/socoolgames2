@@ -1,6 +1,5 @@
 <template>
-    <section :class="'relative py-20 px-6 text-center md:bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).large)+')] bg-[url('+formatUrl(baseUrl+(props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage).medium)+')]  bg-cover'">
-
+    <section :style="bgImage" class="relative py-20 px-6 text-center bg-cover">    
         <div class="max-w-4xl mx-auto ">
 
             <h2 class="text-3xl md:text-4xl font-bold mb-6" v-html="props.data.title?.[props.selectedLang]">
@@ -18,7 +17,7 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineEmits, onMounted } from 'vue';
+    import { defineProps, defineExpose, onMounted, computed } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
 
@@ -32,9 +31,16 @@
         }
     })
 
+    const bgImage = computed(() => {
+        const images = props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage
+        const isMobile = window.innerWidth < 768
+        const url = formatUrl(baseUrl + (isMobile ? images?.medium : images?.large))
+        return { backgroundImage: `url('${url}')` }
+    })
+
 
     onMounted(() => {
     })
 
-    defineEmits({ formatUrl })
+    defineExpose({ formatUrl, bgImage })
 </script>

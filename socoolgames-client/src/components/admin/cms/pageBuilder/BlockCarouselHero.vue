@@ -2,20 +2,15 @@
 
 <div class="relative overflow-hidden">
 
-  <!-- TRACK -->
   <div
     class="flex  transition-transform duration-500 ease-in-out"
     :style="{ transform: `translateX(-${data.currentIndex * 100}%)` }"
   >
-    <!-- SLIDES -->
     <section
       v-for="(item, i) in props.data.items"
       :key="i"
       class="w-full px-6 flex-shrink-0 bg-gradient-to-r1 from-green-100 to-green-200 py-20 md:bg-cover bg-cover"
-      :class="`
-        md:bg-[url(${formatUrl(baseUrl + item?.image?.[props.selectedLang]?.large)})]
-        bg-[url(${formatUrl(baseUrl + item?.image?.[props.selectedLang]?.medium)})]
-      `"
+      :style="getBgImage(item)"
     >
       <div class="px-16 max-w-7xl mx-auto grid md:grid-cols-2  items-center">
 
@@ -27,10 +22,7 @@
         <div>
         </div>
         <div class="mb-6 py-4 ">
-          <p
-            class="backdrop-blur-sm text-lg text-gray-700 mb-8 rounded-lg py-4 inline-block"
-            v-html="formatText(item.subTitle?.[props.selectedLang])"
-          />
+          <p class="backdrop-blur-sm text-lg text-gray-700 mb-8 rounded-lg py-4 inline-block" v-html="formatText(item.subTitle?.[props.selectedLang])"></p>
 
           <div>
             <a
@@ -46,7 +38,6 @@
     </section>
   </div>
 
-  <!-- PREV -->
   <button
     @click="prev"
     class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/40 text-white backdrop-blur flex items-center justify-center hover:bg-white/10"
@@ -54,7 +45,6 @@
     ◀
   </button>
 
-  <!-- NEXT -->
   <button
     @click="next"
     class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white/40 text-white backdrop-blur flex items-center justify-center hover:bg-white/10"
@@ -62,7 +52,6 @@
     ▶
   </button>
 
-  <!-- DOTS -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
     <button
       v-for="(item, i) in props.data.items"
@@ -77,7 +66,6 @@
   </div>
 
 </div>
-
 </template>
 <script setup>
     import { defineProps, defineExpose, onMounted, reactive } from 'vue';
@@ -131,5 +119,12 @@
         
     }
 
-    defineExpose({ formatUrl, next, prev, goTo })
+    const getBgImage = (item) => {
+        const images = item?.image?.[props.selectedLang] || item?.image
+        const isMobile = window.innerWidth < 768
+        const url = formatUrl(baseUrl + (isMobile ? images?.medium : images?.large))
+        return { backgroundImage: `url('${url}')` }
+      }
+
+    defineExpose({ formatUrl, next, prev, goTo, getBgImage })
 </script>
