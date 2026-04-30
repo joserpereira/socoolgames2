@@ -19,6 +19,7 @@ const componentsDict = {
 }
 */
 import blockHeroData from '@/components/admin/cms/pageBuilder/blockHeroData';
+import blockHero2Data from '@/components/admin/cms/pageBuilder/blockHero2Data';
 import blockHtmlData from '@/components/admin/cms/pageBuilder/blockHtmlData';
 import blockTextData from '@/components/admin/cms/pageBuilder/blockTextData';
 import block4ColumnsData from '@/components/admin/cms/pageBuilder/block4ColumnsData';
@@ -35,7 +36,7 @@ import blockGameCircusData from '@/components/admin/cms/pageBuilder/blockGameCir
 import blockMultipleFilesData from '@/components/admin/cms/pageBuilder/blockMultipleFilesData';
 import blockCarouselHeroData from '@/components/admin/cms/pageBuilder/blockCarouselHeroData';
 
-const components = [blockHeroData, blockHtmlData, blockTextData, 
+const components = [blockHeroData, blockHero2Data, blockHtmlData, blockTextData, 
                     block4ColumnsData, blockMultipleCardsData, blockTextBgData, 
                     blockVideoData, blockTopicsData, blockNewsLetterData,  
                     blockImagesData, blockArticlesData, blockDownloadFileData,
