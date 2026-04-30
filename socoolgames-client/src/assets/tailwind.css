@@ -1,5 +1,13 @@
-@config "../../tailwind.config.js";
 @import "tailwindcss";
+@config "../../tailwind.config.js";
+@source "../..";
+
+@theme {
+  --color-primary: #16A34A;
+  --color-secondary: #F4C542;
+  --color-darkgreen: #5E9C2E;
+  --color-dark: #2E2E2E;
+}
 
 html {
     scroll-behavior: smooth;
