@@ -8,11 +8,14 @@
       </a>
 
       <!-- Desktop Menu -->
-      <div class="hidden md:flex gap-6">
+      <div class="hidden md:flex gap-6  text-center align-middle">
 
-        <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
-            :target="item.target"
-            :class="getStyle(item.button)" class="hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a>
+        <div v-for="(item, index) in menu">
+        <a :href="item.link[data.selectedLanguage]"  :key="index"
+            :target="item.target" style1="background-color: red;"
+            :class="getStyle(item.button)" class="hover:scale-105 hover:underline text-center align-middle">{{ item.text[data.selectedLanguage] }}</a>
+
+        </div>
 
         <!-- Dropdown -->
 
@@ -55,17 +58,20 @@
     <!-- Mobile Menu Overlay -->
     <div
       v-if="isMobileMenuOpen"
-      class="fixed inset-0 bg-black/50 z-50 shadow-xl transform transition-transform duration-300"
+      class="fixed inset-0 flex justify-end
+             bg-black/50 z-50 shadow-xl transform transition-transform duration-300"
       :class="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"      
       @click="closeAll"
     >
       <div
-        class="bg-white w-64 h-full p-6"
+        class="bg-white w-64 h-full p-6 "
         @click.stop
       >
-        <button @click="closeAll" class="mb-4">✕</button>
+        <div class="flex justify-end">
+          <button @click="closeAll"class="mb-4">✕</button>        
+        </div>
 
-        <div @click="closeAll" class="flex flex-col gap-4 text-sm">
+        <div @click="closeAll" class="flex flex-col gap-4 text-sm items-end">
           <a :href="item.link[data.selectedLanguage]" v-for="(item, index) in menu" :key="index"
             :class="getStyle(item.button)" class=" font-semibold hover:scale-105 hover:underline">{{ item.text[data.selectedLanguage] }}</a>
         </div>
@@ -77,13 +83,13 @@
 
 <script setup>
   import { ref } from 'vue'
-    import { watch, reactive, onMounted } from 'vue'
-    import { useI18n } from "vue-i18n";
-    const { locale } = useI18n();
+  import { watch, reactive, onMounted } from 'vue'
+  import { useI18n } from "vue-i18n";
+  const { locale } = useI18n();
 
-    const data = reactive({        
-        selectedLanguage: "",
-    })
+  const data = reactive({        
+    selectedLanguage: "",
+  })
 
   const isOpen = ref(false)
   const isMobileMenuOpen = ref(false)
@@ -101,7 +107,7 @@
         case "1":
           return "text-primary hover:text-dark mt-2"
         case "2":
-          return "bg-primary text-white text-center px-4 py-2 rounded-full hover:bg-darkgreen transition"
+          return "bg-primary mt-2 text-white text-center px-4 py-2 rounded-full hover:bg-darkgreen transition"
         default: 
           return "";
       }
