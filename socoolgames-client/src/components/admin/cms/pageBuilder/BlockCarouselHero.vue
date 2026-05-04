@@ -9,7 +9,7 @@
     <section
       v-for="(item, i) in props.data.items"
       :key="i"
-      class="w-full h-[50rem] px-6 flex-shrink-0 py-20 md:bg-cover bg-cover bg-bottom"
+      class="w-full min-h-[40rem] px-6 flex flex-shrink-0 py-20 md:bg-cover bg-cover bg-center "
       :style="getBgImage(item)"
     >
       <div class="px-16 max-w-7xl mx-auto grid md:grid-cols-2  items-center">
