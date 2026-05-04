@@ -11,7 +11,7 @@
             <div :class="props.data.items.length % 4 == 0 ? 'md:grid-cols-4' : 'md:grid-cols-3'" class="grid gap-8 items-stretch">                
                 <article v-for="(item, index) in props.data.items" :key="index"
                     class="flex flex-col bg-white hover:scale-105 rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition">
-                    <img :src="formatUrl(baseUrl+(item?.image?.[props.selectedLang]?.thumb || item?.image?.thumb))" alt="" 
+                    <img :src="formatUrl(baseUrl+(item?.image?.[props.selectedLang]?.medium || item?.image?.medium))" alt="" 
                         :class="props.data.items.length % 4 == 0 ? 'h-48' : 'h-96'" 
                         class="w-full object-cover" loading="lazy">
                     <span v-if="item.header?.[props.selectedLang]" 
@@ -28,7 +28,6 @@
                         </a>
                     </div>
                 </article>
-
             </div>
         </div>
     </section>
