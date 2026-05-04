@@ -135,7 +135,7 @@
     })
 
     onMounted(() => {
-      if (import.meta.env.NODE_ENV === "development") {
+      if (import.meta.env.MODE === "development") {
         data.prefix = import.meta.env.VITE_APP_API_URL;
       }
       userService.getAdminBoard().then(
