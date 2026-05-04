@@ -4,7 +4,7 @@
   </label>
   <div class="flex items-center">
     <img v-if="data.value?.[props.selectedLang]?.thumb" class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3" 
-        :src="data.prefix + data.value?.[props.selectedLang]?.thumb" alt="thumbnail">
+        :src="formatUrl(data.value?.[props.selectedLang]?.thumb)" alt="thumbnail">
     <span v-else>
       <svg title="Please select image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
            class="size-9 flex-none rounded-full bg-gray-50 me-3 ms-3">
@@ -28,7 +28,7 @@
         @click.prevent="selectImage(item)"
         class="flex justify-between py-2 px-5 cursor-pointer items-center">
         <img class="size-9 flex-none rounded-full bg-gray-50" 
-        :src="data.prefix + item.thumb" alt="">
+        :src="formatUrl(item.thumb)" alt="">
         <div class="min-w-0 flex-auto justify-center">
           <p class="text-sm">{{ item.original }}</p>
         </div>
@@ -40,6 +40,7 @@
   import { onMounted, reactive, watch } from 'vue'
   import { languages } from '../../../../locales/index'
   import imageService from '@/services/common/image.service';
+  import { formatUrl } from "@/utils/url.utils";
 
   const props = defineProps<{
     schema: any,
@@ -75,9 +76,6 @@
   }, { deep: true });
 
   onMounted(async () => {
-    if (import.meta.env.NODE_ENV === "development") {
-      data.prefix = import.meta.env.VITE_APP_API_URL;
-    }
     setValue(props.modelValue);
   })
 

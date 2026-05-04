@@ -1,11 +1,19 @@
 const formatUrl = (url: string) =>  {
-  if (url && url.startsWith("./public")) {
-    //TODO: review in production
-    if (import.meta.env.NODE_ENV === 'development')
-      url = url.replaceAll('./public/', "http://" + window.location.hostname + ":"+ import.meta.env.VUE_APP_API_PORT + "/")
-    else 
-      url = url.replaceAll('./public/', "/")
+  if (url) {
+
+    if (url.startsWith("./public")) {
+      //TODO: review in production
+      if (import.meta.env.MODE === 'development')
+        url = url.replaceAll('./public/', "http://" + window.location.hostname + ":"+ import.meta.env.VUE_APP_API_PORT + "/")
+      else 
+        url = url.replaceAll('./public/', "/")
+    }
+    else if (url.startsWith("/uploads") && (import.meta.env.MODE === 'development')) {
+      console.log("formatUrl", url) 
+        url = import.meta.env.VITE_APP_API_URL + url;
+    }
   }
+  console.log(url, import.meta.env.MODE);
   return url;
 }
 
