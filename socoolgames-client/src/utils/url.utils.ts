@@ -11,7 +11,6 @@ const formatUrl = (url: string) =>  {
       url = import.meta.env.VITE_APP_API_URL + url;
     }
   }
-  console.log(url, import.meta.env.MODE);
   return url;
 }
 
