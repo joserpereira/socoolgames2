@@ -40,7 +40,7 @@ export default {
 </script>
 <script setup lang="ts">
 
-import { defineProps, defineExpose, defineEmits } from "vue"
+// import { defineExpose, defineEmits } from "vue"
 const props = defineProps({
   id: { type: String, default: "confirmModal" },
   title: { type: String, default: "Confirmation" },

@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
     import localizationUtils from '@/utils/localization.utils';
-    import { watch,  reactive, onMounted, defineProps, defineExpose } from 'vue'
+    import { watch,  reactive, onMounted } from 'vue'
     import { useI18n } from "vue-i18n";
     const { locale, t } = useI18n();
 
@@ -53,7 +53,7 @@
       data.selectedLanguage = localStorage.selectedLanguage;
     })
 
-    const getStyle = (type) => {
+    const getStyle = (type: string) => {
 
       switch (type) {
         case "2":
@@ -70,7 +70,7 @@
         }
     });
 
-    const changeLanguage = (lang) => {
+    const changeLanguage = (lang: string) => {
       localizationUtils.setLanguage(lang);
     } 
     

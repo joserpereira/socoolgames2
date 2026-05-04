@@ -1,13 +1,16 @@
 import { createApp } from 'vue'
+import './style.css'
 import App from './App.vue'
 import router from './router'
 import localizationUtils from './utils/localization.utils'
-import store from "@/store";
 import setupInterceptors from '@/interceptors/setupInterceptors';
-import '@/assets/tailwind.css';
+//import store from "@/store";
+//
 
+import { createPinia } from 'pinia'
+
+const pinia = createPinia()
 const i18n = localizationUtils.create();
 
-setupInterceptors(store);
-
-createApp(App).use(router).use(store).use(i18n).mount('#app')
+createApp(App).use(pinia).use(router).use(i18n).mount('#app')
+setupInterceptors();

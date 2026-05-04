@@ -12,7 +12,7 @@
     </div>
 </template>
 <script setup>
-    import { reactive, watch, defineProps, defineExpose } from 'vue'
+    import { reactive, watch } from 'vue'
     import componentsUtils from '@/utils/components.utils';
     import pageService from '@/services/page.service';
     import MetaTagsService from '@/services/common/metatags.service'; 

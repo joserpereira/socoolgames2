@@ -67,7 +67,7 @@ class FileService {
       // cleanup
       link.remove();
       window.URL.revokeObjectURL(downloadUrl);
-      return { error: 0, message: "", data: `${process.env.VUE_APP_API_URL}/api/${baseAPI}${id}/download`}
+      return { error: 0, message: "", data: `${import.meta.env.VITE_APP_API_URL}/api/${baseAPI}${id}/download`}
 
     } catch (err) {
       console.error("Error downloading file:", err);
@@ -75,7 +75,7 @@ class FileService {
     }
   }
 
-  async submit(id, email, emailTemplate, language: string) {
+  async submit(id: any, email: string, emailTemplate: string, language: string) {
     const response = await axiosApi.post(`${baseAPI}${id}/submit`, { email, emailTemplate, language } );
     return response.data;
   }

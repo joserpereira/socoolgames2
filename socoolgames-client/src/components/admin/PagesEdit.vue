@@ -59,7 +59,7 @@
 </template>
 <script setup lang="ts">
     import pageService from "@/services/page.service";
-    import { watch, defineProps, onMounted, reactive } from 'vue'
+    import { watch, onMounted, reactive } from 'vue'
     import PageBuilder from "./cms/pageBuilder/PageBuilder.vue";
 
     const props = defineProps({
@@ -80,7 +80,7 @@
             blocks: [],
             active: false,
             _id: undefined
-        },
+        } as any,
         error: ""
 
     })

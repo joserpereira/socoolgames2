@@ -13,11 +13,11 @@
     </select>
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, reactive, onMounted } from 'vue'
+  import { reactive, onMounted } from 'vue'
 
   const emit = defineEmits(['update:value'])
   const props = defineProps({        
-        schema: Object,        
+        schema: Object as any,        
         value: { type: String, default: '' },
         index: Number,
         selectedLang: String

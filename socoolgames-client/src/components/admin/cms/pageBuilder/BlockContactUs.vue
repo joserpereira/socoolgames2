@@ -4,11 +4,11 @@
 
     <!-- HEADER -->
     <div class="text-center mb-12">
-      <h1 v-if="props.data.title?.[props.selectedLang]" class="text-4xl md:text-5xl font-bold mb-4">
-        {{ props.data.title?.[props.selectedLang] }}
+      <h1 v-if="props.data.title?.[props.selectedLang || 'en']" class="text-4xl md:text-5xl font-bold mb-4">
+        {{ props.data.title?.[props.selectedLang || 'en'] }}
       </h1>
-      <p v-if="props.data.subTitle?.[props.selectedLang]" class="text-lg text-gray-600 max-w-xl mx-auto">
-        {{ props.data.subTitle?.[props.selectedLang] }}
+      <p v-if="props.data.subTitle?.[props.selectedLang || 'en']" class="text-lg text-gray-600 max-w-xl mx-auto">
+        {{ props.data.subTitle?.[props.selectedLang || 'en'] }}
       </p>
     </div>
 
@@ -19,18 +19,18 @@
 
         <!-- EMAIL -->
         <div v-if="data.submitted" class="text-center">            
-            {{ props.data.thanksMessage?.[props.selectedLang] }}
+            {{ props.data.thanksMessage?.[props.selectedLang || 'en'] }}
             
         </div>
         <div v-else>
           <label for="email" class="block mb-2 font-semibold">
-            {{ props.data.emailLabel?.[props.selectedLang] }}
+            {{ props.data.emailLabel?.[props.selectedLang || 'en'] }}
           </label>
           <input
             type="email"
             id="email"
             v-model="data.item.email"
-            :placeholder="props.data.emailPlaceholder?.[props.selectedLang]"
+            :placeholder="props.data.emailPlaceholder?.[props.selectedLang || 'en']"
             required
             class="w-full bg-white px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
           />
@@ -39,13 +39,13 @@
         <!-- MESSAGE -->
         <div v-if="!data.submitted">
           <label for="message" class="block mb-2 font-semibold">
-            {{ props.data.messageLabel?.[props.selectedLang] }}
+            {{ props.data.messageLabel?.[props.selectedLang || 'en'] }}
           </label>
           <textarea
             id="message"
             v-model="data.item.message"
             rows="5"
-            :placeholder="props.data.messagePlaceholder?.[props.selectedLang]"
+            :placeholder="props.data.messagePlaceholder?.[props.selectedLang || 'en']"
             required
             class="w-full bg-white px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           ></textarea>
@@ -64,13 +64,13 @@
                 type="submit" 
                 @click.prevent="sendContact"
                 class="px-5 bg-[#7BC143] hover:text-white hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition duration-300">
-                {{ props.data.buttonText?.[props.selectedLang] }}
+                {{ props.data.buttonText?.[props.selectedLang || 'en'] }}
             </button>
         </div>
 
         <!-- TRUST LINE -->
         <p v-if="!data.submitted" class="text-sm text-center text-gray-600">
-          {{ props.data.formNotes?.[props.selectedLang] }}
+          {{ props.data.formNotes?.[props.selectedLang || 'en'] }}
         </p>
 
       </form>
@@ -79,13 +79,13 @@
   </section>
 </template>
 <script setup lang="ts">
-    import { defineProps, reactive } from 'vue';
+    import { reactive } from 'vue';
     import contactusService from "@/services/contactus.service";
 
     const props = defineProps({        
         data: {
             type: Object
-        },        
+        } as any,        
         selectedLang: {
             type: String
         }
@@ -110,7 +110,7 @@
                 data.errorMessage = "Opps. Please try again."
             }
 
-          }).catch((error)  => {
+          }).catch((error: any)  => {
             data.errorMessage = error.message;
           })
     }

@@ -53,8 +53,8 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, reactive } from 'vue';
-    const baseUrl = process.env.VUE_APP_API_URL;
+    import { reactive } from 'vue';
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     import { formatUrl } from "@/utils/url.utils";
 
     const props = defineProps({        

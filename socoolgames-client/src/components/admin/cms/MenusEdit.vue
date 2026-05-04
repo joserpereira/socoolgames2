@@ -64,7 +64,7 @@
                             </svg>
                         </span>
                         <span>
-                            Text #{{ index + 1 }}
+                            Text #{{ (index as number) + 1 }}
                         </span>
                     </label>
                     <input type="text"
@@ -75,7 +75,7 @@
                 <div class="relative mt-4 mx-8">
                     
                     <label class="block font-medium text-start text-sm mt-2">
-                        Link #{{ index + 1 }}
+                        Link #{{ (index as number) + 1 }}
                     </label>
                     <input type="text"
                         class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
@@ -84,7 +84,7 @@
                 </div>
                 <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl items-center"
                 style="margin: 0px 20px;">
-                    <span>Button #{{ index + 1 }}</span>
+                    <span>Button #{{ (index as number) + 1 }}</span>
                     <div class="timeslot-1 ps-3">
                         <input type="radio" :name="'button'+index" :id="'Normal'+index" value="0" v-model="(item || {}).button" />
                         <label class="ps-2" :for="'Normal'+index" >Normal</label>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="relative mt-4 mx-8 flex bg-white py-3 px-3 rounded-xl">
-                    <span>Active #{{ index + 1 }}</span>
+                    <span>Active #{{ (index as number) + 1 }}</span>
                     <div class="timeslot-1 ps-3">
                         <input type="checkbox" name="activeHeader" :id="'Header'+index" v-model="(item || {}).activeHeader" />
                         <label class="ps-2" :for="'Header'+index" >Header</label>
@@ -137,7 +137,7 @@
 </template>
 <script setup lang="ts">
     import service from "@/services/menus.service";
-    import { watch, defineProps, onMounted, reactive } from 'vue'
+    import { watch, onMounted, reactive } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
 
     const props = defineProps({
@@ -157,7 +157,7 @@
         item: {
             items: [] as any[],
             _id: undefined
-        },
+        } as any,
         currentLang: "en",
         languages: ["en", "pt"],
         targets: [],
@@ -193,7 +193,7 @@
         data.item.items.push(item);
     }
     
-    const removeItem = (index) => {
+    const removeItem = (index: any) => {
         data.item.items.splice(index, 1);
     }
 

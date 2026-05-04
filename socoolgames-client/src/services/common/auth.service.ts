@@ -1,34 +1,54 @@
-import api from "./api";
-import TokenService from "@/services/common/token.service";
+import api from "./api"
+import TokenService from "@/services/common/token.service"
 
-class AuthService {
-  login(email, password) {
-    return api
-      .post("/auth/login", {
-        email,
-        password
-      })
-      .then((response) => {
-
-        if (response.data.token) {
-          TokenService.setUser(response.data.user);
-        }
-
-        return response.data;
-      });   
-  }
-
-  logout() {
-    TokenService.removeUser();
-  }
-
-  register({ username, email, password }) {
-    return api.post("/auth/signup", {
-      username,
-      email,
-      password
-    });
+type LoginResponse = {
+  user: {
+    id: number
+    email: string
+    accessToken: string
+    refreshToken: string
   }
 }
 
-export default new AuthService();
+class AuthService {
+  async login(email: string, password: string): Promise<LoginResponse> {
+    try {
+      const response = await api.post("/auth/login", {
+        email,
+        password
+      })
+
+      const data: LoginResponse = response.data
+
+      // 🔥 importante: usar accessToken (consistência)
+      if (data.user?.accessToken) {
+        TokenService.setUser(data.user)
+      }
+
+      return data
+
+    } catch (error) {
+      console.error("Login error:", error)
+      throw error
+    }
+  }
+
+  logout() {
+    TokenService.removeUser()
+  }
+
+  async register(username: string, email: string, password: string) {
+    try {
+      return await api.post("/auth/signup", {
+        username,
+        email,
+        password
+      })
+    } catch (error) {
+      console.error("Register error:", error)
+      throw error
+    }
+  }
+}
+
+export default new AuthService()

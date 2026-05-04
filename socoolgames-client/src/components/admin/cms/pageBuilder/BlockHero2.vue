@@ -53,12 +53,12 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineExpose, onMounted } from 'vue';
+    import { onMounted } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
 
 
-    const baseUrl = process.env.VUE_APP_API_URL;
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     const props = defineProps({        
         data: {
             type: Object

@@ -14,7 +14,7 @@
     <!-- </div> -->
 </template>
 <script setup lang="ts">
-    import { defineExpose, defineProps, onMounted, reactive } from 'vue'
+    import { onMounted, reactive } from 'vue'
     import componentsUtils from '@/utils/components.utils';
 
     const props = defineProps({        

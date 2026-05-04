@@ -20,7 +20,7 @@
             </h1>
             <p class="text-[#6a6050] leading-relaxed mb-3" v-html="formatText(data.article?.content?.[data.language] ?? '')">
             </p>
-            <p class="text-[#9a9080] text-xs mt-4 mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.article?.updatedAt ?? data.article?.createdAt)">{{ dateTimeUtils.getDateText(data.article?.updatedAt ?? data.article?.createdAt, false) }}</p>
+            <p class="text-[#9a9080] text-xs mt-4 mb-3" :title="dateTimeUtils.formatUTCDateOptionalToUser(data.article?.updatedAt ?? data.article?.createdAt, true)">{{ dateTimeUtils.getDateText(data.article?.updatedAt ?? data.article?.createdAt) }}</p>
         </div>
         <div class="p-4">
             <BlockArticles  :exceptID="data.article?._id" :data="data.articles" :selectedLang="data.language">
@@ -39,13 +39,13 @@
     import articleService from '@/services/article.service';
     import BlockArticles from '@/components/admin/cms/pageBuilder/BlockArticles.vue';
 
-    const baseUrl = process.env.VUE_APP_API_URL;    
+    const baseUrl = import.meta.env.VITE_APP_API_URL;    
     const route = useRoute();
     const router = useRouter()
 
     const data = reactive({
-        slugText: '' as String,
-        language: '' as String,
+        slugText: '' as string,
+        language: '' as string,
         article: {} as any,
         languages: ["en", "pt"],
         articles: {
@@ -60,7 +60,7 @@
                 "articleSchema" : "3-0", 
                 "showNewsletter" : false, 
                 "showRelated" : false
-            }
+            } as any
     })
 
     watch(() => route.params.slug, (value) => {        
@@ -78,7 +78,7 @@
 
     })
 
-    const fillData = (slug, language) => {
+    const fillData = (slug: any, language: any) => {
         data.slugText = slug;
         data.language = language;
         articleService.getItemByNameRef(data.slugText).then(result => {
@@ -89,7 +89,7 @@
 
     }
     
-    const fixLang = (language) => {
+    const fixLang = (language: string) => {
         if (language in ["pt","en" ])
             return language;
         

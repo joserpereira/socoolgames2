@@ -24,14 +24,14 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineExpose, onMounted, computed } from 'vue';
+    import { onMounted, computed } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
 
     const sectionStyle = computed(() => ({
         backgroundImage: `url('${formatUrl(baseUrl + (props.data?.backgroundImage?.[props.selectedLang]?.large || props.data?.backgroundImage?.large))}')`
     }))
-    const baseUrl = process.env.VUE_APP_API_URL;
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     const props = defineProps({        
         data: {
             type: Object

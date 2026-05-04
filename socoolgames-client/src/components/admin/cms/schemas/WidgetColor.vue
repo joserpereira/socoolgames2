@@ -9,10 +9,10 @@
       />
 </template>
 <script setup lang="ts">
-  import { defineProps, reactive, onMounted, defineEmits } from 'vue'
+  import { reactive, onMounted } from 'vue'
 
   const props = defineProps({        
-        schema: Object,        
+        schema: Object as any,        
         modelValue: String,
         index: Number
    })
@@ -27,6 +27,6 @@
     emit("update:modelValue", data.value)
    }
   const data = reactive({
-    value: "" as String
+    value: "" as String as any
   })
 </script>

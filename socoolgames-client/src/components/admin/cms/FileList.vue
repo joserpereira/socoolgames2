@@ -1,7 +1,7 @@
 <template>
 
 <!-- Loading -->
-    <div v-if="data.loading" class="text-center py-10 text-gray-500">
+    <div v-if="data.isLoading" class="text-center py-10 text-gray-500">
       Loading...
     </div>
 
@@ -108,16 +108,13 @@
 </template>
 <script setup lang="ts">
 
-    import { ref, onMounted, reactive, defineExpose } from "vue"
+    import { ref, onMounted, reactive } from "vue"
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import FileUploader from "@/components/admin/cms/FileUploader.vue"
     import userService from "@/services/user.service";
     import fileService from "@/services/common/file.service";
-    //import { formatUrl } from "@/utils/url.utils";
-
-    //const baseUrl = process.env.VUE_APP_API_URL;
+    
     const confirmationModelActive = ref(false);
-    // const toast = new Toast();
 
     var data = reactive({
         authenticated: false,
@@ -125,7 +122,7 @@
         idToPreview: "",
         isLoading: false,
         confirmationMessage: "",
-        items: [],
+        items: [] as any[],
         hoverId: "",
         error: "",
         search: '' as string,
@@ -138,11 +135,11 @@
     })
 
     onMounted(() => {
-      if (process.env.NODE_ENV === "development") {
-        data.prefix = process.env.VUE_APP_API_URL;
+      if (import.meta.env.NODE_ENV === "development") {
+        data.prefix = import.meta.env.VITE_APP_API_URL;
       }
       userService.getAdminBoard().then(
-        (response) => {
+        (response: any) => {
           if (response.status == 200) {
             data.authenticated = true; 
             getData()
@@ -184,7 +181,7 @@
       }
     };
 
-    const deleteClick = (id) => {
+    const deleteClick = (id: any) => {
       data.idToDelete = id;
       data.confirmationMessage = "Are you sure you want to <b>delete</b>?";
       confirmationModelActive.value = true;
@@ -209,10 +206,10 @@
       getData();
     }
 
-    const previewClick = async (item) => {
+    const previewClick = async (item: any) => {
       data.idToPreview = item._id;
     }
-    const downloadClick = async (item) => {
+    const downloadClick = async (item: any) => {
       fileService.downloadItem(item._id);
     }
     

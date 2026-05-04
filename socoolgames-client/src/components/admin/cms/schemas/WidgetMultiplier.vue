@@ -26,13 +26,13 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive, watch } from 'vue'
+  import { onMounted, reactive, watch } from 'vue'
   import ComponentList from '../pageBuilder/ComponentList.vue';
   import componentsUtils from '@/utils/components.utils';
 
   const props = defineProps({        
-        schema: Object,        
-        value: Object,
+        schema: Object as any,        
+        value: Object as any,
         componentCache: {} as Record<string, any>,
         selectedLang: String,
         data: {} as Object
@@ -51,11 +51,11 @@
   })
 
   const addItem = () => {
-    var defaults = componentsUtils.getDefaultFromSchema(props.schema, ["en"]);
+    var defaults = componentsUtils.getDefaultFromSchema(props.schema);
     data.value.push(defaults);
   }
   
-  const removeItem = (index) => {
+  const removeItem = (index: number) => {
     data.value.splice(index, 1)
   }
 

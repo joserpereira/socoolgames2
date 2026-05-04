@@ -35,23 +35,28 @@
 <script>
 
   import AdminSidebar from './AdminSidebar.vue';
-  // import AdminMain from './AdminMain.vue';
   import EventBus from "@/common/EventBus";
+  import { useAuthStore } from '@/stores/auth'
+
   export default {
     name: "DashboardComponent",
     components: {
       AdminSidebar
     },
-    
     data() {
       return {
         content: "",
       };
     },
     computed: {
-      currentUser() {
-        return this.$store.state.auth.user;
+      auth() {
+        return useAuthStore()
       },
+
+      currentUser() {
+        return this.auth.user
+      },
+   
       showAdminBoard() {
         if (this.currentUser && this.currentUser['roles']) {
           return this.currentUser['roles'].includes('ROLE_ADMIN');
@@ -59,6 +64,7 @@
 
         return false;
       },
+
       showModeratorBoard() {
         if (this.currentUser && this.currentUser['roles']) {
           return this.currentUser['roles'].includes('ROLE_MODERATOR');
@@ -69,8 +75,8 @@
     },
     methods: {
       logOut() {
-        this.$store.dispatch('auth/logout');
-        this.$router.push('/admin/signin');
+        this.auth.logout()
+        this.$router.push('/admin/signin')
       }
     },
     mounted() {

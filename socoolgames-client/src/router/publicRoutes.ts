@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 import Home from '@/views/Home.vue';
 import ClientLayout from '@/layouts/ClientLayout.vue';
 import DynamicView from '@/views/DynamicView.vue';

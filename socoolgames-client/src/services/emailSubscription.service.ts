@@ -53,7 +53,7 @@ class EmailSubscriptionService {
     }
   }
 
-  unsubscribe(email) {
+  unsubscribe(email: any) {
     const emailSubscription = this.getItemByEmail(email) as any;
     
     emailSubscription.isActive = false;

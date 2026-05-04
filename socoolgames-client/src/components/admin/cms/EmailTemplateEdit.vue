@@ -73,7 +73,7 @@
 <script setup lang="ts">
     import service from "@/services/emailTemplate.service";
     import emailConfigService from "@/services/emailConfig.service";
-    import { watch, defineProps, onMounted, reactive } from 'vue'
+    import { watch, onMounted, reactive } from 'vue'
 
     const props = defineProps({
         item: Object,
@@ -93,10 +93,10 @@
             emailName: {},
             emailContent: {},
             _id: undefined
-        },
+        } as any,
         currentLang: "en",
         languages: ["en", "pt"],
-        configs: [],
+        configs: [] as any[],
         error: ""
     })
 
@@ -130,9 +130,9 @@
                 "pt": "",
                 "en": "",
             }
-        }
+        } as any
 
-    const setProperties = (item) => {
+    const setProperties = (item: any) => {
         
         const keys = Object.keys(defaultValues);
 

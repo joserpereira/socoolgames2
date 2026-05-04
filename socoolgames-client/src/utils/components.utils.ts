@@ -46,7 +46,7 @@ const components = [blockHeroData, blockHero2Data, blockHtmlData, blockTextData,
 
 class ComponentsUtils {
     getComponents() {
-        const result = {}
+        const result = {} as any
         for (let i = 0; i < components.length; i++) {
             result[components[i].getNames().nameRef] = components[i].getComponent();
         }
@@ -62,7 +62,7 @@ class ComponentsUtils {
         return items;
     }
 
-    getName(type) {
+    getName(type: string) {
         for (let i = 0; i < components.length; i++) {
             const names = components[i].getNames();
             if (names.nameRef == type) {
@@ -72,7 +72,7 @@ class ComponentsUtils {
         return {};
     }
 
-    getSchema(type) {
+    getSchema(type: string) {
         for (let i = 0; i < components.length; i++) {
             const names = components[i].getNames();
             if (names.nameRef == type) {
@@ -82,7 +82,7 @@ class ComponentsUtils {
         return {};
     }
 
-    getDefault(type) {
+    getDefault(type: string) {
         for (let i = 0; i < components.length; i++) {
             if (components[i].getNames().nameRef == type) {
                 return components[i].getDefault();
@@ -91,8 +91,8 @@ class ComponentsUtils {
         return {};
     }
 
-    getDefaultFromSchema(schema, languages) {
-        const values = {};
+    getDefaultFromSchema(schema: any) {
+        const values = {} as any;
         for (let i = 0; i < schema.length; i++) {
 
             if (["WidgetText", "WidgetUrl", "WidgetMultiline"].indexOf(schema[i].type) >= 0)

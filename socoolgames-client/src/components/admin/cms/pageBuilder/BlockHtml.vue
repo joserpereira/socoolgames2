@@ -11,7 +11,6 @@
     
 </template>
 <script setup>
-    import { defineProps, defineExpose } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
 
     const props = defineProps({        

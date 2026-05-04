@@ -1,54 +1,73 @@
-import axiosInstance from "../services/common/api";
-import TokenService from "../services/common/token.service";
+import axiosInstance from "../services/common/api"
+import TokenService from "../services/common/token.service"
+import { useAuthStore } from "@/stores/auth"
 
-const setup = (store) => {
+const setupInterceptors = () => {
+  const auth = useAuthStore()
+
+  // 🔐 REQUEST
   axiosInstance.interceptors.request.use(
     (config) => {
-      const token = TokenService.getLocalAccessToken();
-      if (token) {
-        config.headers["Authorization"] = 'Bearer ' + token;  // for Spring Boot back-end
-        // config.headers["x-access-token"] = token; // for Node.js Express back-end
+      const token = TokenService.getLocalAccessToken()
+
+      if (token && config.headers) {
+        config.headers["Authorization"] = `Bearer ${token}`
       }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
 
+      return config
+    },
+    (error) => Promise.reject(error)
+  )
+
+  // 🔁 RESPONSE
   axiosInstance.interceptors.response.use(
-    (res) => {
-      return res;
-    },
-    async (err) => {
-      const originalConfig = err.config;
+    (response) => response,
 
-      if (originalConfig.url !== "/auth/login" && err.response) {
-        console.log(originalConfig._retry)
-        // Access Token was expired
-        if (err.response.status === 401 && !originalConfig._retry) {
-          originalConfig._retry = true;
+    async (error) => {
+      const originalConfig = error.config as any
 
-          try {
-            const rs = await axiosInstance.post("/auth/refresh", {
-              refreshToken: TokenService.getLocalRefreshToken(),
-            });
+      if (!error.response) {
+        return Promise.reject(error)
+      }
 
-            const { accessToken } = rs.data;
+      // evita loop infinito
+      if (
+        error.response.status === 401 &&
+        !originalConfig._retry &&
+        originalConfig.url !== "/auth/login"
+      ) {
+        originalConfig._retry = true
 
-            store.dispatch('auth/refreshToken', accessToken);
-            TokenService.updateLocalAccessToken(accessToken);
+        try {
+          const refreshToken = TokenService.getLocalRefreshToken()
 
-            return axiosInstance(originalConfig);
-          } catch (_error) {
-            return Promise.reject(_error);
+          if (!refreshToken) {
+            auth.logout()
+            return Promise.reject(error)
           }
+
+          const response = await axiosInstance.post("/auth/refresh", {
+            refreshToken
+          })
+
+          const { accessToken } = response.data
+
+          // 🔥 atualiza Pinia + localStorage
+          auth.refreshToken(accessToken)
+          TokenService.updateLocalAccessToken(accessToken)
+
+          // retry request
+          return axiosInstance(originalConfig)
+
+        } catch (refreshError) {
+          auth.logout()
+          return Promise.reject(refreshError)
         }
       }
 
-      return Promise.reject(err);
+      return Promise.reject(error)
     }
-  );
-};
+  )
+}
 
-export default setup;
+export default setupInterceptors

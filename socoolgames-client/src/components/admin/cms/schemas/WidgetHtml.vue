@@ -7,7 +7,7 @@
         <span class="px-4 py-2 bg-gray-100 rounded-r hover:bg-gray-300" :class="data.mode === 'code' ? 'bg-gray-300' : ''" @click="data.mode = 'code'">Code</span>
     </button>
     <div v-if="data.mode === 'visual'" class="h-64">
-      <HtmlEditorQuill class="mb-4 h-56" @update:value="updateRaw" :value="data.value.raw?.[props.selectedLang]" />
+      <HtmlEditorQuill class="mb-4 h-56" @update:value="updateRaw" :value="data.value.raw?.[props.selectedLang || 'en']" />
     </div>
 
     <textarea
@@ -17,15 +17,15 @@
          border border-[#3c3c3c]
          placeholder:text-[#6a9955]
          focus:outline-none focus:ring-2 focus:ring-[#007acc]"
-      v-model="data.value.html[props.selectedLang]"></textarea>
+      v-model="data.value.html[props.selectedLang || 'en']"></textarea>
 
     <div class="border m-4">
-      <div v-if="data.value.raw && data.value.raw[props.selectedLang]?.length > 0 && data.value.raw[props.selectedLang] != '<p><br></p>'" v-html="data.value.raw[props.selectedLang]"></div>
-      <div v-if="data.value.html" v-html="data.value.html[props.selectedLang]"></div>
+      <div v-if="data.value.raw && data.value.raw[props.selectedLang || 'en']?.length > 0 && data.value.raw[props.selectedLang || 'en'] != '<p><br></p>'" v-html="data.value.raw[props.selectedLang || 'en']"></div>
+      <div v-if="data.value.html" v-html="data.value.html[props.selectedLang || 'en']"></div>
     </div>
 </template>
 <script setup lang="ts">
-  import { onMounted, reactive , defineProps,  defineEmits } from 'vue'
+  import { onMounted, reactive } from 'vue'
   import { languages } from '../../../../locales/index'
   const emit = defineEmits(['update:value'])
 
@@ -36,17 +36,17 @@
 */
 
   const props = defineProps({        
-        schema: Object,        
+        schema: Object as any,        
         value: Object,
         index: Number,
         selectedLang: String
    })
 
-   const updateRaw = (value) => {
-    data.value.raw[props.selectedLang] = value;
+   const updateRaw = (value: string) => {
+    data.value.raw[props.selectedLang || 'en'] = value;
    }
 
-  const setDefaultValue = (value) => {
+  const setDefaultValue = (value: any) => {
     let d = value?.html ?? {};
     Object.keys(languages).forEach(l => {
       if (!(l in d)) {
@@ -57,7 +57,7 @@
     emit('update:value', data.value)
   }
 
-  const setDefaultValueRaw = (value) => {
+  const setDefaultValueRaw = (value: any) => {
     let d = value.raw ?? {};
     Object.keys(languages).forEach(l => {
       if (!(l in d)) {

@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import publicRoutes from './publicRoutes'
 import adminRoutes from './adminRoutes'
 
@@ -8,17 +9,15 @@ const routes: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to: any /*, from: any */) => {
    if (to.meta.requiresAuth && !isAuthenticated()) {
-    next('/admin/signin?back='+to.fullPath);
-  } else {
-    next();
-  }
-});
+    return '/admin/signin?back='+to.fullPath;
+  return true;
+}});
 
 function isAuthenticated() {
   const user = localStorage.getItem('user');

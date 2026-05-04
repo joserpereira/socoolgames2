@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, reactive } from "vue"
+import { ref, reactive } from "vue"
 import axiosAPI from '@/services/common/api';
 
  const props = defineProps({

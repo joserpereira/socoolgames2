@@ -1,15 +1,15 @@
 const formatUrl = (url: string) =>  {
   if (url && url.startsWith("./public")) {
     //TODO: review in production
-    if (process.env.NODE_ENV === 'development')
-      url = url.replaceAll('./public/', "http://" + window.location.hostname + ":"+ process.env.VUE_APP_API_PORT + "/")
+    if (import.meta.env.NODE_ENV === 'development')
+      url = url.replaceAll('./public/', "http://" + window.location.hostname + ":"+ import.meta.env.VUE_APP_API_PORT + "/")
     else 
       url = url.replaceAll('./public/', "/")
   }
   return url;
 }
 
-function isValidHttpUrl(string) {
+function isValidHttpUrl(string: string) {
   let url;
   
   try {
@@ -21,7 +21,7 @@ function isValidHttpUrl(string) {
   return url.protocol === "http:" || url.protocol === "https:";
 }
 
-function addUTMParams(url, source = "linksdigest.com", medium = "ugc", utm_campaign = "community_links") {
+function addUTMParams(url: string, source = "linksdigest.com", medium = "ugc", utm_campaign = "community_links") {
   if (url.indexOf("?") >= 0) {
     url += "&"
   } else  {

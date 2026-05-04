@@ -37,15 +37,15 @@
 
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
+  import { onMounted, reactive, watch } from 'vue'
   import { languages } from '../../../../locales/index'
   import imageService from '@/services/common/image.service';
 
   const props = defineProps<{
-    schema: Object,
+    schema: any,
     modelValue: String
     index: Number,
-    selectedLang: String
+    selectedLang: string
   }>()
 
   const data = reactive({
@@ -53,9 +53,9 @@
     selectIndex: null as any,
     timeoutID: -1 as number,    
     selectedImage: "" as String,
-    value: "" as String,    
+    value: "" as any,    
     prefix: "" as String
-  })
+  } as any)
   const emit = defineEmits(["update:modelValue"])
 
 
@@ -75,15 +75,15 @@
   }, { deep: true });
 
   onMounted(async () => {
-    if (process.env.NODE_ENV === "development") {
-      data.prefix = process.env.VUE_APP_API_URL;
+    if (import.meta.env.NODE_ENV === "development") {
+      data.prefix = import.meta.env.VITE_APP_API_URL;
     }
     setValue(props.modelValue);
   })
 
   const setValue = (value: any) => {
     if (value) {
-      let dict = {}
+      let dict = {} as any;
       Object.keys(languages).forEach(l => {
         if (!(l in dict)) {
           dict[l] = value[l];
@@ -110,7 +110,7 @@
   const fillAndSelect = () =>{
     fillData();
     if (data.value?.[props.selectedLang]?._id === undefined && data.selectedImage.length > 0) {
-      const found = data.items.find((item) => item.original === data.selectedImage);
+      const found = data.items.find((item: any) => item.original === data.selectedImage);
       if (found) {
         selectImage(found);
       }

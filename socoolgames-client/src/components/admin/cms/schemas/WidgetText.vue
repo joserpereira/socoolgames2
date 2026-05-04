@@ -4,16 +4,16 @@
     </label>
     <input type="text"
            class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500"
-           v-model="data.value[props.selectedLang]"
+           v-model="data.value[props.selectedLang || 'en']"
       />
 </template>
 <script setup lang="ts">
-  import { onMounted, reactive, defineProps, defineEmits } from 'vue'
+  import { onMounted, reactive } from 'vue'
   import { languages } from '../../../../locales/index'
   const emit = defineEmits(['update:value'])
 
   const props = defineProps({        
-        schema: Object,        
+        schema: Object as any,        
         value: Object,
         index: Number,
         selectedLang: String

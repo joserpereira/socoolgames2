@@ -24,7 +24,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 
 const props = defineProps({
   images: {
@@ -61,7 +61,7 @@ function nextImage() {
     isFlipped.value = false
 
     // força reflow (hack necessário)
-    void document.querySelector('.card-inner')?.offsetHeight
+    void document.querySelector<HTMLElement>('.card-inner')?.offsetHeight
 
     // volta a ligar animação
     noTransition.value = false

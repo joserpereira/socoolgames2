@@ -16,17 +16,15 @@
       <component v-else :is="getComponent(props.item.type)" :index="props.index" v-model:value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
 </template>
 <script setup lang="ts">
-  import { defineProps, onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'
+  import { onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'
   import WidgetMultiplier from '../schemas/WidgetMultiplier.vue';
   
-  //import componentsUtils from '@/utils/components.utils';
-
   const props = defineProps({        
-        item: {} as Object,
+        item: {} as Object as any,
         value: Object,
         selectedLang: String,
         index: Number,
-        componentCache: {} as Record<string, any>
+        componentCache: {} as any
    })
 
   onMounted(() => {

@@ -12,7 +12,7 @@
     const router = useRouter()
 
     const data = reactive({        
-        slugText: '' as String,
+        slugText: '' as any,
         language: '' as String,
         languages: ["en", "pt"],
     })
@@ -30,7 +30,7 @@
         }
     })
     
-    const fixLang = (language) => {
+    const fixLang = (language: any) => {
         if (language in ["pt","en" ])
             return language;
         

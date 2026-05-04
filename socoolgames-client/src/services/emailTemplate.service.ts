@@ -3,7 +3,7 @@ import axiosApi from './common/api';
 const baseAPI = 'email-templates/';
 
 class EmailTemplateService {
-  getItems(skip: number, limit: number, search: string) {
+  getItems(skip: number, limit: number, search: string  = '') {
     try {
       let url = baseAPI + `?__skip=${skip}&__limit=${limit}`;
       if (search?.length > 0) 

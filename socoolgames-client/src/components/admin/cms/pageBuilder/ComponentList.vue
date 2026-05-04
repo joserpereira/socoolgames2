@@ -14,11 +14,10 @@
     </div>
 </template>
 <script setup lang="ts">
-  import { defineProps } from 'vue'
   import ComponentItem from './ComponentItem.vue';
   
   const props = defineProps({        
-    schema: Object,
+    schema: Object as any,
     data: Object,
     selectedLang: String,
     index: Number,

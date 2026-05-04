@@ -39,9 +39,9 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineExpose, computed } from 'vue';
+    import { computed } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
-    const baseUrl = process.env.VUE_APP_API_URL;
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     
     const bgImage = computed(() => {
         const images = props.data?.backgroundImage?.[props.selectedLang] || props.data?.backgroundImage

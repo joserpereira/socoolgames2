@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 // import AdminLayout from '@/components/src/views/Home.vue/AdminLayout.vue'
 // import AdminLayout from '@/layouts/AppLayout.vue';
 import Dashboard from '@/components/admin/Dashboard.vue';

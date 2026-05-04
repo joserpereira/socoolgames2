@@ -54,10 +54,10 @@
     </div>
 </template>
 <script setup lang="ts">
-    import { defineProps, defineEmits, computed } from 'vue'
+    import { computed } from 'vue'
 
     const props = defineProps({        
-        item: Object,
+        item: Object as any,
         currentLang: String
     })
 
@@ -65,14 +65,14 @@
 
     const pageTitleModel = computed({
         get() {
-            return props.item?.pageTitle?.[props.currentLang] || ''
+            return props.item?.pageTitle?.[props.currentLang || 'en'] || ''
         },
         set(value) {
             const updated = {
                 ...props.item,
                 pageTitle: {
                     ...(props.item.pageTitle || {}),
-                    [props.currentLang]: value
+                    [props.currentLang || 'en']: value
                 }
             }
 
@@ -81,14 +81,14 @@
     })
     const pageDescription = computed({
         get() {
-            return props.item?.pageDescription?.[props.currentLang] || ''
+            return props.item?.pageDescription?.[props.currentLang || 'en'] || ''
         },
         set(value) {
             const updated = {
                 ...props.item,
                 pageDescription: {
                     ...(props.item.pageDescription || {}),
-                    [props.currentLang]: value
+                    [props.currentLang || 'en']: value
                 }
             }
 
@@ -98,14 +98,14 @@
 
     const pageKeywords = computed({
         get() {
-            return props.item?.pageKeywords?.[props.currentLang] || ''
+            return props.item?.pageKeywords?.[props.currentLang || 'en'] || ''
         },
         set(value) {
             const updated = {
                 ...props.item,
                 pageKeywords: {
                     ...(props.item.pageKeywords || {}),
-                    [props.currentLang]: value
+                    [props.currentLang || 'en']: value
                 }
             }
 

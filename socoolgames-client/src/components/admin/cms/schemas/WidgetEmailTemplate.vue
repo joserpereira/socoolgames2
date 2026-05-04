@@ -14,11 +14,11 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
+  import { onMounted, reactive, watch } from 'vue'
   import service from '@/services/emailTemplate.service';
 
   const props = defineProps<{
-    schema: Object,
+    schema: any,
     modelValue: String,
     selectedLang: String,
     index: Number

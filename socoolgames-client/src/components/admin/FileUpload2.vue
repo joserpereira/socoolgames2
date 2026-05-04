@@ -96,7 +96,7 @@
 
 
 <script setup>
-import { ref, reactive, watch, defineProps, defineExpose } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import axiosAPI from '@/services/common/api';
 import { formatUrl } from "@/utils/url.utils";
 import imageService from '@/services/common/image.service';

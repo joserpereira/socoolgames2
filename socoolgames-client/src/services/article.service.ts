@@ -29,7 +29,7 @@ class ArticleService {
     }    
   }
 
-  getItem(id) {
+  getItem(id: any) {
     try {
         return api.get(`${baseAPI}${id}`).then((response: any) => {
           return response;
@@ -40,7 +40,7 @@ class ArticleService {
     }    
   }
 
-  getItemByNameRef(nameRef) {
+  getItemByNameRef(nameRef: any) {
     try {
         return api.get(`${baseAPI}nameref/${nameRef}`).then((response: any) => {
           return response;

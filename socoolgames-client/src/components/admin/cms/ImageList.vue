@@ -1,7 +1,7 @@
 <template>
 
 <!-- Loading -->
-    <div v-if="data.loading" class="text-center py-10 text-gray-500">
+    <div v-if="data.isLoading" class="text-center py-10 text-gray-500">
       Loading...
     </div>
 
@@ -103,14 +103,14 @@
 </template>
 <script setup lang="ts">
 
-    import { ref, onMounted, reactive, defineExpose } from "vue"
+    import { ref, onMounted, reactive } from "vue"
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import ImageUploader from "@/components/admin/cms/ImageUploader.vue"
     import userService from "@/services/user.service";
     import imageService from "@/services/common/image.service";
     import { formatUrl } from "@/utils/url.utils";
 
-    const baseUrl = process.env.VUE_APP_API_URL;
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     const confirmationModelActive = ref(false);
     // const toast = new Toast();
 
@@ -120,7 +120,7 @@
         idToView: "",
         isLoading: false,
         confirmationMessage: "",
-        items: [],
+        items: [] as any[],
         hoverId: "",
         error: "",
         search: '' as string,
@@ -133,19 +133,20 @@
     })
 
     onMounted(() => {
-      if (process.env.NODE_ENV === "development") {
-        data.prefix = process.env.VUE_APP_API_URL;
+      if (import.meta.env.NODE_ENV === "development") {
+        data.prefix = import.meta.env.VITE_APP_API_URL;
       }
       userService.getAdminBoard().then(
-        (response) => {
+        (response: any) => {
           if (response.status == 200) {
             data.authenticated = true; 
             getData()
           }
 
         },
-        () => {
+        (error: any) => {
             data.errorMessage = "Failed to get image list.";
+            console.log("Problem getting image list. Please try again.", error)
 /*          this.content =
             (error.response &&
               error.response.data &&
@@ -179,7 +180,7 @@
       }
     };
 
-    const deleteClick = (id) => {
+    const deleteClick = (id: any) => {
       data.idToDelete = id;
       data.confirmationMessage = "Are you sure you want to <b>delete</b>?";
       confirmationModelActive.value = true;
@@ -204,7 +205,7 @@
       getData();
     }
 
-    const viewClick = async (id) => {
+    const viewClick = async (id: any) => {
       if (data.idToView === id)
         data.idToView = "";
       else
@@ -223,7 +224,7 @@
       }        
     }
 
-    const imageHtmlStringify = (value) => {
+    const imageHtmlStringify = (value: any) => {
 
     return `<picture>
       <source media="(width < 640px)" srcset="${formatUrl(baseUrl + value?.thumb)}"  alt="" />

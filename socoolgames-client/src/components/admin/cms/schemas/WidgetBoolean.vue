@@ -11,11 +11,11 @@
     </div>
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, onMounted, reactive } from 'vue'
+  import { onMounted, reactive } from 'vue'
 
   const emit = defineEmits(['update:value'])
   const props = defineProps({        
-        schema: Object,        
+        schema: Object as any,
         value: { type: Boolean, default: false },
         index: Number,
         selectedLang: String

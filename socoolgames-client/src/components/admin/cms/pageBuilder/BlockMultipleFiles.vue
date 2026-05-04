@@ -49,12 +49,12 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, reactive /* defineEmits,*/ } from 'vue';
+    import { reactive } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import { formatText } from '@/utils/html.utils';
     import fileService from '@/services/common/file.service';
 
-    const baseUrl = process.env.VUE_APP_API_URL;
+    const baseUrl = import.meta.env.VITE_APP_API_URL;
     
     const props = defineProps({        
         data: {

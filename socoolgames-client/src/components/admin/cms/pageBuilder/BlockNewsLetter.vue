@@ -43,7 +43,7 @@
     </section>
 </template>
 <script setup>
-    import { defineProps, defineExpose, reactive } from 'vue';
+    import { reactive } from 'vue';
     import utilsService from '@/services/common/utils.service';
     import emailSubscriptionService from "@/services/emailSubscription.service"
 

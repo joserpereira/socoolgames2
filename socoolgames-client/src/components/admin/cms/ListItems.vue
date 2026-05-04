@@ -16,7 +16,7 @@
         </span>
     </div>
     <!-- Loading -->
-    <div v-if="data.loading" class="text-center py-10 text-gray-500">
+    <div v-if="data.isLoading" class="text-center py-10 text-gray-500">
       Loading...
     </div>
 
@@ -112,8 +112,8 @@ export default {
 };
 </script>
 <script setup lang="ts">
-
-    import { ref, defineProps, onMounted, reactive, defineExpose, PropType } from "vue"
+    import type { PropType } from 'vue'
+    import { ref, onMounted, reactive } from "vue"
     import instanceService from '@/services/instance.service';
     import ConfirmationModel from "@/components/common/ConfirmationModal.vue";
     import Toast from "@/components/common/toastComponent";
@@ -153,7 +153,7 @@ export default {
         idToDelete: "",
         isLoading: false,
         confirmationMessage: "",
-        items: [],
+        items: [] as any[],
         hoverId: "",
         page: 1,
         skip: 0,
@@ -180,12 +180,12 @@ export default {
         
     }
 
-    const editClick = (item) => {
+    const editClick = (item: any) => {
       if (props?.editItem != null)
         props.editItem(item); 
     }
 
-    const viewClick = (item) => {
+    const viewClick = (item: any) => {
       if (data.selectedId == item)
         data.selectedId = "";
       else
@@ -202,7 +202,7 @@ export default {
                 // refresh
                 fillItems();
             }
-          }).catch((error) => {
+          }).catch((error: any) => {
             console.log("Problem deleting item. Please try again.", error)
           })
         } catch (error: unknown) {
@@ -212,7 +212,7 @@ export default {
       }
     };
 
-    const deleteClick = (id) => {
+    const deleteClick = (id: any) => {
       data.idToDelete = id;
       data.confirmationMessage = "Are you sure you want to <b>delete</b>?";
       confirmationModelActive.value = true;
@@ -220,7 +220,7 @@ export default {
     const fillItems = async () => {
       userService.getAdminBoard().then(
         
-        async (response) => {
+        async (response: any) => {
           if (response.status == 200) {
             data.authenticated = true;
             data.items = [];
@@ -238,9 +238,10 @@ export default {
             toast.error("Something went wrong! Please try again.");
           }     
         },
-        (error) => {
+        (error: any) => {
           data.isLoading = false;
           toast.error("Something went wrong! Please try again.");
+          console.log("Problem getting items. Please try again.", error)
   /*          this.content =
             (error.response &&
               error.response.data &&

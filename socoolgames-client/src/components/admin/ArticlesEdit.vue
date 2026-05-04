@@ -63,6 +63,7 @@
         <div class="relative mt-6">
             <WidgetImage :schema="schema"
                          v-model="data.item.image"
+                         :selectedLang="data.currentLang"
                          :index="1"></WidgetImage>
         </div>
         <div class="mt-4">
@@ -85,7 +86,7 @@
 </template>
 <script setup lang="ts">
     import service from "@/services/article.service";
-    import { watch, defineProps, onMounted, reactive } from 'vue'
+    import { watch, onMounted, reactive } from 'vue'
     import WidgetImage from "./cms/schemas/WidgetImage.vue";
 
     const schema = 
@@ -110,14 +111,14 @@
             image: {} as any,
             active: false,
             _id: undefined
-        },
+        } as any,
         currentLang: "en",
         languages: ["en", "pt"],
         error: ""
 
     })
 
-    const validateItem = (item) => {
+    const validateItem = (item: any) => {
         if (item.content == undefined)
             item.content = {};
         if (item.title == undefined)

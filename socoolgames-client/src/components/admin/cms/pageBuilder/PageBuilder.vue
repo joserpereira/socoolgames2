@@ -124,7 +124,7 @@
 </template>
 <script setup lang="ts">
     import { v4 as uuid } from 'uuid'
-    import { ref, watch, reactive, defineEmits, defineExpose, defineProps, onMounted, computed } from 'vue'
+    import { ref, watch, reactive, onMounted, computed } from 'vue'
     import { VueDraggableNext } from 'vue-draggable-next'
     import BlockToolbar from './BlockToolbar.vue';
     import PageMetadata from '../PageMetadata.vue';
@@ -140,9 +140,9 @@
     }
 */    
     const emit = defineEmits(['update:item'])
-    const openMenu = ref(null)
+    const openMenu = ref(null) as any
 
-    function toggleMenu(index) {
+    function toggleMenu(index: any) {
         openMenu.value = openMenu.value === index ? null : index
     }
 
@@ -194,7 +194,7 @@
     }
     })
     const blockAdded = async(type: string) => {
-        const dict = data.components;
+        const dict = data.components as any;
         const base = {
             id: uuid(),
             type,
@@ -210,10 +210,10 @@
         // emit("changeBlocks", item.value.blocks);
     }
 
-    const getName = (type) => {        
+    const getName = (type: string) => {        
         return componentsUtils.getName(type);
     }
-    const editBlock = async (index) => {
+    const editBlock = async (index: any) => {
         /*
         var type = (await componentsUtils).getComponents()[data.blocks[index].type].data;
 
@@ -223,12 +223,12 @@
         closeMenu();
     }
 
-    const removeBlock = async (index) => {
+    const removeBlock = async (index: any) => {
         item.value.blocks.splice(index, 1);
         closeMenu();
     }
 
-    const disableBlock = async (index) => {
+    const disableBlock = async (index: any) => {
         if (item.value.blocks[index]?.disable === true)
             item.value.blocks[index].disable = false;
         else
@@ -236,7 +236,7 @@
         closeMenu();
     }
 
-    const copy = (obj_data) => {
+    const copy = (obj_data: any) => {
         if (obj_data["en"]) {
             Object.keys(obj_data).forEach((subitem) => {
                 if (subitem !== data.currentLang) {
@@ -255,7 +255,7 @@
         
     }
 
-    const copySettingsToAllLanguages = (index) => {
+    const copySettingsToAllLanguages = (index: any) => {
         
         const obj_data = item.value.blocks[index].data;
 

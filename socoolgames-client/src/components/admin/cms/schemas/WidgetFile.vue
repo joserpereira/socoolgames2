@@ -33,21 +33,21 @@
 
 </template>
 <script setup lang="ts">
-  import { defineProps, defineEmits, onMounted, reactive, watch } from 'vue'
+  import { onMounted, reactive, watch } from 'vue'
   import fileService from '@/services/common/file.service';
 
   const props = defineProps<{
-    schema: Object,
+    schema: any,
     modelValue: String
     index: Number,
-    selectedLang: String
+    selectedLang: string
   }>()
 
   const data = reactive({
     items: [] as any[],
     selectIndex: null as any,
     timeoutID: -1 as number,    
-    selectedFile: "" as String,
+    selectedFile: "" as string,
     value: {} as any,    
     prefix: "" as String
   })
@@ -55,8 +55,8 @@
 
 
   watch(() => props.selectedLang, () => {        
-    if (data.value && (Object.keys(data.value).indexOf(props.selectedLang) == -1)) {
-      data.value[props.selectedLang] = undefined;
+    if (data.value && (Object.keys(data.value).indexOf(props.selectedLang || 'en') == -1)) {
+      data.value[props.selectedLang || 'en'] = undefined;
     }
     setValue(data.value);
   }, { deep: true });
@@ -71,8 +71,8 @@
   }, { deep: true });
 
   onMounted(async () => {
-    if (process.env.NODE_ENV === "development") {
-      data.prefix = process.env.VUE_APP_API_URL;
+    if (import.meta.env.NODE_ENV === "development") {
+      data.prefix = import.meta.env.VITE_APP_API_URL;
     }
     setValue(props.modelValue);
   })
@@ -81,7 +81,7 @@
     if (value == undefined || typeof(value) === 'string' )
       value = {};
     data.value = value;
-    data.selectedFile = value?.[props.selectedLang]?.original ?? "";
+    data.selectedFile = value?.[props.selectedLang || 'en']?.original ?? "";
     fillData();    
   }
   const fillData = async () => {
@@ -97,7 +97,7 @@
 
   const fillAndSelect = () =>{
     fillData();
-    if (data.value?.[props.selectedLang]?._id === undefined && data.selectedFile.length > 0) {
+    if (data.value?.[props.selectedLang || 'en']?._id === undefined && data.selectedFile.length > 0) {
       const found = data.items.find((item) => item.original === data.selectedFile);
       if (found) {
         selectFile(found);
@@ -110,7 +110,7 @@
       if (data.value == undefined)
         data.value = {};
       if (data.selectedFile !== data.value?.original) {
-        data.value[props.selectedLang] = ""
+        data.value[props.selectedLang || 'en'] = ""
       }
       clearTimeout(data.timeoutID);
       data.timeoutID = setTimeout( fillAndSelect, 450);
@@ -122,7 +122,7 @@
   const selectFile = (item: any) => {
     data.selectedFile = item.original;
     
-    data.value[props.selectedLang] = {
+    data.value[props.selectedLang || 'en'] = {
       _id: item._id,
       original: item.original
     }

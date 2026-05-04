@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, defineProps, defineEmits } from 'vue'
+import { onMounted, ref, watch, defineEmits } from 'vue'
 import Quill from 'quill'
 
 // estilos obrigatórios

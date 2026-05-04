@@ -56,13 +56,11 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import {  useRouter } from 'vue-router'
 import EventBus from "@/common/EventBus";
-import store from '@/store';
 
 const collapsed = ref(false)
-//const route = useRoute()
+
 const router = useRouter()
 
-// import UserService from "@/services/user.service";
 const items = [
   {
     link: '/admin',

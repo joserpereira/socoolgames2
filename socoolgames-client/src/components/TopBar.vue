@@ -77,7 +77,7 @@
 
 <script setup>
   import { ref } from 'vue'
-    import { watch, reactive, defineProps, defineExpose, onMounted } from 'vue'
+    import { watch, reactive, onMounted } from 'vue'
     import { useI18n } from "vue-i18n";
     const { locale } = useI18n();
 

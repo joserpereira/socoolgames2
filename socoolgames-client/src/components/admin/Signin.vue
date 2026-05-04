@@ -79,7 +79,10 @@ import { reactive, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 // import { login } from "@/services/common/_authentication.service";
 // import authService from "@/services/common/auth.service";
-import store from "@/store";
+import { useAuthStore } from '@/stores/auth'
+
+const auth = useAuthStore()
+
 export default {
     name: 'SigninComponent',
 
@@ -105,7 +108,7 @@ export default {
         data.backUrl = route.query.back as string;
       });
 
-      const passwordKeyUp = async (e) => {
+      const passwordKeyUp = async (e: any) => {
         if (e.keyCode == 13) {
           submit();
         }
@@ -115,30 +118,24 @@ export default {
         try {
           // Call the authentication service to sign in
           data.loading = true;
-          store.dispatch("auth/login", data.user).then(
-            () => {
-              if (data.backUrl && data.backUrl !== "") {
-                router.push(data.backUrl);
-              } else {
-                router.push("/admin/");
-              }
 
-            },
-            (error: any) => {
-              data.loading = false;
-              data.errorMessage = "Sign in failed. Please check your credentials.";
-              console.debug("error", error)
-              //console.log("error loading", error);
-                // (error.response &&
-                //   error.response.data &&
-                //   error.response.data.message) ||
-                // error.message ||
-                // error.toString();
+
+          try {
+            await auth.login(data.user)
+
+            if (data.backUrl && data.backUrl !== "") {
+              router.push(data.backUrl)
+            } else {
+              router.push("/admin/")
             }
-          ).catch(() => {
-            console.log("login error");
-            
-          })
+
+          } catch (error: any) {
+            data.loading = false
+            data.errorMessage = "Sign in failed. Please check your credentials."
+
+            console.debug("error", error)
+          }
+  
           // var result = await authService.login(data.email, data.password);
 
           // if (result.user) {

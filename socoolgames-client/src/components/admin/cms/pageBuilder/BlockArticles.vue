@@ -70,7 +70,7 @@
   </section>    
 </template>
 <script setup>
-    import { defineProps, defineExpose, onMounted, reactive, watch } from 'vue';
+    import { onMounted, reactive, watch } from 'vue';
     import { formatUrl } from "@/utils/url.utils";
     import articleService from '@/services/article.service';
     import dateTimeUtils from '@/utils/dateTime.utils';
@@ -79,7 +79,7 @@
 
     const { t } = useI18n();
 
-    const baseUrl = process.env.VUE_APP_API_URL;    
+    const baseUrl = import.meta.env.VITE_APP_API_URL;    
     const numberOfRelatedArticlesToFetch = 4; 
     const data = reactive({
         articles: [],

@@ -1,6 +1,6 @@
 class MetaTagsService {
 
-  setTitle(value) {
+  setTitle(value: any) {
     if (!value)
         return;
     document.title = value;
@@ -10,7 +10,7 @@ class MetaTagsService {
                        value);
   }
 
-  setDescription(value) {
+  setDescription(value: any) {
     if (!value)
         return;    
     this.setProperties(['head meta[name="description"]',
@@ -26,8 +26,8 @@ class MetaTagsService {
     keywordsElem?.setAttribute('content', value)
   }
 
-  setProperties(attributes, value) {
-    attributes.forEach(element => {
+  setProperties(attributes: any, value: any) {
+    attributes.forEach((element: any) => {
       const docElement = document.querySelector(element)
       if (docElement !== null)
         docElement.setAttribute('content', value)      
@@ -35,7 +35,7 @@ class MetaTagsService {
 
   }
 
-  setCanonical(selectedLanguage, url, alternateURL) {
+  setCanonical(selectedLanguage: any, url: any, alternateURL: any) {
     const canonical = document.querySelector('link[rel="canonical"]') as any;
     const alternate = document.querySelector('link[rel="alternate"]') as any;
     if (canonical)
@@ -52,7 +52,7 @@ class MetaTagsService {
     }
   }
 
-  setCanonicalURL(selectedLanguage) {
+  setCanonicalURL(selectedLanguage: any) {
     const canonical = document.querySelector('link[rel="canonical"]') as any;
     const alternate = document.querySelector('link[rel="alternate"]') as any;
     if (canonical && (!location.href.startsWith(location.origin+"/"+ + selectedLanguage) || (canonical.href != location.href)))
@@ -74,13 +74,13 @@ class MetaTagsService {
     }
   }
 
-  getAlternateLang(lang) {
+  getAlternateLang(lang: any) {
     if (lang == "en")
         return "pt";
     return "en";
   }
 
-  getAlternateHreflang(lang) {
+  getAlternateHreflang(lang: any) {
     if (lang == "en")
         return "pt-pt";
     return "en";
