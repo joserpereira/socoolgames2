@@ -110,6 +110,9 @@
       if (data.value == undefined)
         data.value = {};
       if (data.selectedFile !== data.value?.original) {
+        if (data.value == "") {
+          data.value = {};
+        }
         data.value[props.selectedLang || 'en'] = ""
       }
       clearTimeout(data.timeoutID);

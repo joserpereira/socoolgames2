@@ -118,11 +118,14 @@
   const keyup = () => {
     try {
       if (data.selectedImage !== data.value?.[props.selectedLang]?.original) {
+        if (data.value == "") {
+          data.value = {};
+        }
         data.value[props.selectedLang] = {}
       }
       clearTimeout(data.timeoutID);
       data.timeoutID = setTimeout( fillAndSelect, 450);
-    } catch {
+    } catch {      
       console.error("Problem ocurred on keyup event")
     }
   }
