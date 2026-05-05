@@ -27,7 +27,7 @@
                             :disabled="!item.file"
                             :class="(item.buttonColor ?? '').length > 0 ? item.buttonColor : 'bg-primary hover:bg-secondary text-white'"
                             @click="downloadFileClick(item.file)">
-                            <span v-if="data.downloading">
+                            <span v-if="data.downloading == true && data.downloadId == item.file?.[props.selectedLang]?._id">
                                 <svg class="rotate lucide lucide-hourglass-icon lucide-hourglass" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/>
                                 </svg>
@@ -66,22 +66,30 @@
     })
     const data = reactive({
         downloading: false,
-        downloaded: false,
+        downloadId: "",
         url: "",
         errorMessage: ""
     })
 
     const downloadFileClick = async (file) => {
-        data.downloading = true;
-        if (file?.[props.selectedLang]?._id) {
-            const result = await fileService.downloadItem(file[props.selectedLang]._id);
-            data.downloaded = true;
+        try {            
+            data.downloading = true;
+            data.downloadId = file?.[props.selectedLang]?._id;  
+            if (file?.[props.selectedLang]?._id) {
+                const result = await fileService.downloadItem(file[props.selectedLang]._id);
+                data.downloadId = "";
+                data.downloading = false;
+                if (result.error == 0)
+                    data.url = result.data;
+            }
+            else {
+                data.errorMessage = "Ooops. Couldn't download file.";
+            }                
+        } catch (error) {
             data.downloading = false;
-            if (result.error == 0)
-                data.url = result.data;
-        }
-        else
+            data.downloadId = "";
             data.errorMessage = "Ooops. Couldn't download file.";
+        }
     }
 
 </script>
