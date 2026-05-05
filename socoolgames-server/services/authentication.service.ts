@@ -74,7 +74,7 @@ const login = async (email: string, password: string, ipInfo: any) => {
     }
 
     // Generate tokens
-    const accessToken = sign({ userId: newUser._id, email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '15m' });
+    const accessToken = sign({ userId: newUser._id, email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '1h' });
     const refreshToken = sign({ userId: newUser._id, email }, process.env.REFRESH_TOKEN_SECRET || "", { expiresIn: '1d' });
     //const accessToken = sign({ userId: newUser._id, email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '1m' });
     //const refreshToken = sign({ userId: newUser._id, email }, process.env.REFRESH_TOKEN_SECRET || "", { expiresIn: '1m' });

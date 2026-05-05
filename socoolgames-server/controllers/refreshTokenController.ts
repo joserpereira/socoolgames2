@@ -11,7 +11,7 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
         if (!payload) {
             return res.status(401).send({ message: 'Unauthenticated2' });
         }   
-        const accessToken = sign({ userId: payload.userId, email: payload.email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '15m' });
+        const accessToken = sign({ userId: payload.userId, email: payload.email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '1h' });
         // res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 15 * 60 * 1000 });
         //const accessToken = sign({ userId: payload.userId, email: payload.email }, process.env.ACCESS_TOKEN_SECRET || "", { expiresIn: '1m' });
         //res.cookie('access_token', accessToken, { httpOnly: true, maxAge: 1 * 60 * 1000 });
