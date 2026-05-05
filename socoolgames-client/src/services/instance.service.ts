@@ -7,6 +7,11 @@ class InstanceService {
     return api.post(`${collectionName}/`, { item, "type": type });
   }
 
+  duplicateItem(collectionName: string, item: any, type: string) {
+    delete item._id;
+    return api.post(`${collectionName}/`, { item, "type": type });
+  }
+
   updateItem(collectionName: string, id: string, item: any, type: string) {
     return api.put(`${collectionName}/${id}`, { item, "type": type });
   }

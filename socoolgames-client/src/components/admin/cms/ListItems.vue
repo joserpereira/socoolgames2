@@ -58,7 +58,7 @@
               
             <td class="flex pt-2 justify-center"             
                 v-else>
-              <button
+              <button title="View"
                 @click="viewClick(item._id)"
                 class="hover:bg-blue-800 hover:text-white hover:rounded-lg p-1 icons">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -67,7 +67,7 @@
                 </svg>
               </button>
               
-              <button
+              <button title="Edit Item"
                 @click="editClick(item._id)"
                 class="hover:bg-blue-800 hover:text-white hover:rounded-lg p-1 icons">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -75,7 +75,15 @@
                 </svg>
               </button>
 
-              <button
+              <button title="Duplicate Item"
+                @click="duplicateClick(item)"
+                class="hover:bg-blue-800 hover:text-white hover:rounded-lg p-1 icons">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
+                </svg>
+              </button>
+
+              <button title="Delete Item"
                 @click="deleteClick(item._id)"
                 class="text-red-600 hover:bg-red-800 hover:rounded-lg p-1 icons">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -88,11 +96,11 @@
       </table>
     </div>
     <div class="flex justify-center">
-      <button v-if="data.page > 1" @click.prevent="previousPage" class="m-3 font-extrabold">&lt;&lt;</button>
-      <button v-else disabled="true" @click.prevent="previousPage" class="m-3">&lt;&lt;</button>
+      <button title="Previous Page" v-if="data.page > 1" @click.prevent="previousPage" class="m-3 font-extrabold">&lt;&lt;</button>
+      <button title="You are at first page" v-else disabled="true" @click.prevent="previousPage" class="m-3">&lt;&lt;</button>
       <div class="m-3">{{ data.page }}</div>
-      <button v-if="data.total > (data.page * data.limit)" @click.prevent="nextPage" class="m-3 font-extrabold">&gt;&gt;</button>
-      <button v-else disabled="true" @click.prevent="nextPage" class="m-3">&gt;&gt;</button>
+      <button title="Next Page" v-if="data.total > (data.page * data.limit)" @click.prevent="nextPage" class="m-3 font-extrabold">&gt;&gt;</button>
+      <button title="You are at last page" v-else disabled="true" @click.prevent="nextPage" class="m-3">&gt;&gt;</button>
     </div>
     <div>
       <ConfirmationModel  
@@ -180,6 +188,13 @@ export default {
         
     }
 
+    const duplicateClick = (item: any) => {
+      try{
+        instanceService.duplicateItem(props?.collectionRefName ?? "",  item, props?.collectionRefName ?? ""); 
+      } catch (error: any) {
+        toast.error("Something went wrong! Please try again.");        
+      }
+    }
     const editClick = (item: any) => {
       if (props?.editItem != null)
         props.editItem(item); 
@@ -204,6 +219,7 @@ export default {
             }
           }).catch((error: any) => {
             console.log("Problem deleting item. Please try again.", error)
+            toast.error("Problem deleting item. Please try again.");
           })
         } catch (error: unknown) {
           console.error("closeConfirmation", error);
