@@ -64,7 +64,7 @@
       @click="closeAll"
     >
       <div
-        class="bg-white w-64 h-full p-6 "
+        class="bg-white w-48 h-full p-6 "
         @click.stop
       >
         <div class="flex justify-end">
