@@ -1,12 +1,17 @@
 <template>  
-      <component v-if="(props.item.type === 'WidgetEmailTemplate' || props.item.type === 'WidgetImage' || props.item.type === 'WidgetFile' || props.item.type === 'WidgetColor' )" 
+      <component v-if="(props.item.type === 'WidgetEmailTemplate' || props.item.type === 'WidgetImage' || props.item.type === 'WidgetFile' )" 
                   :is="getComponent(props.item.type)" 
                   :index="index"
                   :schema="item"
                   :selectedLang="props.selectedLang"
                   v-model="data.value[props.item.field]">
       </component>
-       
+      <component v-else-if="(props.item.type === 'WidgetColor' )" 
+                  :is="getComponent(props.item.type)" 
+                  :index="index"
+                  :schema="item"
+                  v-model="data.value[props.item.field]">
+      </component> 
       <WidgetMultiplier v-else-if="props.item.type === 'WidgetMultiplier'" 
                         :schema="props.item.items"
                         :value="data.value.items"
