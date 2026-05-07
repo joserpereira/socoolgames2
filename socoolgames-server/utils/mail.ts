@@ -27,7 +27,7 @@ const sendEmail = async (subjectParam: string, content: string,
             to: (toName ? (toName + " <" + toEmail + '>') : toEmail),
             bcc: "gifts@lazulilabs.com",
             subject: subjectParam, 
-            html: content // replace(/\n/g, '<br />')
+            html: content.replace(/\n/g, '<br />')
         };
 
         transporter.sendMail(mailOptions, function (error: any, info: any) {
