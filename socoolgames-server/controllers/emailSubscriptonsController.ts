@@ -10,11 +10,11 @@ export const insertSubscription = async (req: Request, res: Response) => {
         const emailSubscripton = await EmailSubscripton.create(req.body.item);
         res.status(200).json({error: 0, message: '', data: emailSubscripton})
 
-        const configName = req.body.item.emailConfigName;
+        const templateName = req.body.item.templateName;
         const language = req.body.item.language;
         const email = req.body.item.email;
 
-        emailService.sendEmail(configName, email, language);
+        emailService.sendEmail(templateName, email, language);
     }
     catch(error: any)
     {

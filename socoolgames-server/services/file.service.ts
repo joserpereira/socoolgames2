@@ -38,7 +38,7 @@ function getFilter(filter: any, search: string) {
     return filter;
 }
 
-async function downloadFile(id: string): Promise<any> {
+async function downloadFile(id: string, preview: boolean): Promise<any> {
     try {
         const file = await model.findOne({ _id: id });
 
@@ -50,6 +50,11 @@ async function downloadFile(id: string): Promise<any> {
             return { error: 999, message: "File not found on disk", data: null };
         }
 
+        if (!preview) {
+            increaseDownloadCount(id);
+        }
+        model.findOneAndUpdate({ _id: id }, { $inc: { downloadCount: 1 } }).exec();
+        
         return { error: 0, message: "", data: file };
     }
     catch (err: any) {
@@ -57,6 +62,17 @@ async function downloadFile(id: string): Promise<any> {
         return { error: 999, message: err.message, data: null };
     }
 }
+
+async function increaseDownloadCount(id: string): Promise<any> {
+    try {
+        console.log("Increasing download count for file with id " + id);
+        model.findOneAndUpdate({ _id: id }, { $inc: { downloadCount: 1 } }).exec(); 
+    }
+    catch (err: any) {
+        console.error("Failed to increase download count for file with id " + id + ".\n" + err.message);
+    }
+}
+
 
 async function uploadFile(file: any): Promise<any> {
 

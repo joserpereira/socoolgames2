@@ -7,6 +7,10 @@ const modelSchema = mongoose.Schema(
         },
         name: {
             type: String
+        },
+        downloadCount: {
+            type: Number,
+            default: 0  
         }
     },
     {

@@ -20,6 +20,7 @@
           <tr>
             <th class="ps-3">Original Name</th>
             <th class="ps-3">Name</th>
+            <th class="p-3">Download Count</th>
             <th class="p-3 w-32 text-center">Actions</th>
           </tr>
         </thead>
@@ -38,7 +39,7 @@
             <td class="p-3 hover:text-gray-600 gap-2 description-cell">
               <span>{{ item.name }}</span>
             </td>            
-
+            <td class="p-3">{{ item.downloadCount }}</td>
             <td v-if="data.hoverId!==item._id"></td>              
             <td class="flex pt-2 justify-center" v-else>
               <button

@@ -78,7 +78,7 @@ export const downloadFile = async (req: Request, res: any) => {
             return res.status(400).json({ error: 999, message: "No file uploaded" })
         }
 
-        const result = await service.downloadFile(id);
+        const result = await service.downloadFile(id, true);
         if (result.error !== 0) {
             return res.status(404).json(result)
         }
@@ -108,7 +108,7 @@ export const previewFile = async (req: Request, res: any) => {
             return res.status(400).json({ error: 999, message: "No file uploaded" })
         }
 
-        const result = await service.downloadFile(id);
+        const result = await service.downloadFile(id, true);
         if (result.error !== 0) {
             return res.status(404).json(result)
         }
