@@ -78,7 +78,7 @@
             const item = {
                 email: data.email,
                 type: "newsletter",
-                emailConfigName: "newsletter",
+                templateName: "newsletter",
                 language: props.selectedLang
             }
 

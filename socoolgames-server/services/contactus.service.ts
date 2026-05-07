@@ -1,6 +1,7 @@
 const ContactUsModel = require('../models/contactus')
 const { Logger } = require('../utils/loggerUtils');
 const loggerUtils = new Logger();
+const emailService = require('../services/email.service')
 
 async function getItems(filter: any, skip: number = 0, limit: number = 5): Promise<any>    {
     filter = { deleted: { $ne: true }, ...filter }
@@ -16,7 +17,6 @@ async function getItem(filter: any): Promise<any> {
     return item || {};
 }
 
-
 async function getStats(): Promise<any>    {
     const itemTotal = await ContactUsModel.countDocuments({deleted: { $ne: true }});
     const itemActive = await ContactUsModel.countDocuments({ deleted: { $ne: true }, active: true });
@@ -27,6 +27,12 @@ async function getStats(): Promise<any>    {
 
 const insertItem = async (item: any) => {
     const newItem = await ContactUsModel.create(item);
+
+    const templateName = "contactus";
+    const language = item.language;
+    const email = item.email;
+
+    emailService.sendEmail(templateName, email, language);
 
     loggerUtils.info("link created", newItem._doc)
     return {error: 0, message: '', data: newItem._doc};

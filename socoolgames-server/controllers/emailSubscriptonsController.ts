@@ -1,10 +1,8 @@
 import { Request, Response} from 'express';
 const EmailSubscripton = require('../models/emailSubscripton');
-const EmailServerConfig = require('../models/emailserverconfig');
 const mongoUtils = require('../utils/mongo');
-const stringUtils = require('../utils/string');
 const logger = require('@joserpereira/lazuli-labs-logger')
-const mail = require('../utils/mail');
+const emailService = require('../services/email.service');
 
 export const insertSubscription = async (req: Request, res: Response) => {
     try
@@ -14,47 +12,9 @@ export const insertSubscription = async (req: Request, res: Response) => {
 
         const configName = req.body.item.emailConfigName;
         const language = req.body.item.language;
-        const config = await EmailServerConfig.findOne({configName: configName})
+        const email = req.body.item.email;
 
-        if (config) {
-   
-            
-            let content = stringUtils.replaceAll((config.emailContent?.[language] ?? ""), "\n", "<br />");
-            const emailName = config.emailName?.[language] || "";
-            const emailSubject = config.emailSubject?.[language] || ""
-            
-            const origin = req.get('origin');
-
-            if (config.showDownloadlink) {
-                var file = req.body.item.downloadFile
-                if (file)    
-                {
-                    var link = "<a href='" + origin + "/"+language+"/download/"+file+"?id="+emailSubscripton.id+"&email="+req.body.item.email+"&type="+emailSubscripton.type+"&language="+language+"'><strong>DOWNLOAD</strong></a>"
-                    if (content.includes("{{download}}"))
-                        content = content.replaceAll("{{download}}", link)
-                    else
-                        content = content + "<br /><br />" + link;
-                }                
-                    
-            }
-
-            if (content === "") {
-                logger.info("No email content in configurations")
-            } else {
-                mail.sendEmail(emailSubject, 
-                                content, 
-                                null,
-                                req.body.item.email, 
-                                emailName,
-                                config.emailFrom,
-                                config.emailUsername,
-                                config.emailPass)
-                logger.info("email sent to " + req.body.item.email)
-            }
-        } 
-        else{
-            logger.info("server config doesn't exists")
-        }
+        emailService.sendEmail(configName, email, language);
     }
     catch(error: any)
     {

@@ -103,7 +103,8 @@
             data.errorMessage = response;
             return;
         }
-        contactusService.insertItem(data.item, "contactus").then(async (response: any) => {
+        const item = { ...data.item, language: props.selectedLang };
+        contactusService.insertItem(item, "contactus").then(async (response: any) => {
             if (response && response.data && response.data.data) {
               data.submitted = true;
             } else {
