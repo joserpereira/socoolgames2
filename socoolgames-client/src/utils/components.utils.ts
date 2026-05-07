@@ -35,13 +35,14 @@ import blockContactUsData from '@/components/admin/cms/pageBuilder/blockContactU
 import blockGameCircusData from '@/components/admin/cms/pageBuilder/blockGameCircusData';
 import blockMultipleFilesData from '@/components/admin/cms/pageBuilder/blockMultipleFilesData';
 import blockCarouselHeroData from '@/components/admin/cms/pageBuilder/blockCarouselHeroData';
+import blockFAQData from '@/components/admin/cms/pageBuilder/blockFAQData';
 
 const components = [blockHeroData, blockHero2Data, blockHtmlData, blockTextData, 
                     block4ColumnsData, blockMultipleCardsData, blockTextBgData, 
                     blockVideoData, blockTopicsData, blockNewsLetterData,  
                     blockImagesData, blockArticlesData, blockDownloadFileData,
                     blockContactUsData, blockGameCircusData, blockMultipleFilesData,
-                    blockCarouselHeroData
+                    blockCarouselHeroData, blockFAQData
 ]
 
 class ComponentsUtils {

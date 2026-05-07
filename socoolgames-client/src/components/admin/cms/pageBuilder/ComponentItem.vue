@@ -12,17 +12,18 @@
                   :schema="item"
                   v-model="data.value[props.item.field]">
       </component> 
-      <WidgetMultiplier v-else-if="props.item.type === 'WidgetMultiplier'" 
+      <component v-else-if="props.item.type === 'WidgetMultiplier'" 
+                        :is="getComponent('WidgetMultiplier')"
                         :schema="props.item.items"
                         :value="data.value.items"
                         :componentCache="props.componentCache"
                         :selectedLang="props.selectedLang"
-                        ></WidgetMultiplier> 
+                        ></component> 
       <component v-else :is="getComponent(props.item.type)" :index="props.index" v-model:value="data.value[props.item.field]" :schema="item" :selectedLang="props.selectedLang"></component>  
 </template>
 <script setup lang="ts">
   import { onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'
-  import WidgetMultiplier from '../schemas/WidgetMultiplier.vue';
+  // import WidgetMultiplier from '../schemas/WidgetMultiplier.vue';
   
   const props = defineProps({        
         item: {} as Object as any,
