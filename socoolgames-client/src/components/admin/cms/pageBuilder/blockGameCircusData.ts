@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
-class BlockImagesData {
+class BlockGameCircusData {
 
   getNames() {
     return {
@@ -27,4 +27,4 @@ class BlockImagesData {
   
 }
 
-export default new BlockImagesData();
+export default new BlockGameCircusData();

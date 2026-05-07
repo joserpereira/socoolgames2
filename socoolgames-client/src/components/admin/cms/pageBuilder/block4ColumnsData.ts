@@ -1,6 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
-class BlockTextData {
+class Block4ColumnsData {
 
   getNames() {
     return {
@@ -53,4 +53,4 @@ class BlockTextData {
   
 }
 
-export default new BlockTextData();
+export default new Block4ColumnsData();
