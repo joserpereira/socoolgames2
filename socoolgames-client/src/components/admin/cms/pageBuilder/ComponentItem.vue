@@ -23,7 +23,6 @@
 </template>
 <script setup lang="ts">
   import { onMounted, reactive, defineAsyncComponent, markRaw  } from 'vue'
-  // import WidgetMultiplier from '../schemas/WidgetMultiplier.vue';
   
   const props = defineProps({        
         item: {} as Object as any,
