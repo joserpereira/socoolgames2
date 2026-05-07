@@ -168,7 +168,9 @@ export default {
         limit: 6,
         total: 0,
         search: "",
-        selectedId: ""
+        selectedId: "",
+        confirmationAction: "", // delete or duplicate
+        itemToDuplicate: null as any
     })
 
     onMounted(() => {      
@@ -189,11 +191,11 @@ export default {
     }
 
     const duplicateClick = (item: any) => {
-      try{
-        instanceService.duplicateItem(props?.collectionRefName ?? "",  item, props?.collectionRefName ?? ""); 
-      } catch (error: any) {
-        toast.error("Something went wrong! Please try again.");        
-      }
+      data.idToDelete = item.id;
+      data.confirmationMessage = "Are you sure you want to <b>duplicate</b>?";
+      data.confirmationAction = "duplicate";
+      data.itemToDuplicate = item;  
+      confirmationModelActive.value = true;
     }
     const editClick = (item: any) => {
       if (props?.editItem != null)
@@ -209,13 +211,45 @@ export default {
 
     const closeConfirmation = async (result: boolean) => {
       confirmationModelActive.value = false;
-      const id = data.idToDelete;
+      if (data.confirmationAction == "delete") {
+        deleteItem(data.idToDelete, result);
+      }
+      else if (data.confirmationAction == "duplicate") {
+        await duplicateItem(data.itemToDuplicate, result);
+        data.itemToDuplicate = null;
+      }
+      data.confirmationAction = ""
+    };
+
+    const duplicateItem = async (item: any, result: boolean) => {
+      if (!result || !item)
+        return;
+
+      try {
+        instanceService.duplicateItem(props?.collectionRefName ?? "", item, props?.collectionRefName ?? "").then((response: any) => {
+            if (response && response.data && response.data.error === 0) {
+                // refresh
+                fillItems();
+                toast.info("Item duplicated successfully.");
+            }
+          }).catch((error: any) => {
+            console.log("Problem duplicating item. Please try again.", error)
+            toast.error("Problem duplicating item. Please try again.");
+          }) 
+      } catch (error: any) {
+        toast.error("Something went wrong! Please try again.");        
+      }
+
+    }
+
+    const deleteItem = async (id: string,result: boolean) => {
       if (result && id) {
         try {          
           instanceService.deleteItem(props?.collectionRefName ?? "", id).then((response: any) => {
             if (response && response.data && response.data.error === 0) {
                 // refresh
                 fillItems();
+                toast.info("Item deleted successfully.");
             }
           }).catch((error: any) => {
             console.log("Problem deleting item. Please try again.", error)
@@ -224,13 +258,13 @@ export default {
         } catch (error: unknown) {
           console.error("closeConfirmation", error);
           toast.error("Something went wrong! Please try again.");
-        }
+        }        
       }
-    };
-
+    }
     const deleteClick = (id: any) => {
       data.idToDelete = id;
       data.confirmationMessage = "Are you sure you want to <b>delete</b>?";
+      data.confirmationAction = "delete";
       confirmationModelActive.value = true;
     }
     const fillItems = async () => {
