@@ -4,7 +4,7 @@
     </div>
     <div v-if="!data.isLoading">
         <div  v-for="block in data.item.blocks" :key="block._id">
-        <component v-if="!block.disable" :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLanguage"></component> 
+        <component v-if="!block.disabled" :is="{...getBlockComponent(block.type)}" :data="block.data" :selectedLang="data.selectedLanguage"></component> 
         </div>
     </div>
     <div v-if="data.errorMessage" class="text-red-500">

@@ -30,13 +30,13 @@
             handle=".cursor-move"
             @change="log">
             <div v-for="(component, index) in item.blocks" :key="index">
-                <div class="list-group-item text-center text-white border pt-2 px-2 flex" :class="component?.disable ? 'bg-sky-950/80' : 'bg-sky-950'">
+                <div class="list-group-item text-center text-white border pt-2 px-2 flex" :class="component?.disabled ? 'bg-sky-950/80' : 'bg-sky-950'">
                     <div class="cursor-move">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                         </svg>
                     </div>
-                    <div class="px-3 grow" :class="component?.disable ? 'italic': ''">{{ getName(component.type) }}</div>
+                    <div class="px-3 grow" :class="component?.disabled ? 'italic': ''">{{ getName(component.type) }}</div>
                     <div class=" relative inline-block text-left dropdown">
                         <span class="rounded-md shadow-sm">
                             <button
@@ -62,7 +62,7 @@
                                 <div class="py-1">
                                     <button @click.prevent="disableBlock(index)" class="flex text-black text-sm px-4 py-2">
                                         <div class="flex">
-                                            <span v-if="component?.disable" class="flex">
+                                            <span v-if="component?.disabled" class="flex">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                                 </svg>
@@ -229,10 +229,10 @@
     }
 
     const disableBlock = async (index: any) => {
-        if (item.value.blocks[index]?.disable === true)
-            item.value.blocks[index].disable = false;
+        if (item.value.blocks[index]?.disabled === true)
+            item.value.blocks[index].disabled = false;
         else
-            item.value.blocks[index].disable = true;
+            item.value.blocks[index].disabled = true;
         closeMenu();
     }
 
