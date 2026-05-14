@@ -69,7 +69,7 @@ async function uploadFile(file: any): Promise<any> {
       const filepath = path.join(folder, filename)
       await sharp(file.buffer)
         .resize(size.width)
-        .webp({ quality: 82 })
+        .webp({ quality: 96 })
         .toFile(filepath)
       results[size.name] = `/uploads/images/${filename}`
       image[size.name] = `/uploads/images/${filename}`;
