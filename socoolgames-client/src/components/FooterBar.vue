@@ -29,7 +29,7 @@
           </a>
         </span>
       <p class="text-xs opacity-70 mt-4">
-        © 2026 So COOL Games · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/privacy'">{{ t("footer.privacy") }}</a> · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/terms'">{{ t("footer.terms") }}</a> ·
+        © 2026 So COOL Games · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/privacy'">{{ t("footer.privacy") }}</a> · <a class="hover:underline" :href="'/'+data.selectedLanguage+'/terms'">{{ t("footer.terms") }}</a> ·      
         <button class="me-1" :class="data.selectedLanguage == 'en' ? 'underline' : ''" @click="changeLanguage('en')">en</button>
         <button :class="data.selectedLanguage == 'pt' ? 'underline' : '' " @click="changeLanguage('pt')">pt</button>
       </p>
@@ -41,7 +41,12 @@
     import localizationUtils from '@/utils/localization.utils';
     import { watch,  reactive, onMounted } from 'vue'
     import { useI18n } from "vue-i18n";
+    import { useRoute, useRouter } from 'vue-router';
+    
     const { locale, t } = useI18n();
+    
+    const route = useRoute();
+    const router = useRouter();
 
     const data = reactive({ 
         item: {},
@@ -71,6 +76,20 @@
     });
 
     const changeLanguage = (lang: string) => {
+      if (route.params?.lang) {
+        router.push({
+            name: route.name as string,
+            params: {
+              ...route.params,
+              lang
+            },
+            query: route.query,
+            hash: route.hash
+          })
+      } else {
+        router.push('/'+lang);
+      }
+
       localizationUtils.setLanguage(lang);
     } 
     
