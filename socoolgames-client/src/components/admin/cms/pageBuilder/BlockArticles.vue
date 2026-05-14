@@ -62,7 +62,7 @@
             </ul>
           </div>
 
-          <MiniNewsLetter v-if="props.data.showNewsletter" />
+          <MiniNewsLetter v-if="props.data.showNewsletter" :selectedLang="props.selectedLang" />
         </aside>
 
       </div>
