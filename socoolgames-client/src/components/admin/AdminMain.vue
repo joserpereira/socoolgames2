@@ -3,17 +3,21 @@
 
     <div>Dashboard</div>
     <div class="mx-auto p-4">
-        <div v-if="loading">Loading Pages...</div>
-        <div v-else>            
-            <div class="flex flex-wrap justify-center ">
+        <div class="flex flex-wrap justify-center ">
+            <div v-if="loading">Loading Articles...</div>
+            <div v-else class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">
                 <h2 class="text-xl font-bold">Pages</h2>
+                <div>
+                        Total: {{ data.stats.total }}
+                </div>
+                <div>
+                        Active: {{ data.stats.active }}
+                </div>
+                <div>
+                        Deleted: {{ data.stats.deleted }}
+                </div>
             </div>
-            <div class="flex flex-wrap justify-center ">
-                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Total: {{ data.stats.total }}</div>
-                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Active: {{ data.stats.active }}</div>
-                <div class="basis-1/5 rounded bg-white mx-2 text-black text-center p-10 mt-3">Deleted: {{ data.stats.deleted }}</div>
-            </div>
-        </div>
+        </div>        
     </div>
     <div class="mx-auto p-4">
         <div v-if="loadingArticles">Loading Articles...</div>
