@@ -82,7 +82,7 @@ class MetaTagsService {
 
   getAlternateHreflang(lang: any) {
     if (lang == "en")
-        return "pt-pt";
+        return "pt";
     return "en";
   }         
 
