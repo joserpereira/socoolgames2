@@ -14,10 +14,22 @@ const router = createRouter({
 })
 
 router.beforeEach((to: any /*, from: any */) => {
-   if (to.meta.requiresAuth && !isAuthenticated()) {
+  if (to.params.lang) {
+    const lang = to.params.lang.toLowerCase();
+    if (lang === "pt-pt") {
+      to.params.lang = "pt";
+    }
+    if (["en", "pt"].includes(to.params.lang) && to.params.lang !== localStorage.selectedLanguage ) {
+      localStorage.selectedLanguage = to.params.lang;
+    }
+    
+  }
+
+  if (to.meta.requiresAuth && !isAuthenticated()) {
     return '/admin/signin?back='+to.fullPath;
+  }
   return true;
-}});
+});
 
 function isAuthenticated() {
   const user = localStorage.getItem('user');
