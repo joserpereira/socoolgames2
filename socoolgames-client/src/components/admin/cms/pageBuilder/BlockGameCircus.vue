@@ -56,7 +56,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: url("https://newsite.socoolgames.net/uploads/images/palavritas-thumb-1776947377129.webp") center/cover no-repeat;
+  background: url("https://socoolgames.net/uploads/images/palavritas-thumb-1776947377129.webp") center/cover no-repeat;
 }
 </style>
 
