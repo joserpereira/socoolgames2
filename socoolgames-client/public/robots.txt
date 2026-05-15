@@ -1,0 +1,8 @@
+User-agent: *
+
+Sitemap: https://socoolgames.net/sitemap.xml
+
+Disallow: /admin
+Disallow: /login
+
+Allow: *
