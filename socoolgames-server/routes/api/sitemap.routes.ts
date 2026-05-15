@@ -13,7 +13,7 @@ function getUrlNode(doc: any, loc: any, lastmod: string, changefreq: string, pri
     elem.ele('changefreq').txt(changefreq)
     elem.ele('priority').txt(priority)
     var img_elem = elem.ele('image:image')
-    img_elem.ele("image:loc").txt("https://socoolgames.net/images/og-image.png")
+    img_elem.ele("image:loc").txt("https://socoolgames.net/images/og_logo_socoolgames.webp")
     img_elem.ele("image:caption").txt(caption);
     // elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "en").txt(loc)
     // elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "pt").txt(loc.replace("/en/", "/pt-pt/"))
