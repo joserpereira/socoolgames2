@@ -39,7 +39,6 @@ export const sitemapRoutes = (router: Router, baseUrl: string) => {
         var pages = result.data;
         pages.forEach((element: any) => {
             var loc = baseDomain + element.slug;      
-            console.log("loc", element)      
             getUrlNode(doc, loc, element.updatedAt.toISOString(), 'weekly', '0.8', element.name);            
         });
         var xml = doc.end({ pretty: true });
