@@ -1,4 +1,5 @@
 import { Router } from 'express';
+const instanceService = require('../../services/instance.service')
 const logger = require('@joserpereira/lazuli-labs-logger')
 
 function getCurrentDate() {
@@ -15,15 +16,15 @@ function getUrlNode(doc: any, loc: any, lastmod: string, changefreq: string, pri
     var img_elem = elem.ele('image:image')
     img_elem.ele("image:loc").txt("https://socoolgames.net/images/og_logo_socoolgames.webp")
     img_elem.ele("image:caption").txt(caption);
-    // elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "en").txt(loc)
-    // elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "pt").txt(loc.replace("/en/", "/pt-pt/"))
+    elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "en").txt(loc)
+    elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "pt").txt(loc.replace("/en/", "/pt/"))
 }
 
 export const sitemapRoutes = (router: Router, baseUrl: string) => {
     router.get(baseUrl + 'sitemap.xml', async (req, res) => {
     try
     {
-        var baseDomain = "https://socoolgames.net/"
+        var baseDomain = "https://socoolgames.net/en/"
         var builder = require('xmlbuilder');
         var doc = builder.create('urlset').att('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
                                           .att("xmlns:xhtml","http://www.w3.org/1999/xhtml")
@@ -33,6 +34,14 @@ export const sitemapRoutes = (router: Router, baseUrl: string) => {
         // default url
         getUrlNode(doc, baseDomain, getCurrentDate(), 'weekly', '0.8', "Links Digest - For Curious Minds")
 
+         // list all dynamic pages that should be listed in sitemap.xml
+        const result = await instanceService.getItems("page", { active: true, deleted: { $ne: true } }, 0, 1000, '');
+        var pages = result.data;
+        pages.forEach((element: any) => {
+            var loc = baseDomain + element.slug;      
+            console.log("loc", element)      
+            getUrlNode(doc, loc, element.updatedAt.toISOString(), 'weekly', '0.8', element.name);            
+        });
         var xml = doc.end({ pretty: true });
 
         var content = xml;
