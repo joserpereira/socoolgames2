@@ -7,12 +7,25 @@
   </div>
 </template>
 <script>
-//  import Sidebar from "@/components/admin/Sidebar.vue"
-
   export default {
     name: 'AdminLayout',
     components: {
-//      Sidebar
     },
   };
+</script>
+
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useCookieStore } from '@/stores/cookieStore'
+import { loadGoogleAnalytics } from '@/utils/cookieScripts'
+
+onMounted(() => {
+
+  const store = useCookieStore()
+  store.load()
+  if (store.preferences.analytics) {
+    loadGoogleAnalytics('G-98F5CT1RM9')
+  }
+})
+
 </script>

@@ -17,5 +17,19 @@
     },
     "article": {
         "readArticle": "Read"        
+    },
+    "cookiePreferences": {
+        "title": "Cookie Preferences",
+        "essential": "Essential",
+        "analytics": "Analytics",
+        "marketing": "Marketing",
+        "save": "Save",
+        "close": "Close"
+    },
+    "cookieBanner": {
+        "message": "We use cookies to improve your experience, analyze traffic, and for marketing purposes.",
+        "acceptAll": "Accept All",
+        "rejectAll": "Reject All",
+        "configure": "Configure"
     }
 }
