@@ -1,3 +1,4 @@
+import { loadGoogleAnalytics } from '@/utils/cookieScripts'
 import { defineStore } from 'pinia'
 
 type CookiePrefs = {
@@ -22,7 +23,7 @@ export const useCookieStore = defineStore('cookies', {
       if (saved) {
         const parsed = JSON.parse(saved)
         this.consentGiven = true
-        this.preferences = parsed
+        this.preferences = parsed.preferences
       }
     },
 
@@ -51,6 +52,9 @@ export const useCookieStore = defineStore('cookies', {
         consentGiven: true,
       }
       localStorage.setItem('cookie-consent', JSON.stringify(consentData))
+      if (this.preferences.analytics) {
+        loadGoogleAnalytics('G-98F5CT1RM9')
+      }
     },
 
     update(prefs: Partial<CookiePrefs>) {

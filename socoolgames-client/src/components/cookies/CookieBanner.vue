@@ -30,11 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCookieStore } from '@/stores/cookieStore'
-import CookieSettings from './CookieSettings.vue'
+  import { ref } from 'vue'
+  import { useCookieStore } from '@/stores/cookieStore'
+  import CookieSettings from './CookieSettings.vue'
 
-const store = useCookieStore()
-store.load();
-const openSettings = ref(false)
+  const store = useCookieStore()
+  store.load();
+  const openSettings = ref(false)
 </script>
