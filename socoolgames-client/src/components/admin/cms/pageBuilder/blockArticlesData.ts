@@ -25,7 +25,7 @@ class BlockArticlesData {
   getSchema() {
     return [
         { field: "title", type: "WidgetText", label: "Title" },
-        { field: "articleSchema", type: "WidgetOption", label: "Article Schema", options: ["3-2", "2-3", "2-2", "2-0", "3-0"] },
+        { field: "articleSchema", type: "WidgetOption", label: "Article Schema", options: ["3-2", "2-3", "2-2", "2-0", "3-0", "3-3"] },
         { field: "showNewsletter", type: "WidgetBoolean", label: "Show Newsletter" },
         { field: "showRelated", type: "WidgetBoolean", label: "Show Related" },
         { field: "otherTitle", type: "WidgetText", label: "Other Title" },
