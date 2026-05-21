@@ -14,7 +14,7 @@ function getUrlNode(doc: any, loc: any, lastmod: string, changefreq: string, pri
     elem.ele('changefreq').txt(changefreq)
     elem.ele('priority').txt(priority)
     var img_elem = elem.ele('image:image')
-    img_elem.ele("image:loc").txt("https://socoolgames.net/images/og_logo_socoolgames.webp")
+    img_elem.ele("image:loc").txt("https://socoolgames.net/images/og_logo_socoolgames.webp")    
     img_elem.ele("image:caption").txt(caption);
     elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "en").txt(loc)
     elem.ele('xhtml:link').att("rel","alternate").att("hreflang", "pt").txt(loc.replace("/en/", "/pt/"))
@@ -41,6 +41,14 @@ export const sitemapRoutes = (router: Router, baseUrl: string) => {
             var loc = baseDomain + element.slug;      
             getUrlNode(doc, loc, element.updatedAt.toISOString(), 'weekly', '0.8', element.name);            
         });
+
+        const resultArticles = await instanceService.getItems("article", { active: true, deleted: { $ne: true } }, 0, 1000, '');
+        var articles = resultArticles.data;
+        articles.forEach((element: any) => {
+            var loc = baseDomain + 'article/' + element.slug;      
+            getUrlNode(doc, loc, element.updatedAt.toISOString(), 'weekly', '0.8', element.title["en"]);            
+        });
+
         var xml = doc.end({ pretty: true });
 
         var content = xml;
